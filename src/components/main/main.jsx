@@ -18,7 +18,7 @@ const Main = ({citiesList, offerList}) => (
             <b className="places__found">312 places to stay in Amsterdam</b>
             <PlacesSorting />
             <div className="cities__places-list places__list tabs__content">
-              {offerList.map((offer) => <OfferCard key={`offer` + offer.id} offer={offer} />)}
+              {offerList.map((offer) => <OfferCard key={`offer${offer.id}`} offer={offer} />)}
             </div>
           </section>
           <div className="cities__right-section">
