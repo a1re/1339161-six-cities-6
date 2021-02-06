@@ -44,6 +44,7 @@ OfferCard.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,

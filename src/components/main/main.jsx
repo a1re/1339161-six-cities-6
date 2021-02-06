@@ -5,12 +5,12 @@ import PlacesSorting from '../places-sorting/places-sorting';
 import OfferCard from '../offer-card/offer-card';
 import PropTypes from 'prop-types';
 
-const Main = ({citiesList, offerList}) => (
+const Main = ({cityList, offerList, defaultCity}) => (
   <div className="page page--gray page--main">
     <Header />
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs citiesList={citiesList}/>
+      <Tabs cityList={cityList} defaultCity={defaultCity}/>
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
@@ -18,7 +18,7 @@ const Main = ({citiesList, offerList}) => (
             <b className="places__found">312 places to stay in Amsterdam</b>
             <PlacesSorting />
             <div className="cities__places-list places__list tabs__content">
-              {offerList.map((offer) => <OfferCard key={`offer${offer.id}`} offer={offer} />)}
+              {offerList.filter((offer) => offer.city === defaultCity).map((offer) => <OfferCard key={`offerCard${offer.id}`} offer={offer} />)}
             </div>
           </section>
           <div className="cities__right-section">
@@ -31,24 +31,27 @@ const Main = ({citiesList, offerList}) => (
 );
 
 Main.propTypes = {
-  citiesList: PropTypes.arrayOf(
+  cityList: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
-        href: PropTypes.string.isRequired,
-        isActive: PropTypes.bool
+        href: PropTypes.string.isRequired
       })
   ).isRequired,
   offerList: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
+        city: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,
         img: PropTypes.string.isRequired,
+        imgSmall: PropTypes.string.isRequired,
         isPremium: PropTypes.bool,
         isFavorite: PropTypes.bool
       })
-  ).isRequired
+  ).isRequired,
+  defaultCity: PropTypes.string.isRequired
 };
 
 export default Main;
