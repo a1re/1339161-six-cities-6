@@ -2,8 +2,8 @@ import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 
-const App = ({cityList, offerList, defaultCity}) => {
-  return <Main cityList={cityList} offerList={offerList} defaultCity={defaultCity}/>;
+const App = ({cityList, offerList, defaultCity, authorizedUser}) => {
+  return <Main cityList={cityList} offerList={offerList} defaultCity={defaultCity} authorizedUser={authorizedUser} />;
 };
 
 App.propTypes = {
@@ -27,7 +27,8 @@ App.propTypes = {
         isFavorite: PropTypes.bool
       })
   ).isRequired,
-  defaultCity: PropTypes.string.isRequired
+  defaultCity: PropTypes.string.isRequired,
+  authorizedUser: PropTypes.string
 };
 
 export default App;

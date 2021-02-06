@@ -5,9 +5,9 @@ import PlacesSorting from '../places-sorting/places-sorting';
 import OfferCard from '../offer-card/offer-card';
 import PropTypes from 'prop-types';
 
-const Main = ({cityList, offerList, defaultCity}) => (
+const Main = ({cityList, offerList, defaultCity, authorizedUser}) => (
   <div className="page page--gray page--main">
-    <Header />
+    <Header isMain={true} authorizedUser={authorizedUser}/>
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <Tabs cityList={cityList} defaultCity={defaultCity}/>
@@ -51,7 +51,8 @@ Main.propTypes = {
         isFavorite: PropTypes.bool
       })
   ).isRequired,
-  defaultCity: PropTypes.string.isRequired
+  defaultCity: PropTypes.string.isRequired,
+  authorizedUser: PropTypes.string
 };
 
 export default Main;

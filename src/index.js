@@ -81,11 +81,14 @@ const offerList = [
 
 const defaultCity = `Amsterdam`;
 
+const authorizedUser = `Oliver.conner@gmail.com`;
+
 ReactDOM.render(
     <App
       cityList={cityList}
       offerList={offerList}
       defaultCity={defaultCity}
+      authorizedUser={authorizedUser}
     />,
     document.querySelector(`#root`)
 );
