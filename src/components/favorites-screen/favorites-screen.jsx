@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import FooterLogo from '../footer-logo/footer-logo';
 
-const Favorites = ({offerList, authorizedUser}) => {
-  const favoritesList = offerList.filter((offer) => offer.isFavorite === true);
-  const cityList = [...new Set(favoritesList.map((offer) => offer.city))];
+const FavoritesScreen = ({offers, authorizedUser}) => {
+  const favorites = offers.filter((offer) => offer.isFavorite === true);
+  const cities = [...new Set(favorites.map((offer) => offer.city))];
 
   return (
-    <div className={`page${favoritesList > 0 ? `` : ` page--favorites-empty`}`}>
+    <div className={`page${favorites.length > 0 ? `` : ` page--favorites-empty`}`}>
       <Header isMain={false} authorizedUser={authorizedUser}/>
-      <main className={`page__main page__main--favorites${favoritesList > 0 ? `` : ` page__main--favorites-empty`}`}>
+      <main className={`page__main page__main--favorites${favorites.length > 0 ? `` : ` page__main--favorites-empty`}`}>
         <div className="page__favorites-container container">
           {
-            favoritesList > 0
-              ? <FavoritesList cityList={cityList} favoritesList={favoritesList} />
+            favorites.length > 0
+              ? <FavoritesList cities={cities} favorites={favorites} />
               : <FavoritesEmpty />
           }
         </div>
@@ -24,8 +24,8 @@ const Favorites = ({offerList, authorizedUser}) => {
   );
 };
 
-Favorites.propTypes = {
-  offerList: PropTypes.arrayOf(
+FavoritesScreen.propTypes = {
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
@@ -52,23 +52,25 @@ const FavoritesEmpty = () => (
   </section>
 );
 
-const FavoritesList = ({cityList, favoritesList}) => (
+const FavoritesList = ({cities, favorites}) => (
   <section className="favorites">
     <h1 className="favorites__title">Saved listing</h1>
     <ul className="favorites__list">
-      {cityList.map((cityName, i) => (
+      {cities.map((city, i) => (
         <FavoritesCity
           key={`favoritesCity${i}`}
-          cityName={cityName}
-          favoritesList={favoritesList}
+          city={city}
+          favorites={favorites}
         />))}
     </ul>
   </section>
 );
 
 FavoritesList.propTypes = {
-  cityList: PropTypes.string.isRequired,
-  favoritesList: PropTypes.arrayOf(
+  cities: PropTypes.arrayOf(
+      PropTypes.string
+  ).isRequired,
+  favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
@@ -84,19 +86,19 @@ FavoritesList.propTypes = {
   ).isRequired
 };
 
-const FavoritesCity = ({cityName, favoritesList}) => (
+const FavoritesCity = ({city, favorites}) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
         <a className="locations__item-link" href="#">
-          <span>{cityName}</span>
+          <span>{city}</span>
         </a>
       </div>
     </div>
     <div className="favorites__places">
       {
-        favoritesList
-          .filter((offer) => offer.city === cityName)
+        favorites
+          .filter((offer) => offer.city === city)
           .map((offer) => <FavoritesCard key={`favoritesCard${offer.id}`} offer={offer} />)
       }
     </div>
@@ -104,8 +106,8 @@ const FavoritesCity = ({cityName, favoritesList}) => (
 );
 
 FavoritesCity.propTypes = {
-  cityName: PropTypes.string.isRequired,
-  favoritesList: PropTypes.arrayOf(
+  city: PropTypes.string.isRequired,
+  favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
@@ -170,4 +172,4 @@ FavoritesCard.propTypes = {
   })
 };
 
-export default Favorites;
+export default FavoritesScreen;

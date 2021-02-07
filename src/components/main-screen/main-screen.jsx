@@ -4,7 +4,7 @@ import Tabs from '../tabs/tabs';
 import PlacesSorting from '../places-sorting/places-sorting';
 import PropTypes from 'prop-types';
 
-const Main = ({cities, offers, city, authorizedUser}) => {
+const MainScreen = ({cities, offers, city, authorizedUser}) => {
   const offersInCity = offers.filter((offer) => offer.city === city);
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
@@ -22,7 +22,7 @@ const Main = ({cities, offers, city, authorizedUser}) => {
   </div>);
 };
 
-Main.propTypes = {
+MainScreen.propTypes = {
   cities: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -149,4 +149,4 @@ OfferCard.propTypes = {
   })
 };
 
-export default Main;
+export default MainScreen;

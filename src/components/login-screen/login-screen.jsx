@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../header/header';
 
-const Login = () => {
+const LoginScreen = () => {
   return (
     <div className="page page--gray page--login">
       <Header isMain={false} />
@@ -34,4 +34,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;
