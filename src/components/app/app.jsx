@@ -3,7 +3,7 @@ import Main from '../main/main';
 import PropTypes from 'prop-types';
 
 const App = ({cities, offers, defaultCity, authorizedUser}) => {
-  return <Main cities={cities} offers={offers} defaultCity={defaultCity} authorizedUser={authorizedUser} />;
+  return <Main cities={cities} offers={offers} city={defaultCity} authorizedUser={authorizedUser} />;
 };
 
 App.propTypes = {

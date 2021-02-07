@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tabs = ({cities, defaultCity}) => {
+const Tabs = ({cities, selectedCity}) => {
   return <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {cities.map((link, i) => <TabLink key={`tablink${i}`} link={link} isActive={link.title === defaultCity} />)}
+        {cities.map((link, i) => <TabLink key={`tablink${i}`} link={link} isActive={link.title === selectedCity} />)}
       </ul>
     </section>
   </div>;
@@ -18,7 +18,7 @@ Tabs.propTypes = {
         href: PropTypes.string.isRequired
       })
   ).isRequired,
-  defaultCity: PropTypes.string.isRequired
+  selectedCity: PropTypes.string.isRequired
 };
 
 const TabLink = ({link, isActive}) => {

@@ -4,22 +4,23 @@ import Tabs from '../tabs/tabs';
 import PlacesSorting from '../places-sorting/places-sorting';
 import PropTypes from 'prop-types';
 
-const Main = ({cities, offers, defaultCity, authorizedUser}) => (
-  <div className="page page--gray page--main">
+const Main = ({cities, offers, city, authorizedUser}) => {
+  const offersInCity = offers.filter((offer) => offer.city === city);
+  return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
-    <main className={`page__main page__main--index${offers.length > 0 ? `` : ` page__main--index-empty`}`}>
+    <main className={`page__main page__main--index${offersInCity.length > 0 ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs cities={cities} defaultCity={defaultCity}/>
+      <Tabs cities={cities} selectedCity={city}/>
       <div className="cities">
         {
-          offers.length > 0
-            ? <OfferList offers={offers} defaultCity={defaultCity} />
-            : <OfferEmpty />
+          offersInCity.length > 0
+            ? <OfferList offers={offersInCity} />
+            : <OfferEmpty city={city}/>
         }
       </div>
     </main>
-  </div>
-);
+  </div>);
+};
 
 Main.propTypes = {
   cities: PropTypes.arrayOf(
@@ -42,30 +43,34 @@ Main.propTypes = {
         isFavorite: PropTypes.bool
       })
   ).isRequired,
-  defaultCity: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   authorizedUser: PropTypes.string
 };
 
-const OfferEmpty = () => (
+const OfferEmpty = ({city}) => (
   <div className="cities__places-container cities__places-container--empty container">
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">
         <b className="cities__status">No places to stay available</b>
-        <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
+        <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
       </div>
     </section>
     <div className="cities__right-section"></div>
   </div>
 );
 
-const OfferList = ({offers, defaultCity}) => (
+OfferEmpty.propTypes = {
+  city: PropTypes.string.isRequired
+};
+
+const OfferList = ({offers}) => (
   <div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">312 places to stay in Amsterdam</b>
       <PlacesSorting />
       <div className="cities__places-list places__list tabs__content">
-        {offers.filter((offer) => offer.city === defaultCity).map((offer) => <OfferCard key={`offerCard${offer.id}`} offer={offer} />)}
+        {offers.map((offer) => <OfferCard key={`offerCard${offer.id}`} offer={offer} />)}
       </div>
     </section>
     <div className="cities__right-section">
@@ -88,8 +93,7 @@ OfferList.propTypes = {
         isPremium: PropTypes.bool,
         isFavorite: PropTypes.bool
       })
-  ).isRequired,
-  defaultCity: PropTypes.string.isRequired
+  ).isRequired
 };
 
 const OfferCard = ({offer}) => (
