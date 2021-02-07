@@ -2,18 +2,18 @@ import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
 
-const App = ({cityList, offerList, defaultCity, authorizedUser}) => {
-  return <Main cityList={cityList} offerList={offerList} defaultCity={defaultCity} authorizedUser={authorizedUser} />;
+const App = ({cities, offers, defaultCity, authorizedUser}) => {
+  return <Main cities={cities} offers={offers} defaultCity={defaultCity} authorizedUser={authorizedUser} />;
 };
 
 App.propTypes = {
-  cityList: PropTypes.arrayOf(
+  cities: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         href: PropTypes.string.isRequired
       })
   ).isRequired,
-  offerList: PropTypes.arrayOf(
+  offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,

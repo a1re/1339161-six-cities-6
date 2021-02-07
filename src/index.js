@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const cityList = [
+const cities = [
   {title: `Paris`, href: `#`},
   {title: `Cologne`, href: `#`},
   {title: `Brussels`, href: `#`},
@@ -11,7 +11,7 @@ const cityList = [
   {title: `Dusseldorf`, href: `#`}
 ];
 
-const offerList = [
+const offers = [
   {
     id: 1,
     title: `Beautiful &amp; luxurious apartment at great location`,
@@ -85,8 +85,8 @@ const authorizedUser = `Oliver.conner@gmail.com`;
 
 ReactDOM.render(
     <App
-      cityList={cityList}
-      offerList={offerList}
+      cities={cities}
+      offers={offers}
       defaultCity={defaultCity}
       authorizedUser={authorizedUser}
     />,
