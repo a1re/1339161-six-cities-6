@@ -1,5 +1,5 @@
 import React from 'react';
-import MainScreen from '../main-screen/main-screen';
+import MainScreen from '../main/main-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites/favorites-screen';

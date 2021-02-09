@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlacesSorting = () => (
+const MainSorting = () => (
   <form className="places__sorting" action="#" method="get">
     <span className="places__sorting-caption">Sort by</span>
     &nbsp;
@@ -19,4 +19,4 @@ const PlacesSorting = () => (
   </form>
 );
 
-export default PlacesSorting;
+export default MainSorting;
