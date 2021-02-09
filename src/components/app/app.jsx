@@ -22,7 +22,7 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
           <FavoritesScreen offers={offers} authorizedUser={authorizedUser} />;
         </Route>
         <Route exact path="/offer/:id">
-          <RoomScreen authorizedUser={authorizedUser} />;
+          <RoomScreen offers={offers} authorizedUser={authorizedUser} />;
         </Route>
         <Route>
           <NotFoundScreen authorizedUser={authorizedUser} />

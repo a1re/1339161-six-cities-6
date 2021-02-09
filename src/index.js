@@ -14,7 +14,7 @@ const cities = [
 const offers = [
   {
     id: 1,
-    title: `Beautiful &amp; luxurious apartment at great location`,
+    title: `Beautiful & luxurious apartment at great location`,
     city: `Amsterdam`,
     type: `Apartment`,
     price: 120,
