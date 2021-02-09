@@ -6,9 +6,9 @@ const FavoritesList = ({cities, favorites}) => (
   <section className="favorites">
     <h1 className="favorites__title">Saved listing</h1>
     <ul className="favorites__list">
-      {cities.map((city, i) => (
+      {cities.map((city) => (
         <FavoritesCity
-          key={`favoritesCity${i}`}
+          key={`favorites-сity-${city.id}`}
           city={city}
           favorites={favorites}
         />))}
