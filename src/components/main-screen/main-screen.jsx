@@ -25,6 +25,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
 MainScreen.propTypes = {
   cities: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         href: PropTypes.string.isRequired
       })

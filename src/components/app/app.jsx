@@ -35,6 +35,7 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
 App.propTypes = {
   cities: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         href: PropTypes.string.isRequired
       })

@@ -5,7 +5,7 @@ const Tabs = ({cities, selectedCity}) => {
   return <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {cities.map((link, i) => <TabLink key={`tablink${i}`} link={link} isActive={link.title === selectedCity} />)}
+        {cities.map((city) => <TabLink key={`tab-city-${city.id}`} link={city} isActive={city.title === selectedCity} />)}
       </ul>
     </section>
   </div>;
@@ -31,6 +31,7 @@ const TabLink = ({link, isActive}) => {
 
 TabLink.propTypes = {
   link: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired
   }).isRequired,

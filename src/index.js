@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const cities = [
-  {title: `Paris`, href: `#`},
-  {title: `Cologne`, href: `#`},
-  {title: `Brussels`, href: `#`},
-  {title: `Amsterdam`, href: `#`},
-  {title: `Hamburg`, href: `#`},
-  {title: `Dusseldorf`, href: `#`}
+  {id: 1, title: `Paris`, href: `#`},
+  {id: 2, title: `Cologne`, href: `#`},
+  {id: 3, title: `Brussels`, href: `#`},
+  {id: 4, title: `Amsterdam`, href: `#`},
+  {id: 5, title: `Hamburg`, href: `#`},
+  {id: 6, title: `Dusseldorf`, href: `#`}
 ];
 
 const offers = [
