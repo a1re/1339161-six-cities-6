@@ -1,9 +1,9 @@
 import React from 'react';
 import MainScreen from '../main/main-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import LoginScreen from '../login-screen/login-screen';
+import SignInScreen from '../sign-in/sign-in-screen';
 import FavoritesScreen from '../favorites/favorites-screen';
-import PropertyScreen from '../property-screen/property-screen';
+import RoomScreen from '../room/room-screen';
 
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
@@ -16,13 +16,13 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
           <MainScreen cities={cities} offers={offers} city={defaultCity} authorizedUser={authorizedUser} />;
         </Route>
         <Route exact path="/login">
-          <LoginScreen />
+          <SignInScreen />
         </Route>
         <Route exact path="/favorites">
           <FavoritesScreen offers={offers} authorizedUser={authorizedUser} />;
         </Route>
         <Route exact path="/offer/:id">
-          <PropertyScreen authorizedUser={authorizedUser} />;
+          <RoomScreen authorizedUser={authorizedUser} />;
         </Route>
         <Route>
           <NotFoundScreen authorizedUser={authorizedUser} />

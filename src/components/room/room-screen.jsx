@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../header/header';
 import PropTypes from 'prop-types';
 
-const PropertyScreen = ({authorizedUser}) => (
+const RoomScreen = ({authorizedUser}) => (
   <div className="page">
     <Header isMain={false} authorizedUser={authorizedUser} />
     <main className="page__main page__main--property">
@@ -225,7 +225,7 @@ const PropertyScreen = ({authorizedUser}) => (
   </div>
 );
 
-PropertyScreen.propTypes = {
+RoomScreen.propTypes = {
   authorizedUser: PropTypes.string
 };
 
@@ -274,4 +274,4 @@ const ReviewForm = () => (
   </form>
 );
 
-export default PropertyScreen;
+export default RoomScreen;
