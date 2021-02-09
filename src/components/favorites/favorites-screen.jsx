@@ -10,12 +10,12 @@ const FavoritesScreen = ({offers, authorizedUser}) => {
   const cities = [...new Set(favorites.map((offer) => offer.city))];
 
   return (
-    <div className={`page${favorites.length > 0 ? `` : ` page--favorites-empty`}`}>
+    <div className={`page${favorites.length ? `` : ` page--favorites-empty`}`}>
       <Header isMain={false} authorizedUser={authorizedUser}/>
-      <main className={`page__main page__main--favorites${favorites.length > 0 ? `` : ` page__main--favorites-empty`}`}>
+      <main className={`page__main page__main--favorites${favorites.length ? `` : ` page__main--favorites-empty`}`}>
         <div className="page__favorites-container container">
           {
-            favorites.length > 0
+            favorites.length
               ? <FavoritesList cities={cities} favorites={favorites} />
               : <FavoritesEmpty />
           }
