@@ -8,8 +8,7 @@ import RoomReviewForm from './room-review-form';
 
 const RoomScreen = ({authorizedUser, offers}) => {
   const params = useParams();
-  const offer = offers[params.id];
-
+  const offer = offers.find((offerItem) => offerItem.id === parseInt(params.id, 10));
 
   return (<div className="page">
     <Header isMain={false} authorizedUser={authorizedUser} />

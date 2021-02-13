@@ -24,6 +24,8 @@ const HOST_ID_MAX = 100;
 const ADULTS_MIN = 1;
 const ADULTS_MAX = 5;
 
+const STARTING_ID = 100;
+
 const titles = [
   `Gold Alley Property`, `A old cargo ship from 1897`, `Canal View Prinsengracht`,
   `Amazing Private Canal Place`, `Lovely bright apartment near Vondelpark`,
@@ -98,7 +100,7 @@ const types = [`apartment`, `room`, `house`, `hotel`];
 
 const offers = [];
 
-let id = 1;
+let id = STARTING_ID;
 
 cities.forEach((city) => {
   for (let i = 0; i < getRandomNumber(OFFERS_PER_CITY_MIN, OFFERS_PER_CITY_MAX); i++) {
