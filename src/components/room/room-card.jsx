@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 
-const RoomCard = ({offer, isMain}) => {
+const RoomCard = ({offer, isMain, onHoverIn, onHoverOut}) => {
   const blockWrappingClassName = isMain ? `cities__place-card` : `near-places__card`;
   const imageWrappingClassName = isMain ? `cities__image-wrapper` : `near-places__image-wrapper`;
 
-  return <article className={`${blockWrappingClassName} place-card`}>
+  return <article className={`${blockWrappingClassName} place-card`} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
     {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -47,7 +47,9 @@ const RoomCard = ({offer, isMain}) => {
 
 RoomCard.propTypes = {
   offer: CustomPropTypes.offer.isRequired,
-  isMain: PropTypes.bool
+  isMain: PropTypes.bool,
+  onHoverIn: PropTypes.func,
+  onHoverOut: PropTypes.func
 };
 
 export default RoomCard;
