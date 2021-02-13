@@ -1,6 +1,7 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import RoomCard from './room-card';
 import RoomReviewForm from './room-review-form';
@@ -116,42 +117,7 @@ const RoomScreen = ({authorizedUser, offers}) => {
 };
 
 RoomScreen.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        bedrooms: PropTypes.number.isRequired,
-        city: PropTypes.shape({
-          location: PropTypes.shape({
-            latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired
-          }).isRequired,
-          name: PropTypes.string.isRequired
-        }).isRequired,
-        description: PropTypes.string.isRequired,
-        goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-        host: PropTypes.shape({
-          avatarUrl: PropTypes.string.isRequired,
-          id: PropTypes.number.isRequired,
-          isPro: PropTypes.bool.isRequired,
-          name: PropTypes.string.isRequired,
-        }),
-        images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        location: PropTypes.shape({
-          latitude: PropTypes.number.isRequired,
-          longitude: PropTypes.number.isRequired,
-          zoom: PropTypes.number.isRequired
-        }).isRequired,
-        maxAdults: PropTypes.number.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired
-      })
-  ).isRequired,
+  offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   authorizedUser: PropTypes.string
 };
 
