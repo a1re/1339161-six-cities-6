@@ -10,7 +10,7 @@ const FavoritesList = ({cities, favorites}) => (
         <FavoritesCity
           key={`favorites-сity-${city.toLowerCase()}`}
           city={city}
-          favorites={favorites}
+          favorites={favorites.filter((offer) => offer.city.name === city)}
         />))}
     </ul>
   </section>
@@ -21,15 +21,37 @@ FavoritesList.propTypes = {
   favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
+        bedrooms: PropTypes.number.isRequired,
+        city: PropTypes.shape({
+          location: PropTypes.shape({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired
+          }).isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired,
+        description: PropTypes.string.isRequired,
+        goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        host: PropTypes.shape({
+          avatarUrl: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+          isPro: PropTypes.bool.isRequired,
+          name: PropTypes.string.isRequired,
+        }),
+        images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        location: PropTypes.shape({
+          latitude: PropTypes.number.isRequired,
+          longitude: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired
+        }).isRequired,
+        maxAdults: PropTypes.number.isRequired,
+        previewImage: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,
-        img: PropTypes.string.isRequired,
-        imgSmall: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool,
-        isFavorite: PropTypes.bool
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired
       })
   ).isRequired
 };

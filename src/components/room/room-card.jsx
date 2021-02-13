@@ -12,8 +12,8 @@ const RoomCard = ({offer, isMain}) => {
       </div>
     }
     <div className={`${imageWrappingClassName} place-card__image-wrapper`}>
-      <a href="#">
-        <img className="place-card__image" src={offer.img} width={260} height={200} alt="Place image" />
+      <a href={`/offer/${offer.id}`}>
+        <img className="place-card__image" src={offer.images[0]} width={260} height={200} alt={offer.title} />
       </a>
     </div>
     <div className="place-card__info">
@@ -36,7 +36,7 @@ const RoomCard = ({offer, isMain}) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{offer.title}</a>
+        <a href={`/offer/${offer.id}`}>{offer.title}</a>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
@@ -46,14 +46,37 @@ const RoomCard = ({offer, isMain}) => {
 RoomCard.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool,
-    isFavorite: PropTypes.bool
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired
   }).isRequired,
   isMain: PropTypes.bool
 };
