@@ -34,5 +34,17 @@ export default {
     rating: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
+  }),
+  review: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+    rating: PropTypes.node.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired
   })
 };

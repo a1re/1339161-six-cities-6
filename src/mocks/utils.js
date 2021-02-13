@@ -6,3 +6,5 @@ export const getRandomNumber = (min, max) => {
 export const randomSort = (arr) => arr.slice(0).sort(() => Math.random() - 0.5);
 
 export const getRandomBoolean = () => Math.random() < 0.5;
+
+export const getRandomDate = (start, end) => new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));

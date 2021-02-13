@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
-const App = ({cities, offers, defaultCity, authorizedUser}) => {
+const App = ({cities, offers, reviews, defaultCity, authorizedUser}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -22,7 +22,7 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
           <FavoritesScreen offers={offers} authorizedUser={authorizedUser} />;
         </Route>
         <Route exact path="/offer/:id">
-          <RoomScreen offers={offers} authorizedUser={authorizedUser} />;
+          <RoomScreen offers={offers} reviews={reviews} authorizedUser={authorizedUser} />;
         </Route>
         <Route>
           <NotFoundScreen authorizedUser={authorizedUser} />
@@ -35,6 +35,7 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
 App.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer.isRequired).isRequired,
+  reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired,
   defaultCity: PropTypes.string.isRequired,
   authorizedUser: PropTypes.string
 };
