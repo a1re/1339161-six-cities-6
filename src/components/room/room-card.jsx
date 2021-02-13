@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 
@@ -13,9 +14,9 @@ const RoomCard = ({offer, isMain}) => {
       </div>
     }
     <div className={`${imageWrappingClassName} place-card__image-wrapper`}>
-      <a href={`/offer/${offer.id}`}>
+      <Link to={`/offer/${offer.id}`}>
         <img className="place-card__image" src={offer.images[0]} width={260} height={200} alt={offer.title} />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -37,7 +38,7 @@ const RoomCard = ({offer, isMain}) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href={`/offer/${offer.id}`}>{offer.title}</a>
+        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
