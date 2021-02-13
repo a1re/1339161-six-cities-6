@@ -1,15 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const cities = [
-  {id: 1, title: `Paris`, href: `#`},
-  {id: 2, title: `Cologne`, href: `#`},
-  {id: 3, title: `Brussels`, href: `#`},
-  {id: 4, title: `Amsterdam`, href: `#`},
-  {id: 5, title: `Hamburg`, href: `#`},
-  {id: 6, title: `Dusseldorf`, href: `#`}
-];
+import {CITIES, DEFATULT_CITY_INDEX} from './const';
 
 const offers = [
   {
@@ -79,15 +71,13 @@ const offers = [
   }
 ];
 
-const defaultCity = `Amsterdam`;
-
 const authorizedUser = `Oliver.conner@gmail.com`;
 
 ReactDOM.render(
     <App
-      cities={cities}
+      cities={CITIES}
       offers={offers}
-      defaultCity={defaultCity}
+      defaultCity={CITIES[DEFATULT_CITY_INDEX]}
       authorizedUser={authorizedUser}
     />,
     document.querySelector(`#root`)

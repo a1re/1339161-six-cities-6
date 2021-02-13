@@ -8,7 +8,7 @@ const FavoritesList = ({cities, favorites}) => (
     <ul className="favorites__list">
       {cities.map((city) => (
         <FavoritesCity
-          key={`favorites-сity-${city.id}`}
+          key={`favorites-сity-${city.toLowerCase()}`}
           city={city}
           favorites={favorites}
         />))}
@@ -17,9 +17,7 @@ const FavoritesList = ({cities, favorites}) => (
 );
 
 FavoritesList.propTypes = {
-  cities: PropTypes.arrayOf(
-      PropTypes.string
-  ).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,

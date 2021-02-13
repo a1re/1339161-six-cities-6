@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header';
-import Tabs from '../tabs/tabs';
+import MainTabs from './main-tabs';
 import MainOffers from './main-offers';
 import MainEmpty from './main-empty';
 
@@ -11,7 +11,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
     <Header isMain={true} authorizedUser={authorizedUser}/>
     <main className={`page__main page__main--index${offersInCity.length > 0 ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs cities={cities} selectedCity={city}/>
+      <MainTabs cities={cities} selectedCity={city}/>
       <div className="cities">
         {
           offersInCity.length > 0
@@ -24,13 +24,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
 };
 
 MainScreen.propTypes = {
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        href: PropTypes.string.isRequired
-      })
-  ).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
