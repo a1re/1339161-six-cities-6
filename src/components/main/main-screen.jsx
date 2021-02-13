@@ -10,7 +10,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
   const offersInCity = offers.filter((offer) => offer.city.name === city);
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
-    <main className={`page__main page__main--index${offersInCity.length > 0 ? `` : ` page__main--index-empty`}`}>
+    <main className={`page__main page__main--index${offersInCity.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
       <MainTabs cities={cities} selectedCity={city}/>
       <div className="cities">
