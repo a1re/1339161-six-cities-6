@@ -1,11 +1,5 @@
-const getRandomNumber = (min, max) => {
-  const randomInt = min + Math.random() * (max + 1 - min);
-  return Math.floor(randomInt);
-};
-
-const randomSort = (arr) => arr.slice(0).sort(() => Math.random() - 0.5);
-
-const getRandomBoolean = () => Math.random() < 0.5;
+import {getRandomNumber, randomSort, getRandomBoolean} from './utils';
+import getText from './text';
 
 const AVATAR_URL = `https://i.pravatar.cc/128`;
 
@@ -88,11 +82,6 @@ const cities = [
   }
 ];
 
-const descriptions = [
-  `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-  `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
-];
-
 const goods = [`Wi-Fi`, `Heating`, `Kitchen`, `Fridge`, `Washing machine`, `Coffee machine`, `Dishwasher`, `Towels`, `Baby seat`, `Cable TV`];
 
 const names = [`Angelina`, `Max`, `Trevor`, `Anna`, `Peter`, `John`, `Maria`, `Agatha`];
@@ -117,7 +106,7 @@ cities.forEach((city) => {
       id,
       bedrooms: getRandomNumber(BEDROOMS_MIN, BEDROOMS_MAX),
       city,
-      description: descriptions[getRandomNumber(0, descriptions.length - 1)],
+      description: getText(),
       goods: randomSort(goods).slice(0, getRandomNumber(1, goods.length - 1)),
       host: {
         avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
