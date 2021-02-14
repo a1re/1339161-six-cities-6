@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
@@ -7,9 +7,12 @@ import RoomCard from './room-card';
 import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
 
-const RoomScreen = ({authorizedUser, offers, reviews}) => {
+const RoomScreen = (props) => {
+  const {minReviewLength, authorizedUser, offers} = props;
   const params = useParams();
   const offer = offers.find((offerItem) => offerItem.id === parseInt(params.id, 10));
+  const nearbyOffers = offers.filter((offerItem) => offerItem.city.name === offer.city.name).slice(0, 3);
+  const [reviews, setReviews] = useState(props.reviews);
 
   return (<div className="page">
     <Header isMain={false} authorizedUser={authorizedUser} />
@@ -81,7 +84,14 @@ const RoomScreen = ({authorizedUser, offers, reviews}) => {
                 {reviews.length ? <span className="reviews__amount">{reviews.length}</span> : ``}
               </h2>
               {reviews.length ? <RoomReviewList reviews={reviews} /> : ``}
-              {authorizedUser ? <RoomReviewForm /> : ``}
+              {authorizedUser ? <RoomReviewForm
+                authorizedUser={authorizedUser}
+                minReviewLength={minReviewLength}
+                onPost={(formData) => {
+                  const userReview = {...formData, id: reviews.length ? reviews[reviews.length - 1].id + 1 : 1};
+                  setReviews([...reviews, userReview]);
+                  return true;
+                }} /> : ``}
             </section>
           </div>
         </div>
@@ -91,7 +101,7 @@ const RoomScreen = ({authorizedUser, offers, reviews}) => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {offers.slice(0, 3).map((nearByOffer) => <RoomCard key={`offer-card-${nearByOffer.id}`} offer={nearByOffer} />)}
+            {nearbyOffers.map((offerItem) => <RoomCard key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
           </div>
         </section>
       </div>
@@ -102,7 +112,8 @@ const RoomScreen = ({authorizedUser, offers, reviews}) => {
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review).isRequired,
-  authorizedUser: PropTypes.string
+  minReviewLength: PropTypes.number.isRequired,
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default RoomScreen;
