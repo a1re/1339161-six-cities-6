@@ -29,7 +29,7 @@ const FavoritesScreen = ({offers, authorizedUser}) => {
 
 FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default FavoritesScreen;

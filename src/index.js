@@ -4,8 +4,7 @@ import App from './components/app/app';
 import {CITIES, DEFATULT_CITY_INDEX} from './const';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
-
-const authorizedUser = `Oliver.conner@gmail.com`;
+import authorizedUser from './mocks/auth-info';
 
 ReactDOM.render(
     <App

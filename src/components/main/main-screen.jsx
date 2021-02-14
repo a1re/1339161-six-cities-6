@@ -28,7 +28,7 @@ MainScreen.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   city: PropTypes.string.isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default MainScreen;

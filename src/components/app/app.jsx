@@ -37,7 +37,7 @@ App.propTypes = {
   offers: PropTypes.arrayOf(CustomPropTypes.offer.isRequired).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired,
   defaultCity: PropTypes.string.isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default App;

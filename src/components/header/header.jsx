@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import {Link} from 'react-router-dom';
 
 const Header = ({isMain, authorizedUser}) => (
@@ -18,7 +19,7 @@ const Header = ({isMain, authorizedUser}) => (
                 <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                 {
                   authorizedUser
-                    ? <span className="header__user-name user__name">{authorizedUser}</span>
+                    ? <span className="header__user-name user__name">{authorizedUser.email}</span>
                     : <span className="header__login">Sign in</span>
                 }
               </a>
@@ -32,7 +33,7 @@ const Header = ({isMain, authorizedUser}) => (
 
 Header.propTypes = {
   isMain: PropTypes.bool.isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default Header;
