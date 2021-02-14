@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import FooterLogo from '../footer-logo/footer-logo';
