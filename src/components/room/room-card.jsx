@@ -1,20 +1,22 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 
-const RoomCard = ({offer, isMain}) => {
+const RoomCard = ({offer, isMain, onHoverIn, onHoverOut}) => {
   const blockWrappingClassName = isMain ? `cities__place-card` : `near-places__card`;
   const imageWrappingClassName = isMain ? `cities__image-wrapper` : `near-places__image-wrapper`;
 
-  return <article className={`${blockWrappingClassName} place-card`}>
+  return <article className={`${blockWrappingClassName} place-card`} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
     {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
     }
     <div className={`${imageWrappingClassName} place-card__image-wrapper`}>
-      <a href="#">
-        <img className="place-card__image" src={offer.img} width={260} height={200} alt="Place image" />
-      </a>
+      <Link to={`/offer/${offer.id}`}>
+        <img className="place-card__image" src={offer.images[0]} width={260} height={200} alt={offer.title} />
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -36,7 +38,7 @@ const RoomCard = ({offer, isMain}) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{offer.title}</a>
+        <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
@@ -44,18 +46,10 @@ const RoomCard = ({offer, isMain}) => {
 };
 
 RoomCard.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool,
-    isFavorite: PropTypes.bool
-  }).isRequired,
-  isMain: PropTypes.bool
+  offer: CustomPropTypes.offer.isRequired,
+  isMain: PropTypes.bool,
+  onHoverIn: PropTypes.func,
+  onHoverOut: PropTypes.func
 };
 
 export default RoomCard;

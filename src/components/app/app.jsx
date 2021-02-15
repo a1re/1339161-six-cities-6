@@ -4,11 +4,11 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import SignInScreen from '../sign-in/sign-in-screen';
 import FavoritesScreen from '../favorites/favorites-screen';
 import RoomScreen from '../room/room-screen';
-
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
-const App = ({cities, offers, defaultCity, authorizedUser}) => {
+const App = ({cities, offers, reviews, defaultCity, minReviewLength, authorizedUser}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -22,7 +22,7 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
           <FavoritesScreen offers={offers} authorizedUser={authorizedUser} />;
         </Route>
         <Route exact path="/offer/:id">
-          <RoomScreen offers={offers} authorizedUser={authorizedUser} />;
+          <RoomScreen offers={offers} reviews={reviews} authorizedUser={authorizedUser} minReviewLength={minReviewLength}/>;
         </Route>
         <Route>
           <NotFoundScreen authorizedUser={authorizedUser} />
@@ -33,29 +33,12 @@ const App = ({cities, offers, defaultCity, authorizedUser}) => {
 };
 
 App.propTypes = {
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        href: PropTypes.string.isRequired
-      })
-  ).isRequired,
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        img: PropTypes.string.isRequired,
-        imgSmall: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool,
-        isFavorite: PropTypes.bool
-      })
-  ).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(CustomPropTypes.offer.isRequired).isRequired,
+  reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired,
+  minReviewLength: PropTypes.number.isRequired,
   defaultCity: PropTypes.string.isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default App;

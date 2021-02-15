@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
-import Tabs from '../tabs/tabs';
+import MainTabs from './main-tabs';
 import MainOffers from './main-offers';
 import MainEmpty from './main-empty';
 
 const MainScreen = ({cities, offers, city, authorizedUser}) => {
-  const offersInCity = offers.filter((offer) => offer.city === city);
+  const offersInCity = offers.filter((offer) => offer.city.name === city);
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
-    <main className={`page__main page__main--index${offersInCity.length > 0 ? `` : ` page__main--index-empty`}`}>
+    <main className={`page__main page__main--index${offersInCity.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <Tabs cities={cities} selectedCity={city}/>
+      <MainTabs cities={cities} selectedCity={city}/>
       <div className="cities">
         {
           offersInCity.length > 0
@@ -24,29 +25,10 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
 };
 
 MainScreen.propTypes = {
-  cities: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        href: PropTypes.string.isRequired
-      })
-  ).isRequired,
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        img: PropTypes.string.isRequired,
-        imgSmall: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool,
-        isFavorite: PropTypes.bool
-      })
-  ).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   city: PropTypes.string.isRequired,
-  authorizedUser: PropTypes.string
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default MainScreen;

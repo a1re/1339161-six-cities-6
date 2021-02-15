@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import FooterLogo from '../footer-logo/footer-logo';
 import FavoritesEmpty from './favorites-empty';
@@ -7,7 +8,7 @@ import FavoritesList from './favorites-list';
 
 const FavoritesScreen = ({offers, authorizedUser}) => {
   const favorites = offers.filter((offer) => offer.isFavorite === true);
-  const cities = [...new Set(favorites.map((offer) => offer.city))];
+  const cities = [...new Set(favorites.map((offer) => offer.city.name))];
 
   return (
     <div className={`page${favorites.length ? `` : ` page--favorites-empty`}`}>
@@ -27,21 +28,8 @@ const FavoritesScreen = ({offers, authorizedUser}) => {
 };
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        img: PropTypes.string.isRequired,
-        imgSmall: PropTypes.string.isRequired,
-        isPremium: PropTypes.bool,
-        isFavorite: PropTypes.bool
-      })
-  ).isRequired,
-  authorizedUser: PropTypes.string
+  offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
+  authorizedUser: CustomPropTypes.authorizedUser
 };
 
 export default FavoritesScreen;
