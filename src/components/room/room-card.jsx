@@ -2,23 +2,21 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
+import classNames from 'classnames';
 
-const RoomCard = ({offer, isMain, onHoverIn, onHoverOut}) => {
-  const blockWrappingClassName = isMain ? `cities__place-card` : `near-places__card`;
-  const imageWrappingClassName = isMain ? `cities__image-wrapper` : `near-places__image-wrapper`;
-
-  return <article className={`${blockWrappingClassName} place-card`} onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+const RoomCard = ({offer, imgWidth, imgHeight, infoWrappingClassName, imageWrappingClassName}) => (
+  <React.Fragment>
     {offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
     }
-    <div className={`${imageWrappingClassName} place-card__image-wrapper`}>
+    <div className={classNames(imageWrappingClassName, `imageWrappingClassName`)}>
       <Link to={`/offer/${offer.id}`}>
-        <img className="place-card__image" src={offer.images[0]} width={260} height={200} alt={offer.title} />
+        <img className="place-card__image" src={offer.images[0]} width={imgWidth} height={imgHeight} alt={offer.title} />
       </Link>
     </div>
-    <div className="place-card__info">
+    <div className={classNames(infoWrappingClassName, `place-card__info`)}>
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
           <b className="place-card__price-value">€{offer.price}</b>
@@ -42,14 +40,15 @@ const RoomCard = ({offer, isMain, onHoverIn, onHoverOut}) => {
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
-  </article>;
-};
+  </React.Fragment>
+);
 
 RoomCard.propTypes = {
   offer: CustomPropTypes.offer.isRequired,
-  isMain: PropTypes.bool,
-  onHoverIn: PropTypes.func,
-  onHoverOut: PropTypes.func
+  imgWidth: PropTypes.number.isRequired,
+  imgHeight: PropTypes.number.isRequired,
+  infoWrappingClassName: PropTypes.string,
+  imageWrappingClassName: PropTypes.number.isRequired
 };
 
 export default RoomCard;

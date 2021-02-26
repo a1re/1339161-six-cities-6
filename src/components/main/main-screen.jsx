@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import MainTabs from './main-tabs';
-import MainOffers from './main-offers';
+import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
 
 const MainScreen = ({cities, offers, city, authorizedUser}) => {
@@ -16,7 +16,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
       <div className="cities">
         {
           offersInCity.length > 0
-            ? <MainOffers offers={offersInCity} />
+            ? <MainOfferList offers={offersInCity} />
             : <MainEmpty city={city}/>
         }
       </div>

@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import MainSorting from './main-sorting';
-import RoomCard from '../room/room-card';
+import MainOfferCard from './main-offer-card';
 
-const MainOffers = (props) => {
+const MainOfferList = (props) => {
   const [offers] = useState(props.offers);
   const [, setActiveOffer] = useState(null);
 
@@ -14,10 +14,9 @@ const MainOffers = (props) => {
       <b className="places__found">{offers.length} {offers.length > 1 ? `places` : `place`} to stay in Amsterdam</b>
       <MainSorting />
       <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => <RoomCard
+        {offers.map((offer) => <MainOfferCard
           key={`offer-card-${offer.id}`}
           offer={offer}
-          isMain={true}
           onHoverIn={() => setActiveOffer(offer.id) }
           onHoverOut={() => setActiveOffer(null) }
         />)}
@@ -29,8 +28,8 @@ const MainOffers = (props) => {
   </div>);
 };
 
-MainOffers.propTypes = {
+MainOfferList.propTypes = {
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
 };
 
-export default MainOffers;
+export default MainOfferList;
