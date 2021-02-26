@@ -9,7 +9,6 @@ const MainOfferCard = ({offer, onHoverIn, onHoverOut}) => (
       offer={offer}
       imgWidth={260}
       imgHeight={200}
-      infoWrappingClassName={false}
       imageWrappingClassName="cities__image-wrapper"/>
   </article>
 );

@@ -8,7 +8,6 @@ const RoomNearOffer = ({offer}) => (
       offer={offer}
       imgWidth={260}
       imgHeight={200}
-      infoWrappingClassName={false}
       imageWrappingClassName="near-places__image-wrapper"/>
   </article>
 );

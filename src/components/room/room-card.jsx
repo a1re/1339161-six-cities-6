@@ -48,7 +48,7 @@ RoomCard.propTypes = {
   imgWidth: PropTypes.number.isRequired,
   imgHeight: PropTypes.number.isRequired,
   infoWrappingClassName: PropTypes.string,
-  imageWrappingClassName: PropTypes.number.isRequired
+  imageWrappingClassName: PropTypes.string.isRequired
 };
 
 export default RoomCard;
