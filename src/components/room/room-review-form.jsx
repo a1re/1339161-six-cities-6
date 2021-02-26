@@ -9,7 +9,7 @@ const RoomReviewForm = ({onPost, authorizedUser, minReviewLength}) => {
 
   useEffect(() => {
     setPostingStatus(rating >= 1 && rating <= 5 && comment.length >= minReviewLength);
-  });
+  }, [rating, comment]);
 
   const handleRatingChange = (evt) => {
     setRating(parseInt(evt.target.value, 10));
