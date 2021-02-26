@@ -1,12 +1,12 @@
 import {getRandomNumber, randomSort, getRandomBoolean} from '../utils';
 import getText from './text';
+import {City} from '../const';
 
 const AVATAR_URL = `https://i.pravatar.cc/128`;
 
 const OFFERS_PER_CITY_MIN = 0;
 const OFFERS_PER_CITY_MAX = 10;
 
-const DEFAULT_CITY_ZOOM = 10;
 const DEFAULT_OFFER_ZOOM = 8;
 
 const BEDROOMS_MIN = 1;
@@ -26,62 +26,13 @@ const ADULTS_MAX = 5;
 
 const STARTING_ID = 100;
 
+const POINT_DIFFUSION = 25;
+
 const titles = [
   `Gold Alley Property`, `A old cargo ship from 1897`, `Canal View Prinsengracht`,
   `Amazing Private Canal Place`, `Lovely bright apartment near Vondelpark`,
   `Room in a charming canal house`, `Chess Suite`, `Klassiek Appartement met Balkon`,
   `Private & Cosy Studio`, `Wood and stone place`, `Beautiful & luxurious studio at great location`
-];
-
-const cities = [
-  {
-    location: {
-      latitude: 48.858607,
-      longitude: 2.337361,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Paris`
-  },
-  {
-    location: {
-      latitude: 50.938057,
-      longitude: 6.966325,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Cologne`
-  },
-  {
-    location: {
-      latitude: 50.846663,
-      longitude: 4.352585,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Brussels`
-  },
-  {
-    location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Amsterdam`
-  },
-  {
-    location: {
-      latitude: 53.543563,
-      longitude: 9.985637,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Hamburg`
-  },
-  {
-    location: {
-      latitude: 51.226093,
-      longitude: 6.776462,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Dusseldorf`
-  }
 ];
 
 const goods = [`Wi-Fi`, `Heating`, `Kitchen`, `Fridge`, `Washing machine`, `Coffee machine`, `Dishwasher`, `Towels`, `Baby seat`, `Cable TV`];
@@ -102,7 +53,7 @@ const offers = [];
 
 let id = STARTING_ID;
 
-cities.forEach((city) => {
+Object.entries(City).forEach(([, city]) => {
   for (let i = 0; i < getRandomNumber(OFFERS_PER_CITY_MIN, OFFERS_PER_CITY_MAX); i++) {
     offers.push({
       id,
@@ -120,8 +71,8 @@ cities.forEach((city) => {
       isFavorite: getRandomBoolean(),
       isPremium: getRandomBoolean(),
       location: {
-        latitude: city.location.latitude + (Math.random() - 0.5) / 100,
-        longitude: city.location.longitude + (Math.random() - 0.5) / 100,
+        latitude: city.location.latitude + (Math.random() - 0.5) / POINT_DIFFUSION,
+        longitude: city.location.longitude + (Math.random() - 0.5) / POINT_DIFFUSION,
         zoom: DEFAULT_OFFER_ZOOM
       },
       maxAdults: getRandomNumber(ADULTS_MIN, ADULTS_MAX),

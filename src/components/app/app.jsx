@@ -33,11 +33,11 @@ const App = ({cities, offers, reviews, defaultCity, minReviewLength, authorizedU
 };
 
 App.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer.isRequired).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired,
   minReviewLength: PropTypes.number.isRequired,
-  defaultCity: PropTypes.string.isRequired,
+  defaultCity: CustomPropTypes.city,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 

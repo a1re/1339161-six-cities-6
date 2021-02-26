@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {CITIES, DEFATULT_CITY_INDEX, MIN_REVIEW_LENGTH} from './const';
+import {City, DEFUAULT_CITY, MIN_REVIEW_LENGTH} from './const';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import authorizedUser from './mocks/auth-info';
 
 ReactDOM.render(
     <App
-      cities={CITIES}
+      cities={Object.entries(City).map(([, city]) => city)}
       offers={offers}
       reviews={reviews}
-      defaultCity={CITIES[DEFATULT_CITY_INDEX]}
+      defaultCity={DEFUAULT_CITY}
       minReviewLength={MIN_REVIEW_LENGTH}
       authorizedUser={authorizedUser}
     />,

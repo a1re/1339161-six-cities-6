@@ -7,7 +7,7 @@ import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
 
 const MainScreen = ({cities, offers, city, authorizedUser}) => {
-  const offersInCity = offers.filter((offer) => offer.city.name === city);
+  const offersInCity = offers.filter((offer) => offer.city === city);
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
     <main className={`page__main page__main--index${offersInCity.length ? `` : ` page__main--index-empty`}`}>
@@ -16,7 +16,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
       <div className="cities">
         {
           offersInCity.length > 0
-            ? <MainOfferList offers={offersInCity} />
+            ? <MainOfferList city={city} offers={offersInCity} />
             : <MainEmpty city={city}/>
         }
       </div>
@@ -25,9 +25,9 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
 };
 
 MainScreen.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  city: PropTypes.string.isRequired,
+  city: CustomPropTypes.city.isRequired,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import MainSorting from './main-sorting';
 import MainOfferCard from './main-offer-card';
+import Map from '../map/map';
 
 const MainOfferList = (props) => {
   const [offers] = useState(props.offers);
@@ -23,12 +24,13 @@ const MainOfferList = (props) => {
       </div>
     </section>
     <div className="cities__right-section">
-      <section className="cities__map map"></section>
+      <Map city={props.city} points={offers} className="cities__map"/>
     </div>
   </div>);
 };
 
 MainOfferList.propTypes = {
+  city: CustomPropTypes.city.isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
 };
 

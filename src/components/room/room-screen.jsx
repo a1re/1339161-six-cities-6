@@ -6,6 +6,7 @@ import Header from '../header/header';
 import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
 import RoomNearOffer from './room-near-offer';
+import Map from '../map/map';
 
 const RoomScreen = (props) => {
   const {minReviewLength, authorizedUser, offers} = props;
@@ -95,7 +96,7 @@ const RoomScreen = (props) => {
             </section>
           </div>
         </div>
-        <section className="property__map map" />
+        <Map city={offer.city} points={nearbyOffers} className="property__map"/>
       </section>
       <div className="container">
         <section className="near-places places">
