@@ -1,4 +1,4 @@
-import {randomSort} from './utils';
+import {randomSort} from '../utils';
 
 const parts = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,

@@ -3,9 +3,10 @@ import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
-import RoomCard from './room-card';
 import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
+import RoomNearOffer from './room-near-offer';
+import Map from '../map/map';
 
 const RoomScreen = (props) => {
   const {minReviewLength, authorizedUser, offers} = props;
@@ -95,13 +96,13 @@ const RoomScreen = (props) => {
             </section>
           </div>
         </div>
-        <section className="property__map map" />
+        <Map city={offer.city} points={nearbyOffers} className="property__map"/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {nearbyOffers.map((offerItem) => <RoomCard key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
+            {nearbyOffers.map((offerItem) => <RoomNearOffer key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
           </div>
         </section>
       </div>

@@ -1,4 +1,4 @@
-import {getRandomNumber, getRandomDate, getRandomBoolean} from './utils';
+import {getRandomNumber, getRandomDate, getRandomBoolean} from '../utils';
 import getText from './text';
 
 const AVATAR_URL = `https://i.pravatar.cc/128`;
