@@ -5,6 +5,7 @@ import Header from '../header/header';
 import FooterLogo from '../footer-logo/footer-logo';
 import FavoritesEmpty from './favorites-empty';
 import FavoritesList from './favorites-list';
+import {connect} from 'react-redux';
 
 const FavoritesScreen = ({offers, authorizedUser}) => {
   const favorites = offers.filter((offer) => offer.isFavorite === true);
@@ -32,4 +33,10 @@ FavoritesScreen.propTypes = {
   authorizedUser: CustomPropTypes.authorizedUser
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  authorizedUser: state.authorizedUser
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps, null)(FavoritesScreen);
