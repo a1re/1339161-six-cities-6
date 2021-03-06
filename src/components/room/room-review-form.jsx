@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
+import {MIN_REVIEW_LENGTH} from '../../const';
 
-const RoomReviewForm = ({onPost, authorizedUser, minReviewLength}) => {
+const RoomReviewForm = ({onPost, authorizedUser}) => {
   const [isPostingAllowed, setPostingStatus] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState(``);
 
   useEffect(() => {
-    setPostingStatus(rating >= 1 && rating <= 5 && comment.length >= minReviewLength);
+    setPostingStatus(rating >= 1 && rating <= 5 && comment.length >= MIN_REVIEW_LENGTH);
   }, [rating, comment]);
 
   const handleRatingChange = (evt) => {
@@ -119,7 +120,7 @@ const RoomReviewForm = ({onPost, authorizedUser, minReviewLength}) => {
     <div className="reviews__button-wrapper">
       <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span>
-        and describe your stay with at least <b className="reviews__text-amount">{minReviewLength} characters</b>.
+        and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
       </p>
       <button className="reviews__submit form__submit button" type="submit" disabled={!isPostingAllowed}>Submit</button>
     </div>
@@ -128,7 +129,6 @@ const RoomReviewForm = ({onPost, authorizedUser, minReviewLength}) => {
 
 RoomReviewForm.propTypes = {
   onPost: PropTypes.func.isRequired,
-  minReviewLength: PropTypes.number.isRequired,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 
