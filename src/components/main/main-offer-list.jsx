@@ -24,13 +24,19 @@ const MainOfferList = (props) => {
       </div>
     </section>
     <div className="cities__right-section">
-      <Map city={props.city} points={offers} className="cities__map"/>
+      <Map
+        latitude={props.selectedCity.location.latitude}
+        longitude={props.selectedCity.location.longitude}
+        zoom={props.selectedCity.location.zoom}
+        points={offers}
+        className="cities__map"
+      />
     </div>
   </div>);
 };
 
 MainOfferList.propTypes = {
-  city: CustomPropTypes.city.isRequired,
+  selectedCity: CustomPropTypes.city.isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
 };
 

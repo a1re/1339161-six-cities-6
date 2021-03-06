@@ -96,7 +96,13 @@ const RoomScreen = (props) => {
             </section>
           </div>
         </div>
-        <Map city={offer.city} points={nearbyOffers} className="property__map"/>
+        <Map
+          latitude={offer.city.location.latitude}
+          longitude={offer.city.location.longitude}
+          zoom={offer.city.location.zoom}
+          points={offers}
+          className="property__map"
+        />
       </section>
       <div className="container">
         <section className="near-places places">

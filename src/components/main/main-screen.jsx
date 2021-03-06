@@ -6,18 +6,20 @@ import MainTabs from './main-tabs';
 import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
 
-const MainScreen = ({cities, offers, city, authorizedUser}) => {
-  const offersInCity = offers.filter((offer) => offer.city === city);
+const MainScreen = ({cities, offers, selectedCityName, authorizedUser}) => {
+  const selectedCity = cities.find((city) => city.name === selectedCityName);
+  const offersInCity = offers.filter((offer) => offer.city.name === selectedCityName);
+
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
     <main className={`page__main page__main--index${offersInCity.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <MainTabs cities={cities} selectedCity={city}/>
+      <MainTabs cities={cities} selectedCityName={selectedCityName}/>
       <div className="cities">
         {
           offersInCity.length > 0
-            ? <MainOfferList city={city} offers={offersInCity} />
-            : <MainEmpty city={city}/>
+            ? <MainOfferList selectedCity={selectedCity} offers={offersInCity} />
+            : <MainEmpty selectedCityName={selectedCityName}/>
         }
       </div>
     </main>
@@ -27,7 +29,7 @@ const MainScreen = ({cities, offers, city, authorizedUser}) => {
 MainScreen.propTypes = {
   cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  city: CustomPropTypes.city.isRequired,
+  selectedCityName: PropTypes.string.isRequired,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 

@@ -11,7 +11,7 @@ ReactDOM.render(
       cities={Object.entries(City).map(([, city]) => city)}
       offers={offers}
       reviews={reviews}
-      defaultCity={DEFUAULT_CITY}
+      defaultCityName={DEFUAULT_CITY}
       minReviewLength={MIN_REVIEW_LENGTH}
       authorizedUser={authorizedUser}
     />,
