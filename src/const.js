@@ -51,7 +51,7 @@ export const City = {
   }
 };
 
-export const DEFUAULT_CITY = `Amsterdam`;
+export const DEFAULT_CITY = `Amsterdam`;
 export const MIN_REVIEW_LENGTH = 50;
 export const PIN_WIDTH = 30;
 export const PIN_HEIGHT = 30;
