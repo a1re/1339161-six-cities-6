@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import {Sorting} from '../../const';
 
-const MainOfferList = ({offersInCity, onSelectOffer, selectedCity}) => {
+const MainOfferList = ({offersInCity, onHoverOffer, selectedCity}) => {
   const [sortingMethod, setSortingMethod] = useState(Object.entries(Sorting).find(([, method]) => method.isDefault)[1]);
   const offers = [...offersInCity].sort(sortingMethod.callback);
 
@@ -21,8 +21,8 @@ const MainOfferList = ({offersInCity, onSelectOffer, selectedCity}) => {
         {offers.map((offer) => <MainOfferCard
           key={`offer-card-${offer.id}`}
           offer={offer}
-          onHoverIn={() => onSelectOffer(offer.id) }
-          onHoverOut={() => onSelectOffer(0) }
+          onHoverIn={() => onHoverOffer(offer.id) }
+          onHoverOut={() => onHoverOffer(0) }
         />)}
       </div>
     </section>
@@ -41,11 +41,11 @@ const MainOfferList = ({offersInCity, onSelectOffer, selectedCity}) => {
 MainOfferList.propTypes = {
   selectedCity: CustomPropTypes.city.isRequired,
   offersInCity: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  onSelectOffer: PropTypes.func.isRequired
+  onHoverOffer: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectOffer: (offerId) => dispatch(ActionCreator.selectOffer(offerId))
+  onHoverOffer: (offerId) => dispatch(ActionCreator.hoverOffer(offerId))
 });
 
 export {MainOfferList};

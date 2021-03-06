@@ -9,7 +9,7 @@ export const reducer = (state = initialState, action) => {
         activeCityName: action.payload
       };
 
-    case ActionType.SELECT_OFFER:
+    case ActionType.HOVER_OFFER:
       return {
         ...state,
         activeOfferId: action.payload

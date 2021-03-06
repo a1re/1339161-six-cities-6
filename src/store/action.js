@@ -1,6 +1,6 @@
 export const ActionType = {
   SELECT_CITY: `main/selectCity`,
-  SELECT_OFFER: `main/selectOffer`
+  HOVER_OFFER: `main/hoverOffer`
 };
 
 export const ActionCreator = {
@@ -8,8 +8,8 @@ export const ActionCreator = {
     type: ActionType.SELECT_CITY,
     payload: cityName
   }),
-  selectOffer: (offerId) => ({
-    type: ActionType.SELECT_OFFER,
+  hoverOffer: (offerId) => ({
+    type: ActionType.HOVER_OFFER,
     payload: offerId
   })
 };
