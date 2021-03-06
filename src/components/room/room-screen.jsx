@@ -7,6 +7,7 @@ import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
 import RoomNearOffer from './room-near-offer';
 import Map from '../map/map';
+import {connect} from 'react-redux';
 
 const RoomScreen = (props) => {
   const {authorizedUser, offers} = props;
@@ -121,4 +122,10 @@ RoomScreen.propTypes = {
   authorizedUser: CustomPropTypes.authorizedUser
 };
 
-export default RoomScreen;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  authorizedUser: state.authorizedUser
+});
+
+export {RoomScreen};
+export default connect(mapStateToProps, null)(RoomScreen);
