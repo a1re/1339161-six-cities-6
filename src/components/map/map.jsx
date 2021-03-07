@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import leaflet from 'leaflet';
@@ -10,6 +10,7 @@ import "leaflet/dist/leaflet.css";
 
 const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => {
   const mapRef = useRef();
+  const [placedMarkers, setPlacedMarkers] = useState({});
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -28,13 +29,13 @@ const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => 
       })
       .addTo(mapRef.current);
 
-    markers.forEach((marker) => {
+    markers.map((marker) => {
       const customIcon = leaflet.icon({
-        iconUrl: marker.id === activeOfferId ? `img/pin-active.svg` : `img/pin.svg`,
+        iconUrl: `img/pin.svg`,
         iconSize: [PIN_WIDTH, PIN_HEIGHT]
       });
 
-      leaflet.marker({
+      placedMarkers[marker.id] = leaflet.marker({
         lat: marker.location.latitude,
         lng: marker.location.longitude
       },
@@ -44,9 +45,20 @@ const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => 
       .addTo(mapRef.current);
     });
 
+    setPlacedMarkers(placedMarkers);
+
     return () => {
       mapRef.current.remove();
     };
+  }, []);
+
+  useEffect(() => {
+    Object.entries(placedMarkers).forEach(([markerId, marker]) => {
+      marker.setIcon(leaflet.icon({
+        iconUrl: parseInt(markerId, 10) === activeOfferId ? `img/pin-active.svg` : `img/pin.svg`,
+        iconSize: [PIN_WIDTH, PIN_HEIGHT]
+      }));
+    });
   }, [activeOfferId]);
 
   return <div id="map" className={classNames(className, `map`)}></div>;
