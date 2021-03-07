@@ -4,10 +4,11 @@ import CustomPropTypes from '../../custom-prop-types';
 import leaflet from 'leaflet';
 import classNames from 'classnames';
 import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
+import {connect} from 'react-redux';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({latitude, longitude, zoom, markers, className}) => {
+const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Map = ({latitude, longitude, zoom, markers, className}) => {
 
     markers.forEach((marker) => {
       const customIcon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: marker.id === activeOfferId ? `img/pin-active.svg` : `img/pin.svg`,
         iconSize: [PIN_WIDTH, PIN_HEIGHT]
       });
 
@@ -46,7 +47,7 @@ const Map = ({latitude, longitude, zoom, markers, className}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [activeOfferId]);
 
   return <div id="map" className={classNames(className, `map`)}></div>;
 };
@@ -56,7 +57,13 @@ Map.propTypes = {
   latitude: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
   markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  activeOfferId: PropTypes.number.isRequired
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  activeOfferId: state.activeOfferId
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);
