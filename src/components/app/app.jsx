@@ -8,24 +8,24 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
-const App = ({cities, offers, reviews, defaultCity, minReviewLength, authorizedUser}) => {
+const App = ({cities, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen cities={cities} offers={offers} city={defaultCity} authorizedUser={authorizedUser} />;
+          <MainScreen cities={cities} />;
         </Route>
         <Route exact path="/login">
           <SignInScreen />
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen offers={offers} authorizedUser={authorizedUser} />;
+          <FavoritesScreen />;
         </Route>
         <Route exact path="/offer/:id">
-          <RoomScreen offers={offers} reviews={reviews} authorizedUser={authorizedUser} minReviewLength={minReviewLength}/>;
+          <RoomScreen reviews={reviews} />;
         </Route>
         <Route>
-          <NotFoundScreen authorizedUser={authorizedUser} />
+          <NotFoundScreen />
         </Route>
       </Switch>
     </BrowserRouter>
@@ -34,11 +34,7 @@ const App = ({cities, offers, reviews, defaultCity, minReviewLength, authorizedU
 
 App.propTypes = {
   cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
-  offers: PropTypes.arrayOf(CustomPropTypes.offer.isRequired).isRequired,
-  reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired,
-  minReviewLength: PropTypes.number.isRequired,
-  defaultCity: CustomPropTypes.city,
-  authorizedUser: CustomPropTypes.authorizedUser
+  reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired
 };
 
 export default App;

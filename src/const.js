@@ -51,7 +51,31 @@ export const City = {
   }
 };
 
-export const DEFUAULT_CITY = City.Amsterdam;
+export const Sorting = {
+  POPULAR: {
+    name: `Popular`,
+    isDefault: true,
+    callback: () => 0
+  },
+  PRICE_ASC: {
+    name: `Price: low to high`,
+    isDefault: false,
+    callback: (offerA, offerB) => offerA.price - offerB.price
+  },
+  PRICE_DESC: {
+    name: `Price: high to low`,
+    isDefault: false,
+    callback: (offerA, offerB) => offerB.price - offerA.price
+  },
+  RATING: {
+    name: `Top rated first`,
+    isDefault: false,
+    callback: (offerA, offerB) => offerB.rating - offerA.rating
+  }
+};
+
+export const DEFAULT_CITY = `Paris`;
 export const MIN_REVIEW_LENGTH = 50;
 export const PIN_WIDTH = 30;
 export const PIN_HEIGHT = 30;
+export const ESC_KEYCODE = 27;

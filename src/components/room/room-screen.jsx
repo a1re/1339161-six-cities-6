@@ -7,9 +7,10 @@ import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
 import RoomNearOffer from './room-near-offer';
 import Map from '../map/map';
+import {connect} from 'react-redux';
 
 const RoomScreen = (props) => {
-  const {minReviewLength, authorizedUser, offers} = props;
+  const {authorizedUser, offers} = props;
   const params = useParams();
   const offer = offers.find((offerItem) => offerItem.id === parseInt(params.id, 10));
   const nearbyOffers = offers.filter((offerItem) => offerItem.city.name === offer.city.name).slice(0, 3);
@@ -87,7 +88,6 @@ const RoomScreen = (props) => {
               {reviews.length ? <RoomReviewList reviews={reviews} /> : ``}
               {authorizedUser ? <RoomReviewForm
                 authorizedUser={authorizedUser}
-                minReviewLength={minReviewLength}
                 onPost={(formData) => {
                   const userReview = {...formData, id: reviews.length ? reviews[reviews.length - 1].id + 1 : 1};
                   setReviews([...reviews, userReview]);
@@ -96,7 +96,13 @@ const RoomScreen = (props) => {
             </section>
           </div>
         </div>
-        <Map city={offer.city} points={nearbyOffers} className="property__map"/>
+        <Map
+          latitude={offer.city.location.latitude}
+          longitude={offer.city.location.longitude}
+          zoom={offer.city.location.zoom}
+          points={offers}
+          className="property__map"
+        />
       </section>
       <div className="container">
         <section className="near-places places">
@@ -113,8 +119,13 @@ const RoomScreen = (props) => {
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review).isRequired,
-  minReviewLength: PropTypes.number.isRequired,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 
-export default RoomScreen;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  authorizedUser: state.authorizedUser
+});
+
+export {RoomScreen};
+export default connect(mapStateToProps, null)(RoomScreen);

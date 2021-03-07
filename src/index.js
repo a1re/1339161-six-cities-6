@@ -1,19 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import {City, DEFUAULT_CITY, MIN_REVIEW_LENGTH} from './const';
-import offers from './mocks/offers';
+import {City} from './const';
 import reviews from './mocks/reviews';
-import authorizedUser from './mocks/auth-info';
+import {reducer} from './store/reducer';
+
+const store = createStore(
+    reducer,
+    composeWithDevTools()
+);
 
 ReactDOM.render(
-    <App
-      cities={Object.entries(City).map(([, city]) => city)}
-      offers={offers}
-      reviews={reviews}
-      defaultCity={DEFUAULT_CITY}
-      minReviewLength={MIN_REVIEW_LENGTH}
-      authorizedUser={authorizedUser}
-    />,
+    <Provider store={store}>
+      <App
+        cities={Object.entries(City).map(([, city]) => city)}
+        reviews={reviews}
+      />,
+    </Provider>,
     document.querySelector(`#root`)
 );

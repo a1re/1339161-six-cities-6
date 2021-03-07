@@ -7,16 +7,16 @@ import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points, className}) => {
+const Map = ({latitude, longitude, zoom, points, className}) => {
   const mapRef = useRef();
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.location.latitude,
-        lng: city.location.longitude
+        lat: latitude,
+        lng: longitude
       },
-      zoom: city.location.zoom,
+      zoom,
       zoomControl: false,
       marker: true
     });
@@ -52,7 +52,9 @@ const Map = ({city, points, className}) => {
 };
 
 Map.propTypes = {
-  city: CustomPropTypes.city.isRequired,
+  longitude: PropTypes.number.isRequired,
+  latitude: PropTypes.number.isRequired,
+  zoom: PropTypes.number.isRequired,
   points: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   className: PropTypes.string.isRequired
 };
