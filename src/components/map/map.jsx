@@ -7,7 +7,7 @@ import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({latitude, longitude, zoom, points, className}) => {
+const Map = ({latitude, longitude, zoom, markers, className}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -27,15 +27,15 @@ const Map = ({latitude, longitude, zoom, points, className}) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    markers.forEach((marker) => {
       const customIcon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [PIN_WIDTH, PIN_HEIGHT]
       });
 
       leaflet.marker({
-        lat: point.location.latitude,
-        lng: point.location.longitude
+        lat: marker.location.latitude,
+        lng: marker.location.longitude
       },
       {
         icon: customIcon
@@ -55,7 +55,7 @@ Map.propTypes = {
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
-  points: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
+  markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   className: PropTypes.string.isRequired
 };
 

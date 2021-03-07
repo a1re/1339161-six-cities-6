@@ -31,7 +31,7 @@ const MainOfferList = ({offersInCity, onHoverOffer, selectedCity}) => {
         latitude={selectedCity.location.latitude}
         longitude={selectedCity.location.longitude}
         zoom={selectedCity.location.zoom}
-        points={offersInCity}
+        markers={offersInCity}
         className="cities__map"
       />
     </div>
