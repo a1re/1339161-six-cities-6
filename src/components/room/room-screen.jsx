@@ -100,7 +100,7 @@ const RoomScreen = (props) => {
           latitude={offer.city.location.latitude}
           longitude={offer.city.location.longitude}
           zoom={offer.city.location.zoom}
-          points={offers}
+          markers={offers}
           className="property__map"
         />
       </section>

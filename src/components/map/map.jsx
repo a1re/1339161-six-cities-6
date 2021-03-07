@@ -1,14 +1,16 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import leaflet from 'leaflet';
 import classNames from 'classnames';
 import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
+import {connect} from 'react-redux';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({latitude, longitude, zoom, points, className}) => {
+const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => {
   const mapRef = useRef();
+  const [placedMarkers, setPlacedMarkers] = useState({});
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -27,15 +29,15 @@ const Map = ({latitude, longitude, zoom, points, className}) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    markers.map((marker) => {
       const customIcon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [PIN_WIDTH, PIN_HEIGHT]
       });
 
-      leaflet.marker({
-        lat: point.location.latitude,
-        lng: point.location.longitude
+      placedMarkers[marker.id] = leaflet.marker({
+        lat: marker.location.latitude,
+        lng: marker.location.longitude
       },
       {
         icon: customIcon
@@ -43,10 +45,21 @@ const Map = ({latitude, longitude, zoom, points, className}) => {
       .addTo(mapRef.current);
     });
 
+    setPlacedMarkers(placedMarkers);
+
     return () => {
       mapRef.current.remove();
     };
   }, []);
+
+  useEffect(() => {
+    Object.entries(placedMarkers).forEach(([markerId, marker]) => {
+      marker.setIcon(leaflet.icon({
+        iconUrl: parseInt(markerId, 10) === activeOfferId ? `img/pin-active.svg` : `img/pin.svg`,
+        iconSize: [PIN_WIDTH, PIN_HEIGHT]
+      }));
+    });
+  }, [activeOfferId]);
 
   return <div id="map" className={classNames(className, `map`)}></div>;
 };
@@ -55,8 +68,14 @@ Map.propTypes = {
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
-  points: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  className: PropTypes.string.isRequired
+  markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
+  className: PropTypes.string.isRequired,
+  activeOfferId: PropTypes.number.isRequired
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  activeOfferId: state.activeOfferId
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);
