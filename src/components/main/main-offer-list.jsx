@@ -22,7 +22,7 @@ const MainOfferList = ({offersInCity, onHoverOffer, selectedCity}) => {
           key={`offer-card-${offer.id}`}
           offer={offer}
           onHoverIn={() => onHoverOffer(offer.id) }
-          onHoverOut={() => onHoverOffer(0) }
+          onHoverOut={() => onHoverOffer(null) }
         />)}
       </div>
     </section>

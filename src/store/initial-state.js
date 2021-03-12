@@ -4,7 +4,7 @@ import authorizedUser from '../mocks/auth-info';
 
 export const initialState = {
   activeCityName: DEFAULT_CITY,
-  activeOfferId: 0,
+  activeOfferId: null,
   offers,
   authorizedUser
 };
