@@ -1,25 +1,15 @@
 import {DEFAULT_CITY} from '../const';
-import offers from '../mocks/offers';
-import authorizedUser from '../mocks/auth-info';
-import {SORTING_METHODS, DEFAULT_SORTING_NAME} from '../const';
-
-const defaultOffers = offers.filter(
-    (offer) => offer.city.name === DEFAULT_CITY
-);
-const defaultSorting = SORTING_METHODS.find(
-    (sorting) => sorting.name === DEFAULT_SORTING_NAME
-);
+import {DEFAULT_SORTING_NAME} from '../const';
 
 export const initialState = {
   activeCityName: DEFAULT_CITY,
   activeOfferId: null,
-  offers,
-  authorizedUser,
+  offers: [],
+  authorizedUser: null,
   activeCityOffers: {
-    data: defaultOffers,
+    data: [],
     sortingName: DEFAULT_SORTING_NAME,
-    sortedData: defaultSorting.callback === `undefined`
-      ? defaultOffers
-      : defaultOffers.sort(defaultSorting.callback)
-  }
+    sortedData: []
+  },
+  isOfferListLoaded: false
 };

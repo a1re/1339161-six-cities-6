@@ -65,3 +65,10 @@ export const PIN_WIDTH = 30;
 export const PIN_HEIGHT = 30;
 export const ESC_KEYCODE = 27;
 export const SPINNER_COLOR = `#4481C3`;
+
+export const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
+export const REQUEST_TIMEOUT = 5000;
+
+export const APIRoute = {
+  OFFER_LIST: `/hotels`
+};
