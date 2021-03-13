@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {Sorting, ESC_KEYCODE} from '../../const';
+import {SORTING_METHODS, ESC_KEYCODE} from '../../const';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
-const MainSorting = ({activeMethodName, onSelectMethod}) => {
+const MainSorting = ({activeSortingName, onSelectSorting}) => {
   const [isSortingOpen, openSorting] = useState(false);
 
   const closeSortingByEsc = (evt) => {
@@ -24,23 +26,23 @@ const MainSorting = ({activeMethodName, onSelectMethod}) => {
     <span className="places__sorting-caption">Sort by</span>
     &nbsp;
     <span className="places__sorting-type" tabIndex={0} onClick={() => openSorting(!isSortingOpen)}>
-      {activeMethodName}
+      {activeSortingName}
       <svg className="places__sorting-arrow" width={7} height={4}>
         <use xlinkHref="#icon-arrow-select" />
       </svg>
     </span>
     <ul className={classNames(`places__options`, `places__options--custom`, isSortingOpen && `places__options--opened`)}>
-      {Object.entries(Sorting).map(([methodKey, method]) =>
+      {SORTING_METHODS.map((sorting) =>
         <li
-          key={methodKey}
-          className={classNames(`places__option`, activeMethodName === method.name && `places__option--active`)}
+          key={sorting.name}
+          className={classNames(`places__option`, activeSortingName === sorting.name && `places__option--active`)}
           tabIndex={0}
           onClick={() => {
-            onSelectMethod(method);
+            onSelectSorting(sorting);
             openSorting(false);
           }}
         >
-          {method.name}
+          {sorting.name}
         </li>)
       }
     </ul>
@@ -48,8 +50,17 @@ const MainSorting = ({activeMethodName, onSelectMethod}) => {
 };
 
 MainSorting.propTypes = {
-  activeMethodName: PropTypes.string.isRequired,
-  onSelectMethod: PropTypes.func.isRequired
+  activeSortingName: PropTypes.string.isRequired,
+  onSelectSorting: PropTypes.func.isRequired
 };
 
-export default MainSorting;
+const mapStateToProps = (state) => ({
+  activeSortingName: state.activeCityOffers.sortingName
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelectSorting: (sorting) => dispatch(ActionCreator.selectSorting(sorting))
+});
+
+export {MainSorting};
+export default connect(mapStateToProps, mapDispatchToProps)(MainSorting);

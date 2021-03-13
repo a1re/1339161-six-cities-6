@@ -8,20 +8,19 @@ import MainEmpty from './main-empty';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-const MainScreen = ({cities, offers, selectedCityName, authorizedUser, onSelectCity}) => {
+const MainScreen = ({cities, offers, selectedCityName, authorizedUser}) => {
   const selectedCity = cities.find((city) => city.name === selectedCityName);
-  const offersInCity = offers.filter((offer) => offer.city.name === selectedCityName);
 
   return (<div className="page page--gray page--main">
     <Header isMain={true} authorizedUser={authorizedUser}/>
-    <main className={`page__main page__main--index${offersInCity.length ? `` : ` page__main--index-empty`}`}>
+    <main className={`page__main page__main--index${offers.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <MainTabs cities={cities} selectedCityName={selectedCityName} onSelectCity={onSelectCity}/>
+      <MainTabs cities={cities}/>
       <div className="cities">
         {
-          offersInCity.length > 0
-            ? <MainOfferList key={selectedCityName} selectedCity={selectedCity} offersInCity={offersInCity} />
-            : <MainEmpty selectedCityName={selectedCityName}/>
+          offers.length > 0
+            ? <MainOfferList key={`${selectedCityName}`} selectedCity={selectedCity} />
+            : <MainEmpty/>
         }
       </div>
     </main>
@@ -37,7 +36,7 @@ MainScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: state.activeCityOffers.data,
   selectedCityName: state.activeCityName,
   authorizedUser: state.authorizedUser
 });
