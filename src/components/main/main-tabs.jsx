@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
+
 
 const MainTabs = ({cities, selectedCityName, onSelectCity}) => {
   return <div className="tabs">
@@ -29,4 +32,13 @@ MainTabs.propTypes = {
   onSelectCity: PropTypes.func.isRequired
 };
 
-export default MainTabs;
+const mapStateToProps = (state) => ({
+  selectedCityName: state.activeCityName
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelectCity: (cityName) => dispatch(ActionCreator.selectCity(cityName))
+});
+
+export {MainTabs};
+export default connect(mapStateToProps, mapDispatchToProps)(MainTabs);

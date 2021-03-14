@@ -51,31 +51,24 @@ export const City = {
   }
 };
 
-export const Sorting = {
-  POPULAR: {
-    name: `Popular`,
-    isDefault: true,
-    callback: () => 0
-  },
-  PRICE_ASC: {
-    name: `Price: low to high`,
-    isDefault: false,
-    callback: (offerA, offerB) => offerA.price - offerB.price
-  },
-  PRICE_DESC: {
-    name: `Price: high to low`,
-    isDefault: false,
-    callback: (offerA, offerB) => offerB.price - offerA.price
-  },
-  RATING: {
-    name: `Top rated first`,
-    isDefault: false,
-    callback: (offerA, offerB) => offerB.rating - offerA.rating
-  }
-};
+export const SORTING_METHODS = [
+  {name: `Popular`},
+  {name: `Price: low to high`, callback: (offerA, offerB) => offerA.price - offerB.price},
+  {name: `Price: high to low`, callback: (offerA, offerB) => offerB.price - offerA.price},
+  {name: `Top rated first`, callback: (offerA, offerB) => offerB.rating - offerA.rating}
+];
 
 export const DEFAULT_CITY = `Paris`;
+export const DEFAULT_SORTING_NAME = `Popular`;
 export const MIN_REVIEW_LENGTH = 50;
 export const PIN_WIDTH = 30;
 export const PIN_HEIGHT = 30;
 export const ESC_KEYCODE = 27;
+export const SPINNER_COLOR = `#4481C3`;
+
+export const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
+export const REQUEST_TIMEOUT = 5000;
+
+export const APIRoute = {
+  OFFER_LIST: `/hotels`
+};

@@ -70,7 +70,7 @@ Map.propTypes = {
   zoom: PropTypes.number.isRequired,
   markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   className: PropTypes.string.isRequired,
-  activeOfferId: PropTypes.number.isRequired
+  activeOfferId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({

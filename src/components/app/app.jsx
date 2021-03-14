@@ -8,12 +8,16 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
+import withSpinner from '../../hocs/with-spinner/with-spinner';
+
+const MainScreenWrapped = withSpinner(MainScreen);
+
 const App = ({cities, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen cities={cities} />;
+          <MainScreenWrapped cities={cities} />;
         </Route>
         <Route exact path="/login">
           <SignInScreen />
