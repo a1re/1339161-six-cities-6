@@ -70,7 +70,8 @@ export const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
 export const REQUEST_TIMEOUT = 5000;
 
 export const APIRoute = {
-  OFFER_LIST: `/hotels`
+  OFFER_LIST: `/hotels`,
+  LOGIN: `/login`
 };
 
 export const AuthorizationStatus = {
