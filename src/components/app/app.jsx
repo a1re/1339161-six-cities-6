@@ -4,6 +4,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import SignInScreen from '../sign-in/sign-in-screen';
 import FavoritesScreen from '../favorites/favorites-screen';
 import RoomScreen from '../room/room-screen';
+import PrivateRoute from '../private-route/private-route';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
@@ -23,9 +24,9 @@ const App = ({cities, reviews}) => {
         <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
+        <PrivateRoute exact path={AppRoute.FAVORITES}>
           <FavoritesScreen />;
-        </Route>
+        </PrivateRoute>
         <Route exact path={AppRoute.ROOM}>
           <RoomScreen reviews={reviews} />;
         </Route>
