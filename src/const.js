@@ -72,3 +72,8 @@ export const REQUEST_TIMEOUT = 5000;
 export const APIRoute = {
   OFFER_LIST: `/hotels`
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`
+};
