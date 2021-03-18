@@ -1,6 +1,6 @@
 import {ActionType} from './action';
 import {initialState} from './initial-state';
-import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
+import {SORTING_METHODS, DEFAULT_SORTING_NAME} from '../const';
 
 export const reducer = (state = initialState, action) => {
   let cityOffers;

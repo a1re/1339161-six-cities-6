@@ -14,7 +14,7 @@ import {createAPI} from './services/api';
 import reviews from './mocks/reviews';
 
 const api = createAPI(
-  () => store.dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
+    () => store.dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
 );
 
 const store = createStore(
