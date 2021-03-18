@@ -7,6 +7,7 @@ import RoomScreen from '../room/room-screen';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 import withSpinner from '../../hocs/with-spinner/with-spinner';
 
@@ -16,16 +17,16 @@ const App = ({cities, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.ROOT}>
           <MainScreenWrapped cities={cities} />;
         </Route>
-        <Route exact path="/login">
+        <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
         </Route>
-        <Route exact path="/favorites">
+        <Route exact path={AppRoute.FAVORITES}>
           <FavoritesScreen />;
         </Route>
-        <Route exact path="/offer/:id">
+        <Route exact path={AppRoute.ROOM}>
           <RoomScreen reviews={reviews} />;
         </Route>
         <Route>
