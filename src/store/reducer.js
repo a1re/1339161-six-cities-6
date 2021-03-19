@@ -1,6 +1,6 @@
 import {ActionType} from './action';
 import {initialState} from './initial-state';
-import {SORTING_METHODS, DEFAULT_SORTING_NAME} from '../const';
+import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
 
 export const reducer = (state = initialState, action) => {
   let cityOffers;
@@ -60,6 +60,19 @@ export const reducer = (state = initialState, action) => {
             ? cityOffers
             : cityOffers.sort(defaultSorting.callback)
         }
+      };
+
+    case ActionType.SET_AUTHORIZATION_STATUS:
+      return {
+        ...state,
+        authorizationStatus: action.payload
+      };
+
+    case ActionType.SET_AUTHORIZATION_INFO:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.AUTH,
+        authorizedUser: action.payload
       };
   }
 

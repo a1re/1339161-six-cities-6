@@ -1,5 +1,4 @@
-import {DEFAULT_CITY} from '../const';
-import {DEFAULT_SORTING_NAME} from '../const';
+import {DEFAULT_CITY, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
 
 export const initialState = {
   activeCityName: DEFAULT_CITY,
@@ -11,5 +10,6 @@ export const initialState = {
     sortingName: DEFAULT_SORTING_NAME,
     sortedData: []
   },
-  isOfferListLoaded: false
+  isOfferListLoaded: false,
+  authorizationStatus: AuthorizationStatus.NO_AUTH
 };
