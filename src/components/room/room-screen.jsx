@@ -10,10 +10,10 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 
 const RoomScreen = (props) => {
-  const {authorizedUser, offers} = props;
+  const {authorizedUser, offerList} = props;
   const params = useParams();
-  const offer = offers.find((offerItem) => offerItem.id === parseInt(params.id, 10));
-  const nearbyOffers = offers.filter((offerItem) => offerItem.city.name === offer.city.name).slice(0, 3);
+  const offer = offerList.find((offerItem) => offerItem.id === parseInt(params.id, 10));
+  const nearbyOfferList = offerList.filter((offerItem) => offerItem.city.name === offer.city.name).slice(0, 3);
   const [reviews, setReviews] = useState(props.reviews);
 
   return (<div className="page">
@@ -100,7 +100,7 @@ const RoomScreen = (props) => {
           latitude={offer.city.location.latitude}
           longitude={offer.city.location.longitude}
           zoom={offer.city.location.zoom}
-          markers={offers}
+          markers={offerList}
           className="property__map"
         />
       </section>
@@ -108,7 +108,7 @@ const RoomScreen = (props) => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {nearbyOffers.map((offerItem) => <RoomNearOffer key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
+            {nearbyOfferList.map((offerItem) => <RoomNearOffer key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
           </div>
         </section>
       </div>
@@ -117,13 +117,13 @@ const RoomScreen = (props) => {
 };
 
 RoomScreen.propTypes = {
-  offers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
+  offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review).isRequired,
   authorizedUser: CustomPropTypes.authorizedUser
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offerList: state.offerList,
   authorizedUser: state.authorizedUser
 });
 

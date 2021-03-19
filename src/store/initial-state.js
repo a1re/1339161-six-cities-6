@@ -3,9 +3,9 @@ import {DEFAULT_CITY, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const'
 export const initialState = {
   activeCityName: DEFAULT_CITY,
   hoverOfferId: null,
-  offers: [],
+  offerList: [],
   authorizedUser: null,
-  activeCityOffers: {
+  activeCityOfferList: {
     data: [],
     sortingName: DEFAULT_SORTING_NAME,
     sortedData: []

@@ -3,26 +3,26 @@ import {initialState} from './initial-state';
 import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
 
 export const reducer = (state = initialState, action) => {
-  let cityOffers;
+  let cityOfferList;
   const defaultSorting = SORTING_METHODS.find(
       (sorting) => sorting.name === DEFAULT_SORTING_NAME
   );
 
   switch (action.type) {
     case ActionType.SELECT_CITY:
-      cityOffers = state.offers.filter(
+      cityOfferList = state.offerList.filter(
           (offer) => offer.city.name === action.payload
       );
 
       return {
         ...state,
         activeCityName: action.payload,
-        activeCityOffers: {
-          data: cityOffers,
+        activeCityOfferList: {
+          data: cityOfferList,
           sortingName: DEFAULT_SORTING_NAME,
           sortedData: defaultSorting.callback === `undefined`
-            ? cityOffers
-            : cityOffers.sort(defaultSorting.callback)
+            ? cityOfferList
+            : cityOfferList.sort(defaultSorting.callback)
         }
       };
 
@@ -35,30 +35,30 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SELECT_SORTING:
       return {
         ...state,
-        activeCityOffers: {
-          data: state.activeCityOffers.data,
+        activeCityOfferList: {
+          data: state.activeCityOfferList.data,
           sortingName: action.payload.name,
           sortedData: action.payload.callback === `undefined`
-            ? state.activeCityOffers.data
-            : state.activeCityOffers.data.sort(action.payload.callback)
+            ? state.activeCityOfferList.data
+            : state.activeCityOfferList.data.sort(action.payload.callback)
         }
       };
 
     case ActionType.LOAD_OFFER_LIST:
-      cityOffers = action.payload.filter(
+      cityOfferList = action.payload.filter(
           (offer) => offer.city.name === state.activeCityName
       );
 
       return {
         ...state,
-        offers: action.payload,
+        offerList: action.payload,
         isOfferListLoaded: true,
-        activeCityOffers: {
-          data: cityOffers,
+        activeCityOfferList: {
+          data: cityOfferList,
           sortingName: defaultSorting.name,
           sortedData: defaultSorting.callback === `undefined`
-            ? cityOffers
-            : cityOffers.sort(defaultSorting.callback)
+            ? cityOfferList
+            : cityOfferList.sort(defaultSorting.callback)
         }
       };
 
