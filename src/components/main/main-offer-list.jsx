@@ -7,7 +7,9 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-const MainOfferList = ({offerList, onHoverOffer, selectedCity, sortingName}) => {
+const MainOfferList = ({offerList, cityList, activeCityName, onHoverOffer, sortingName}) => {
+  const selectedCity = cityList.find((city) => city.name === activeCityName);
+
   return (<div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -35,13 +37,16 @@ const MainOfferList = ({offerList, onHoverOffer, selectedCity, sortingName}) => 
 };
 
 MainOfferList.propTypes = {
-  selectedCity: CustomPropTypes.city.isRequired,
+  cityList: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
+  activeCityName: PropTypes.string.isRequired,
   offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   sortingName: PropTypes.string.isRequired,
   onHoverOffer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
+  cityList: state.cityList,
+  activeCityName: state.activeCityName,
   offerList: state.activeCityOfferList.sortedData,
   sortingName: state.activeCityOfferList.sortingName
 });

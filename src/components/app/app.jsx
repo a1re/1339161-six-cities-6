@@ -14,12 +14,12 @@ import withSpinner from '../../hocs/with-spinner/with-spinner';
 
 const MainScreenWrapped = withSpinner(MainScreen);
 
-const App = ({cities, reviews}) => {
+const App = ({reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreenWrapped cities={cities} />;
+          <MainScreenWrapped/>;
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
@@ -39,7 +39,6 @@ const App = ({cities, reviews}) => {
 };
 
 App.propTypes = {
-  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired
 };
 

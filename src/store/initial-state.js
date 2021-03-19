@@ -4,6 +4,7 @@ export const initialState = {
   activeCityName: DEFAULT_CITY,
   hoverOfferId: null,
   offerList: [],
+  cityList: [],
   authorizedUser: null,
   activeCityOfferList: {
     data: [],

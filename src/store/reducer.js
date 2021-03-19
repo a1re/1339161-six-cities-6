@@ -1,6 +1,6 @@
 import {ActionType} from './action';
 import {initialState} from './initial-state';
-import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
+import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus, City} from '../const';
 
 export const reducer = (state = initialState, action) => {
   let cityOfferList;
@@ -40,11 +40,18 @@ export const reducer = (state = initialState, action) => {
           sortingName: action.payload.name,
           sortedData: action.payload.callback === `undefined`
             ? state.activeCityOfferList.data
-            : state.activeCityOfferList.data.sort(action.payload.callback)
+            : state.activeCityOfferList.data.slice().sort(action.payload.callback)
         }
       };
 
     case ActionType.LOAD_OFFER_LIST:
+      const cityList = Object.entries(City).map(([, cityName]) => {
+        const offerWithCity = action.payload.find((offer) => offer.city.name === cityName);
+        const emptyCity = {name: cityName, location: {latitude: 0, longitude: 0, zoom: 0}};
+
+        return offerWithCity ? offerWithCity.city : emptyCity;
+      });
+
       cityOfferList = action.payload.filter(
           (offer) => offer.city.name === state.activeCityName
       );
@@ -52,6 +59,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         offerList: action.payload,
+        cityList,
         isOfferListLoaded: true,
         activeCityOfferList: {
           data: cityOfferList,

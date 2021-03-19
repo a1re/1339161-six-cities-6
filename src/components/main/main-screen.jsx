@@ -9,9 +9,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 import {fetchOfferList} from '../../store/api-actions';
 
-const MainScreen = ({cities, offerList, selectedCityName, authorizedUser, renderSpinner, isOfferListLoaded, onLoadOfferList}) => {
-  const selectedCity = cities.find((city) => city.name === selectedCityName);
-
+const MainScreen = ({offerList, selectedCityName, authorizedUser, renderSpinner, isOfferListLoaded, onLoadOfferList}) => {
   useEffect(() => {
     if (!isOfferListLoaded) {
       onLoadOfferList();
@@ -33,11 +31,11 @@ const MainScreen = ({cities, offerList, selectedCityName, authorizedUser, render
     <Header isMain={true} authorizedUser={authorizedUser}/>
     <main className={`page__main page__main--index${offerList.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
-      <MainTabs cities={cities}/>
+      <MainTabs/>
       <div className="cities">
         {
           offerList.length > 0
-            ? <MainOfferList key={`${selectedCityName}`} selectedCity={selectedCity} />
+            ? <MainOfferList key={`${selectedCityName}`} />
             : <MainEmpty/>
         }
       </div>
@@ -46,7 +44,6 @@ const MainScreen = ({cities, offerList, selectedCityName, authorizedUser, render
 };
 
 MainScreen.propTypes = {
-  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   selectedCityName: PropTypes.string.isRequired,
   authorizedUser: CustomPropTypes.authorizedUser,
