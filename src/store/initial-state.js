@@ -2,7 +2,7 @@ import {DEFAULT_CITY, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const'
 
 export const initialState = {
   activeCityName: DEFAULT_CITY,
-  activeOfferId: null,
+  hoverOfferId: null,
   offers: [],
   authorizedUser: null,
   activeCityOffers: {

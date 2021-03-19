@@ -29,7 +29,7 @@ export const reducer = (state = initialState, action) => {
     case ActionType.HOVER_OFFER:
       return {
         ...state,
-        activeOfferId: action.payload
+        hoverOfferId: action.payload
       };
 
     case ActionType.SELECT_SORTING:

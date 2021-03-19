@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => {
+const Map = ({latitude, longitude, zoom, markers, className, hoverOfferId}) => {
   const mapRef = useRef();
   const [placedMarkers, setPlacedMarkers] = useState({});
 
@@ -55,11 +55,11 @@ const Map = ({latitude, longitude, zoom, markers, className, activeOfferId}) => 
   useEffect(() => {
     Object.entries(placedMarkers).forEach(([markerId, marker]) => {
       marker.setIcon(leaflet.icon({
-        iconUrl: parseInt(markerId, 10) === activeOfferId ? `img/pin-active.svg` : `img/pin.svg`,
+        iconUrl: parseInt(markerId, 10) === hoverOfferId ? `img/pin-active.svg` : `img/pin.svg`,
         iconSize: [PIN_WIDTH, PIN_HEIGHT]
       }));
     });
-  }, [activeOfferId]);
+  }, [hoverOfferId]);
 
   return <div id="map" className={classNames(className, `map`)}></div>;
 };
@@ -70,11 +70,11 @@ Map.propTypes = {
   zoom: PropTypes.number.isRequired,
   markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
   className: PropTypes.string.isRequired,
-  activeOfferId: PropTypes.number
+  hoverOfferId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
-  activeOfferId: state.activeOfferId
+  hoverOfferId: state.hoverOfferId
 });
 
 export {Map};
