@@ -1,23 +1,43 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
-import RoomReviewForm from './room-review-form';
 import RoomReviewList from './room-review-list';
-import RoomNearOffer from './room-near-offer';
-import Map from '../map/map';
+import RoomNearbyMap from './room-nearby-map';
+import RoomNearbyOfferList from './room-nearby-offer-list';
+import withSpinner from '../../hocs/with-spinner/with-spinner';
 import {connect} from 'react-redux';
+import {fetchOffer} from '../../store/api-actions';
+import {ActionCreator} from '../../store/action';
 
-const RoomScreen = (props) => {
-  const {authorizedUser, offerList} = props;
+const RoomNearbyMapWrapped = withSpinner(RoomNearbyMap);
+const RoomNearbyOfferListWrapped = withSpinner(RoomNearbyOfferList);
+const RoomReviewListWrapped = withSpinner(RoomReviewList);
+
+const RoomScreen = ({offer, renderSpinner, onLoadOffer}) => {
   const params = useParams();
-  const offer = offerList.find((offerItem) => offerItem.id === parseInt(params.id, 10));
-  const nearbyOfferList = offerList.filter((offerItem) => offerItem.city.name === offer.city.name).slice(0, 3);
-  const [reviews, setReviews] = useState(props.reviews);
+  const id = parseInt(params.id, 10);
+
+  useEffect(() => {
+    if (!offer || offer.id !== id) {
+      onLoadOffer(id);
+    }
+  }, [offer, id]);
+
+  if (!offer) {
+    return <div className="page page--gray page--main">
+      <Header isMain={true}/>
+      <main className="page__main page__main--favorites page__main--favorites-empty">
+        <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
+          {renderSpinner()}
+        </div>
+      </main>
+    </div>;
+  }
 
   return (<div className="page">
-    <Header isMain={false} authorizedUser={authorizedUser} />
+    <Header isMain={false}/>
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
@@ -79,53 +99,37 @@ const RoomScreen = (props) => {
                 </p>
               </div>
             </div>
-            <section className="property__reviews reviews">
-              <h2 className="reviews__title">
-                Reviews
-                {reviews.length ? ` · ` : ``}
-                {reviews.length ? <span className="reviews__amount">{reviews.length}</span> : ``}
-              </h2>
-              {reviews.length ? <RoomReviewList reviews={reviews} /> : ``}
-              {authorizedUser ? <RoomReviewForm
-                authorizedUser={authorizedUser}
-                onPost={(formData) => {
-                  const userReview = {...formData, id: reviews.length ? reviews[reviews.length - 1].id + 1 : 1};
-                  setReviews([...reviews, userReview]);
-                  return true;
-                }} /> : ``}
-            </section>
+            <RoomReviewListWrapped key={`Room${id}-ReviewList`} id={id} />
           </div>
         </div>
-        <Map
+        <RoomNearbyMapWrapped
+          key={`Room${id}-NearbyMap`}
+          id={id}
           latitude={offer.city.location.latitude}
           longitude={offer.city.location.longitude}
           zoom={offer.city.location.zoom}
-          markers={offerList}
-          className="property__map"
         />
       </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {nearbyOfferList.map((offerItem) => <RoomNearOffer key={`offer-card-${offerItem.id}`} offer={offerItem} />)}
-          </div>
-        </section>
-      </div>
+      <RoomNearbyOfferListWrapped key={`Room${id}-NearbyOfferList`} id={id} />
     </main>
   </div>);
 };
 
 RoomScreen.propTypes = {
-  offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  reviews: PropTypes.arrayOf(CustomPropTypes.review).isRequired,
-  authorizedUser: CustomPropTypes.authorizedUser
+  offer: CustomPropTypes.offer,
+  renderSpinner: PropTypes.func.isRequired,
+  onLoadOffer: PropTypes.func.isRequired,
+  onResetOffer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  offerList: state.offerList,
-  authorizedUser: state.authorizedUser
+  offer: state.activeOffer.data
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOffer: (id) => dispatch(fetchOffer(id)),
+  onResetOffer: () => dispatch(ActionCreator.resetActiveOffer())
 });
 
 export {RoomScreen};
-export default connect(mapStateToProps, null)(RoomScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);

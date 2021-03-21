@@ -34,3 +34,17 @@ export const adaptAuthInfo = (authInfo) => {
 
   return adaptedAuthInfo;
 };
+
+export const adaptReview = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      avatarUrl: review.user[`avatar_url`],
+      id: review.user[`id`],
+      isPro: review.user[`is_pro`],
+      name: review.user[`name`]
+    }
+  };
+
+  return adaptedReview;
+};

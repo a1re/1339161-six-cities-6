@@ -70,6 +70,47 @@ export const reducer = (state = initialState, action) => {
         }
       };
 
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        activeOffer: {
+          data: action.payload,
+          reviewList: state.activeOffer.reviewList,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+      };
+
+    case ActionType.LOAD_REVIEW_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: action.payload,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+      };
+
+    case ActionType.LOAD_NEARBY_OFFER_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: state.activeOffer.reviewList,
+          nearbyOfferList: action.payload
+        }
+      };
+
+    case ActionType.UPDATE_REVIEW_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: action.payload,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+
+      };
+
     case ActionType.SET_AUTHORIZATION_STATUS:
       return {
         ...state,
