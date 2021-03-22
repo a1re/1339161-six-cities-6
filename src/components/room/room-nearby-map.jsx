@@ -4,12 +4,15 @@ import CustomPropTypes from '../../custom-prop-types';
 import Map from '../map/map';
 import {connect} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
+import {ActionCreator} from '../../store/action';
 
-const RoomNearbyMap = ({id, latitude, longitude, zoom, offer, offerList, onLoadNearbyOfferList, renderSpinner}) => {
+const RoomNearbyMap = ({id, latitude, longitude, zoom, offer, offerList, onHoverOffer, onLoadNearbyOfferList, renderSpinner}) => {
   useEffect(() => {
     if (!offerList || offer.id !== id) {
       onLoadNearbyOfferList(id);
     }
+
+    onHoverOffer(id);
   }, [offerList]);
 
   if (!offerList) {
@@ -22,7 +25,7 @@ const RoomNearbyMap = ({id, latitude, longitude, zoom, offer, offerList, onLoadN
     latitude={latitude}
     longitude={longitude}
     zoom={zoom}
-    markers={offerList}
+    markers={[...offerList, offer]}
     className="property__map"
   />;
 };
@@ -35,6 +38,7 @@ RoomNearbyMap.propTypes = {
   offer: CustomPropTypes.offer,
   offerList: PropTypes.arrayOf(CustomPropTypes.offer),
   renderSpinner: PropTypes.func.isRequired,
+  onHoverOffer: PropTypes.func.isRequired,
   onLoadNearbyOfferList: PropTypes.func.isRequired
 };
 
@@ -44,6 +48,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onHoverOffer: (offerId) => dispatch(ActionCreator.hoverOffer(offerId)),
   onLoadNearbyOfferList: (id) => dispatch(fetchNearbyOfferList(id))
 });
 

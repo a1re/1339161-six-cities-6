@@ -10,6 +10,8 @@ import {ActionCreator} from '../../store/action';
 const MainOfferList = ({offerList, cityList, activeCityName, onHoverOffer, sortingName}) => {
   const selectedCity = cityList.find((city) => city.name === activeCityName);
 
+  onHoverOffer(null); // To reset the highlighted offer after RoomScreen
+
   return (<div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
