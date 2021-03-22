@@ -10,7 +10,6 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFER.replace(`:id`, id))
     .then(({data}) => dispatch(ActionCreator.loadOffer(adaptOffer(data))))
-    .catch(() => {})
 );
 
 export const fetchReviewList = (id) => (dispatch, _getState, api) => (
