@@ -13,6 +13,7 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
   const [isPostingAllowed, setPostingStatus] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState(``);
+  const [isError, setErrorStatus] = useState(false);
 
   useEffect(() => {
     const postingStatus = rating >= 1 && rating <= 5
@@ -33,12 +34,16 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
       return;
     }
 
+    setPostingStatus(false);
+
     onPostReview({id, comment, rating})
       .then(() => {
         setRating(0);
         setComment(``);
+        setErrorStatus(false);
       })
-      .catch((error) => console.log(error));
+      .catch(() => setErrorStatus(true))
+      .finally(() => setPostingStatus(true));
   };
 
   return (<form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -120,6 +125,7 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
       value={comment}/>
     <div className="reviews__button-wrapper">
       <p className="reviews__help">
+        {isError && <span style={{color: `red`}}>Error occured while posting your review. Please try again later<br /><br /></span>}
         To submit review please make sure to set <span className="reviews__star">rating</span>
         and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
       </p>
