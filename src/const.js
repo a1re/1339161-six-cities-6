@@ -50,3 +50,10 @@ export const HttpCode = {
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400
 };
+
+export const OfferTypeMap = new Map([
+  [`apartment`, `Apartment`],
+  [`room`, `Private Room`],
+  [`house`, `House`],
+  [`hotel`, `Hotel`]
+]);

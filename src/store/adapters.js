@@ -1,9 +1,12 @@
+import {OfferTypeMap} from '../const';
+
 export const adaptOffer = (offer) => {
   const adaptedOffer = {
     ...offer,
     isFavorite: offer[`is_favorite`],
     isPremium: offer[`is_premium`],
     maxAdults: offer[`max_adults`],
+    type: OfferTypeMap.get(offer[`type`]),
     host: {
       ...offer.host,
       avatarUrl: offer.host[`avatar_url`],
