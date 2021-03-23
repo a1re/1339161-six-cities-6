@@ -11,8 +11,6 @@ import {ActionCreator} from './store/action';
 import {checkAuth} from './store/api-actions';
 import {createAPI} from './services/api';
 
-import reviews from './mocks/reviews';
-
 const api = createAPI(
     () => store.dispatch(ActionCreator.setAuthorizationStatus(AuthorizationStatus.NO_AUTH))
 );
@@ -30,7 +28,6 @@ ReactDOM.render(
     <Provider store={store}>
       <App
         cities={Object.entries(City).map(([, city]) => city)}
-        reviews={reviews}
       />,
     </Provider>,
     document.querySelector(`#root`)

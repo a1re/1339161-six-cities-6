@@ -1,54 +1,10 @@
-const DEFAULT_CITY_ZOOM = 12;
-
 export const City = {
-  Paris: {
-    location: {
-      latitude: 48.858607,
-      longitude: 2.337361,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Paris`
-  },
-  Cologne: {
-    location: {
-      latitude: 50.938057,
-      longitude: 6.966325,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Cologne`
-  },
-  Brussels: {
-    location: {
-      latitude: 50.846663,
-      longitude: 4.352585,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Brussels`
-  },
-  Amsterdam: {
-    location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Amsterdam`
-  },
-  Hamburg: {
-    location: {
-      latitude: 53.543563,
-      longitude: 9.985637,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Hamburg`
-  },
-  Dusseldorf: {
-    location: {
-      latitude: 51.226093,
-      longitude: 6.776462,
-      zoom: DEFAULT_CITY_ZOOM
-    },
-    name: `Dusseldorf`
-  }
+  Paris: `Paris`,
+  Cologne: `Cologne`,
+  Brussels: `Brussels`,
+  Amsterdam: `Amsterdam`,
+  Hamburg: `Hamburg`,
+  Dusseldorf: `Dusseldorf`
 };
 
 export const SORTING_METHODS = [
@@ -58,9 +14,10 @@ export const SORTING_METHODS = [
   {name: `Top rated first`, callback: (offerA, offerB) => offerB.rating - offerA.rating}
 ];
 
-export const DEFAULT_CITY = `Paris`;
+export const DEFAULT_CITY = City.Paris;
 export const DEFAULT_SORTING_NAME = `Popular`;
 export const MIN_REVIEW_LENGTH = 50;
+export const MAX_REVIEW_LENGTH = 300;
 export const PIN_WIDTH = 30;
 export const PIN_HEIGHT = 30;
 export const ESC_KEYCODE = 27;
@@ -71,7 +28,10 @@ export const REQUEST_TIMEOUT = 5000;
 
 export const APIRoute = {
   OFFER_LIST: `/hotels`,
-  LOGIN: `/login`
+  LOGIN: `/login`,
+  OFFER: `/hotels/:id`,
+  NEARBY_OFFER_LIST: `/hotels/:id/nearby`,
+  REVIEW_LIST: `/comments/:id`
 };
 
 export const AppRoute = {
@@ -85,3 +45,16 @@ export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`
 };
+
+export const HttpCode = {
+  UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404
+};
+
+export const OfferTypeMap = new Map([
+  [`apartment`, `Apartment`],
+  [`room`, `Private Room`],
+  [`house`, `House`],
+  [`hotel`, `Hotel`]
+]);

@@ -1,65 +1,114 @@
 import {ActionType} from './action';
 import {initialState} from './initial-state';
-import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
+import {SORTING_METHODS, DEFAULT_SORTING_NAME, AuthorizationStatus, City} from '../const';
 
 export const reducer = (state = initialState, action) => {
-  let cityOffers;
+  let cityOfferList;
   const defaultSorting = SORTING_METHODS.find(
       (sorting) => sorting.name === DEFAULT_SORTING_NAME
   );
 
   switch (action.type) {
     case ActionType.SELECT_CITY:
-      cityOffers = state.offers.filter(
+      cityOfferList = state.offerList.filter(
           (offer) => offer.city.name === action.payload
       );
 
       return {
         ...state,
         activeCityName: action.payload,
-        activeCityOffers: {
-          data: cityOffers,
+        activeCityOfferList: {
+          data: cityOfferList,
           sortingName: DEFAULT_SORTING_NAME,
           sortedData: defaultSorting.callback === `undefined`
-            ? cityOffers
-            : cityOffers.sort(defaultSorting.callback)
+            ? cityOfferList
+            : cityOfferList.sort(defaultSorting.callback)
         }
       };
 
     case ActionType.HOVER_OFFER:
       return {
         ...state,
-        activeOfferId: action.payload
+        hoverOfferId: action.payload
       };
 
     case ActionType.SELECT_SORTING:
       return {
         ...state,
-        activeCityOffers: {
-          data: state.activeCityOffers.data,
+        activeCityOfferList: {
+          data: state.activeCityOfferList.data,
           sortingName: action.payload.name,
           sortedData: action.payload.callback === `undefined`
-            ? state.activeCityOffers.data
-            : state.activeCityOffers.data.sort(action.payload.callback)
+            ? state.activeCityOfferList.data
+            : state.activeCityOfferList.data.slice().sort(action.payload.callback)
         }
       };
 
     case ActionType.LOAD_OFFER_LIST:
-      cityOffers = action.payload.filter(
+      const cityList = Object.entries(City).map(([, cityName]) => {
+        const offerWithCity = action.payload.find((offer) => offer.city.name === cityName);
+        const emptyCity = {name: cityName, location: {latitude: 0, longitude: 0, zoom: 0}};
+
+        return offerWithCity ? offerWithCity.city : emptyCity;
+      });
+
+      cityOfferList = action.payload.filter(
           (offer) => offer.city.name === state.activeCityName
       );
 
       return {
         ...state,
-        offers: action.payload,
+        offerList: action.payload,
+        cityList,
         isOfferListLoaded: true,
-        activeCityOffers: {
-          data: cityOffers,
+        activeCityOfferList: {
+          data: cityOfferList,
           sortingName: defaultSorting.name,
           sortedData: defaultSorting.callback === `undefined`
-            ? cityOffers
-            : cityOffers.sort(defaultSorting.callback)
+            ? cityOfferList
+            : cityOfferList.sort(defaultSorting.callback)
         }
+      };
+
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        activeOffer: {
+          data: action.payload,
+          reviewList: state.activeOffer.reviewList,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+      };
+
+    case ActionType.LOAD_REVIEW_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: action.payload,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+      };
+
+    case ActionType.LOAD_NEARBY_OFFER_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: state.activeOffer.reviewList,
+          nearbyOfferList: action.payload
+        }
+      };
+
+    case ActionType.UPDATE_REVIEW_LIST:
+      return {
+        ...state,
+        activeOffer: {
+          data: state.activeOffer.data,
+          reviewList: action.payload,
+          nearbyOfferList: state.activeOffer.nearbyOfferList
+        }
+
       };
 
     case ActionType.SET_AUTHORIZATION_STATUS:

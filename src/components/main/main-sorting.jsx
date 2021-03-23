@@ -55,7 +55,7 @@ MainSorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeSortingName: state.activeCityOffers.sortingName
+  activeSortingName: state.activeCityOfferList.sortingName
 });
 
 const mapDispatchToProps = (dispatch) => ({

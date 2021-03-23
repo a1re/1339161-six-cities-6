@@ -5,19 +5,19 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
 
-const MainTabs = ({cities, selectedCityName, onSelectCity}) => {
+const MainTabs = ({cityList, selectedCityName, onSelectCity}) => {
   return <div className="tabs">
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {Object.entries(cities).map(([, city]) => <li className="locations__item" key={`city-${city.name}`}>
+        {cityList.map(({name}) => <li className="locations__item" key={`city-${name}`}>
           <a
-            className={`locations__item-link tabs__item${city.name === selectedCityName ? ` tabs__item--active` : ``}`}
+            className={`locations__item-link tabs__item${name === selectedCityName ? ` tabs__item--active` : ``}`}
             onClick={(evt) => {
               evt.preventDefault();
-              onSelectCity(city.name);
+              onSelectCity(name);
             }}
           >
-            <span>{city.name}</span>
+            <span>{name}</span>
           </a>
         </li>
         )}
@@ -27,13 +27,14 @@ const MainTabs = ({cities, selectedCityName, onSelectCity}) => {
 };
 
 MainTabs.propTypes = {
-  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
+  cityList: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
   selectedCityName: PropTypes.string.isRequired,
   onSelectCity: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  selectedCityName: state.activeCityName
+  selectedCityName: state.activeCityName,
+  cityList: state.cityList
 });
 
 const mapDispatchToProps = (dispatch) => ({

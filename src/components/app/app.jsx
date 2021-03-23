@@ -5,21 +5,20 @@ import SignInScreen from '../sign-in/sign-in-screen';
 import FavoritesScreen from '../favorites/favorites-screen';
 import RoomScreen from '../room/room-screen';
 import PrivateRoute from '../private-route/private-route';
-import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
 import withSpinner from '../../hocs/with-spinner/with-spinner';
 
 const MainScreenWrapped = withSpinner(MainScreen);
+const RoomScreenWrapped = withSpinner(RoomScreen);
 
-const App = ({cities, reviews}) => {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreenWrapped cities={cities} />;
+          <MainScreenWrapped/>;
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
@@ -28,7 +27,7 @@ const App = ({cities, reviews}) => {
           <FavoritesScreen />;
         </PrivateRoute>
         <Route exact path={AppRoute.ROOM}>
-          <RoomScreen reviews={reviews} />;
+          <RoomScreenWrapped/>;
         </Route>
         <Route>
           <NotFoundScreen />
@@ -36,11 +35,6 @@ const App = ({cities, reviews}) => {
       </Switch>
     </BrowserRouter>
   );
-};
-
-App.propTypes = {
-  cities: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
-  reviews: PropTypes.arrayOf(CustomPropTypes.review.isRequired).isRequired
 };
 
 export default App;

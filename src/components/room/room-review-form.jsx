@@ -1,15 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
-import {MIN_REVIEW_LENGTH} from '../../const';
+import {MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH} from '../../const';
+import {connect} from 'react-redux';
+import {postReview} from '../../store/api-actions';
+import {AuthorizationStatus} from '../../const';
 
-const RoomReviewForm = ({onPost, authorizedUser}) => {
+const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
+  if (authorizationStatus !== AuthorizationStatus.AUTH) {
+    return null;
+  }
+
   const [isPostingAllowed, setPostingStatus] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState(``);
+  const [isError, setErrorStatus] = useState(false);
 
   useEffect(() => {
-    setPostingStatus(rating >= 1 && rating <= 5 && comment.length >= MIN_REVIEW_LENGTH);
+    const postingStatus = rating >= 1 && rating <= 5
+      && comment.length >= MIN_REVIEW_LENGTH
+      && comment.length <= MAX_REVIEW_LENGTH;
+
+    setPostingStatus(postingStatus);
   }, [rating, comment]);
 
   const handleRatingChange = (evt) => {
@@ -23,22 +34,16 @@ const RoomReviewForm = ({onPost, authorizedUser}) => {
       return;
     }
 
-    const reviewData = {
-      rating,
-      comment,
-      date: new Date().toISOString(),
-      user: {
-        avatarUrl: authorizedUser.avatarUrl,
-        id: authorizedUser.id,
-        isPro: authorizedUser.isPro,
-        name: authorizedUser.name
-      }
-    };
+    setPostingStatus(false);
 
-    if (onPost(reviewData)) {
-      setRating(0);
-      setComment(``);
-    }
+    onPostReview({id, comment, rating})
+      .then(() => {
+        setRating(0);
+        setComment(``);
+        setErrorStatus(false);
+      })
+      .catch(() => setErrorStatus(true))
+      .finally(() => setPostingStatus(true));
   };
 
   return (<form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -116,9 +121,11 @@ const RoomReviewForm = ({onPost, authorizedUser}) => {
       name="review"
       placeholder="Tell how was your stay, what you like and what can be improved"
       onChange={(evt) => setComment(evt.target.value)}
+      maxLength={MAX_REVIEW_LENGTH}
       value={comment}/>
     <div className="reviews__button-wrapper">
       <p className="reviews__help">
+        {isError && <span style={{color: `red`}}>Error occured while posting your review. Please try again later<br /><br /></span>}
         To submit review please make sure to set <span className="reviews__star">rating</span>
         and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
       </p>
@@ -128,8 +135,18 @@ const RoomReviewForm = ({onPost, authorizedUser}) => {
 };
 
 RoomReviewForm.propTypes = {
-  onPost: PropTypes.func.isRequired,
-  authorizedUser: CustomPropTypes.authorizedUser
+  id: PropTypes.number.isRequired,
+  onPostReview: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
-export default RoomReviewForm;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onPostReview: ({id, comment, rating}) => dispatch(postReview({id, comment, rating}))
+});
+
+export {RoomReviewForm};
+export default connect(mapStateToProps, mapDispatchToProps)(RoomReviewForm);

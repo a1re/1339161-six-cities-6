@@ -1,9 +1,12 @@
+import {OfferTypeMap} from '../const';
+
 export const adaptOffer = (offer) => {
   const adaptedOffer = {
     ...offer,
     isFavorite: offer[`is_favorite`],
     isPremium: offer[`is_premium`],
     maxAdults: offer[`max_adults`],
+    type: OfferTypeMap.get(offer[`type`]),
     host: {
       ...offer.host,
       avatarUrl: offer.host[`avatar_url`],
@@ -33,4 +36,18 @@ export const adaptAuthInfo = (authInfo) => {
   delete adaptedAuthInfo[`is_pro`];
 
   return adaptedAuthInfo;
+};
+
+export const adaptReview = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      avatarUrl: review.user[`avatar_url`],
+      id: review.user[`id`],
+      isPro: review.user[`is_pro`],
+      name: review.user[`name`]
+    }
+  };
+
+  return adaptedReview;
 };

@@ -1,9 +1,5 @@
 import axios from 'axios';
-import {BACKEND_URL, REQUEST_TIMEOUT} from '../const';
-
-const HttpCode = {
-  UNAUTHORIZED: 401
-};
+import {BACKEND_URL, REQUEST_TIMEOUT, HttpCode} from '../const';
 
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
@@ -19,8 +15,6 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
-
-      throw err;
     }
 
     throw err;

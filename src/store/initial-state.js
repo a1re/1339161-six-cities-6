@@ -1,15 +1,21 @@
 import {DEFAULT_CITY, DEFAULT_SORTING_NAME, AuthorizationStatus} from '../const';
 
 export const initialState = {
+  offerList: [],
+  isOfferListLoaded: false,
+  cityList: [],
   activeCityName: DEFAULT_CITY,
-  activeOfferId: null,
-  offers: [],
-  authorizedUser: null,
-  activeCityOffers: {
+  activeCityOfferList: {
     data: [],
     sortingName: DEFAULT_SORTING_NAME,
     sortedData: []
   },
-  isOfferListLoaded: false,
+  activeOffer: {
+    data: null,
+    reviewList: null,
+    nearbyOfferList: null
+  },
+  hoverOfferId: null,
+  authorizedUser: null,
   authorizationStatus: AuthorizationStatus.NO_AUTH
 };
