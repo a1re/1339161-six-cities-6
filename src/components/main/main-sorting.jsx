@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {SORTING_METHODS, ESC_KEYCODE} from '../../const';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {selectSorting} from '../../store/action';
 
 const MainSorting = ({activeSortingName, onSelectSorting}) => {
   const [isSortingOpen, openSorting] = useState(false);
@@ -59,7 +59,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectSorting: (sorting) => dispatch(ActionCreator.selectSorting(sorting))
+  onSelectSorting: (sorting) => dispatch(selectSorting(sorting))
 });
 
 export {MainSorting};

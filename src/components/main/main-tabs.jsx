@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {selectCity} from '../../store/action';
 
 
 const MainTabs = ({cityList, selectedCityName, onSelectCity}) => {
@@ -38,7 +38,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectCity: (cityName) => dispatch(ActionCreator.selectCity(cityName))
+  onSelectCity: (cityName) => dispatch(selectCity(cityName))
 });
 
 export {MainTabs};

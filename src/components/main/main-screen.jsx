@@ -6,7 +6,7 @@ import MainTabs from './main-tabs';
 import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {selectCity} from '../../store/action';
 import {fetchOfferList} from '../../store/api-actions';
 
 const MainScreen = ({offerList, selectedCityName, authorizedUser, renderSpinner, isOfferListLoaded, onLoadOfferList}) => {
@@ -61,7 +61,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectCity: (cityName) => dispatch(ActionCreator.selectCity(cityName)),
+  onSelectCity: (cityName) => dispatch(selectCity(cityName)),
   onLoadOfferList: () => dispatch(fetchOfferList())
 });
 

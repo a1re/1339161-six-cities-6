@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   SELECT_CITY: `main/selectCity`,
   HOVER_OFFER: `main/hoverOffer`,
@@ -11,45 +13,42 @@ export const ActionType = {
   SET_AUTHORIZATION_INFO: `user/setAuthorizationInfo`
 };
 
-export const ActionCreator = {
-  selectCity: (cityName) => ({
-    type: ActionType.SELECT_CITY,
-    payload: cityName
-  }),
-  hoverOffer: (offerId) => ({
-    type: ActionType.HOVER_OFFER,
-    payload: offerId
-  }),
-  selectSorting: (sortingMethod) => ({
-    type: ActionType.SELECT_SORTING,
-    payload: sortingMethod
-  }),
-  loadOfferList: (offerList) => ({
-    type: ActionType.LOAD_OFFER_LIST,
-    payload: offerList
-  }),
-  loadOffer: (offer) => ({
-    type: ActionType.LOAD_OFFER,
-    payload: offer
-  }),
-  loadReviewList: (reviewList) => ({
-    type: ActionType.LOAD_REVIEW_LIST,
-    payload: reviewList
-  }),
-  loadNearbyOfferList: (nearbyOfferList) => ({
-    type: ActionType.LOAD_NEARBY_OFFER_LIST,
-    payload: nearbyOfferList
-  }),
-  setAuthorizationStatus: (authorizationStatus) => ({
-    type: ActionType.SET_AUTHORIZATION_STATUS,
-    payload: authorizationStatus
-  }),
-  setAuthorizationInfo: (authorizationInfo) => ({
-    type: ActionType.SET_AUTHORIZATION_INFO,
-    payload: authorizationInfo
-  }),
-  updateReviewList: (reviewInfo) => ({
-    type: ActionType.UPDATE_REVIEW_LIST,
-    payload: reviewInfo
-  })
-};
+export const selectCity = createAction(ActionType.SELECT_CITY, (cityName) => ({
+  payload: cityName
+}));
+
+export const hoverOffer = createAction(ActionType.HOVER_OFFER, (offerId) => ({
+  payload: offerId
+}));
+
+export const selectSorting = createAction(ActionType.SELECT_SORTING, (sortingMethod) => ({
+  payload: sortingMethod
+}));
+
+export const loadOfferList = createAction(ActionType.LOAD_OFFER_LIST, (offerList) => ({
+  payload: offerList
+}));
+
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({
+  payload: offer
+}));
+
+export const loadReviewList = createAction(ActionType.LOAD_REVIEW_LIST, (reviewList) => ({
+  payload: reviewList
+}));
+
+export const loadNearbyOfferList = createAction(ActionType.LOAD_NEARBY_OFFER_LIST, (nearbyOfferList) => ({
+  payload: nearbyOfferList
+}));
+
+export const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS, (authorizationStatus) => ({
+  payload: authorizationStatus
+}));
+
+export const setAuthorizationInfo = createAction(ActionType.SET_AUTHORIZATION_INFO, (authorizationInfo) => ({
+  payload: authorizationInfo
+}));
+
+export const updateReviewList = createAction(ActionType.UPDATE_REVIEW_LIST, (reviewInfo) => ({
+  payload: reviewInfo
+}));

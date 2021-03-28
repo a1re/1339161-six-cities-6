@@ -4,7 +4,7 @@ import CustomPropTypes from '../../custom-prop-types';
 import Map from '../map/map';
 import {connect} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
-import {ActionCreator} from '../../store/action';
+import {hoverOffer} from '../../store/action';
 
 const RoomNearbyMap = ({id, latitude, longitude, zoom, offer, offerList, onHoverOffer, onLoadNearbyOfferList, renderSpinner}) => {
   useEffect(() => {
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onHoverOffer: (offerId) => dispatch(ActionCreator.hoverOffer(offerId)),
+  onHoverOffer: (offerId) => dispatch(hoverOffer(offerId)),
   onLoadNearbyOfferList: (id) => dispatch(fetchNearbyOfferList(id))
 });
 

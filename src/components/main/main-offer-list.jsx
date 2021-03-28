@@ -5,7 +5,7 @@ import MainSorting from './main-sorting';
 import MainOfferCard from './main-offer-card';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {hoverOffer} from '../../store/action';
 
 const MainOfferList = ({offerList, cityList, activeCityName, onHoverOffer, sortingName}) => {
   const selectedCity = cityList.find((city) => city.name === activeCityName);
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onHoverOffer: (offerId) => dispatch(ActionCreator.hoverOffer(offerId))
+  onHoverOffer: (offerId) => dispatch(hoverOffer(offerId))
 });
 
 export {MainOfferList};
