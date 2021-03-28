@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {SORTING_METHODS, ESC_KEYCODE} from '../../const';
-import {connect} from 'react-redux';
-import {selectSorting} from '../../store/action';
+import {SORTING_METHODS, ESC_KEYCODE, DEFAULT_SORTING_NAME} from '../../const';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateCityOfferList} from '../../store/action';
 
-const MainSorting = ({activeSortingName, onSelectSorting}) => {
+const MainSorting = () => {
   const [isSortingOpen, openSorting] = useState(false);
+  const [sortingName, setSortingName] = useState(DEFAULT_SORTING_NAME);
+  const {activeCityName} = useSelector((state) => state.CITY);
+
+  const dispatch = useDispatch();
 
   const closeSortingByEsc = (evt) => {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -26,7 +29,7 @@ const MainSorting = ({activeSortingName, onSelectSorting}) => {
     <span className="places__sorting-caption">Sort by</span>
     &nbsp;
     <span className="places__sorting-type" tabIndex={0} onClick={() => openSorting(!isSortingOpen)}>
-      {activeSortingName}
+      {sortingName}
       <svg className="places__sorting-arrow" width={7} height={4}>
         <use xlinkHref="#icon-arrow-select" />
       </svg>
@@ -35,10 +38,11 @@ const MainSorting = ({activeSortingName, onSelectSorting}) => {
       {SORTING_METHODS.map((sorting) =>
         <li
           key={sorting.name}
-          className={classNames(`places__option`, activeSortingName === sorting.name && `places__option--active`)}
+          className={classNames(`places__option`, sortingName === sorting.name && `places__option--active`)}
           tabIndex={0}
           onClick={() => {
-            onSelectSorting(sorting);
+            dispatch(updateCityOfferList(activeCityName, sorting.name));
+            setSortingName(sorting.name);
             openSorting(false);
           }}
         >
@@ -49,18 +53,4 @@ const MainSorting = ({activeSortingName, onSelectSorting}) => {
   </form>;
 };
 
-MainSorting.propTypes = {
-  activeSortingName: PropTypes.string.isRequired,
-  onSelectSorting: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  activeSortingName: state.activeCityOfferList.sortingName
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSelectSorting: (sorting) => dispatch(selectSorting(sorting))
-});
-
-export {MainSorting};
-export default connect(mapStateToProps, mapDispatchToProps)(MainSorting);
+export default MainSorting;

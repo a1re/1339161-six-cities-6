@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH} from '../../const';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
 
-const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
+const RoomReviewForm = ({id}) => {
+  const {authorizationStatus} = useSelector((state) => state.USER);
+
   if (authorizationStatus !== AuthorizationStatus.AUTH) {
     return null;
   }
@@ -14,6 +16,8 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState(``);
   const [isError, setErrorStatus] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const postingStatus = rating >= 1 && rating <= 5
@@ -36,7 +40,7 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
 
     setPostingStatus(false);
 
-    onPostReview({id, comment, rating})
+    dispatch(postReview({id, comment, rating}))
       .then(() => {
         setRating(0);
         setComment(``);
@@ -135,18 +139,7 @@ const RoomReviewForm = ({id, onPostReview, authorizationStatus}) => {
 };
 
 RoomReviewForm.propTypes = {
-  id: PropTypes.number.isRequired,
-  onPostReview: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  id: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onPostReview: ({id, comment, rating}) => dispatch(postReview({id, comment, rating}))
-});
-
-export {RoomReviewForm};
-export default connect(mapStateToProps, mapDispatchToProps)(RoomReviewForm);
+export default RoomReviewForm;

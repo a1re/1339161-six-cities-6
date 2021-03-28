@@ -1,35 +1,42 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import RoomReviewList from './room-review-list';
 import RoomNearbyMap from './room-nearby-map';
 import RoomNearbyOfferList from './room-nearby-offer-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import withSpinner from '../../hocs/with-spinner/with-spinner';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchOffer} from '../../store/api-actions';
 import {HttpCode} from '../../const';
+import {hoverOffer} from '../../store/action';
 
 const RoomNearbyMapWrapped = withSpinner(RoomNearbyMap);
 const RoomNearbyOfferListWrapped = withSpinner(RoomNearbyOfferList);
 const RoomReviewListWrapped = withSpinner(RoomReviewList);
 
-const RoomScreen = ({offer, renderSpinner, onLoadOffer}) => {
+const RoomScreen = ({renderSpinner}) => {
+  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
+  const {data: offer} = activeOffer;
+
+  const dispatch = useDispatch();
+
   const params = useParams();
   const id = parseInt(params.id, 10);
   const [isNotFound, setNotFoundStatus] = useState(false);
 
   useEffect(() => {
     if (!offer || offer.id !== id) {
-      onLoadOffer(id)
+      dispatch(fetchOffer(id))
         .catch((error) => {
           if (error.response.status === HttpCode.NOT_FOUND) {
             setNotFoundStatus(true);
           }
         });
     }
+
+    return () => dispatch(hoverOffer(null));
   }, [offer, id]);
 
   if (isNotFound) {
@@ -127,18 +134,7 @@ const RoomScreen = ({offer, renderSpinner, onLoadOffer}) => {
 };
 
 RoomScreen.propTypes = {
-  offer: CustomPropTypes.offer,
-  renderSpinner: PropTypes.func.isRequired,
-  onLoadOffer: PropTypes.func.isRequired
+  renderSpinner: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.activeOffer.data
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOffer: (id) => dispatch(fetchOffer(id))
-});
-
-export {RoomScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);
+export default RoomScreen;

@@ -1,16 +1,21 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import ReviewItem from './room-review-item';
 import RoomReviewForm from './room-review-form';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchReviewList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
 
-const RoomReviewList = ({id, offer, reviewList, renderSpinner, authorizationStatus, onLoadReviewList}) => {
+const RoomReviewList = ({id, renderSpinner}) => {
+  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
+  const {data: offer, reviewList} = activeOffer;
+  const {authorizationStatus} = useSelector((state) => state.USER);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!reviewList || offer.id !== id) {
-      onLoadReviewList(id);
+      dispatch(fetchReviewList(id));
     }
   }, [reviewList]);
 
@@ -35,22 +40,7 @@ const RoomReviewList = ({id, offer, reviewList, renderSpinner, authorizationStat
 
 RoomReviewList.propTypes = {
   id: PropTypes.number.isRequired,
-  offer: CustomPropTypes.offer,
-  reviewList: PropTypes.arrayOf(CustomPropTypes.review),
-  renderSpinner: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  onLoadReviewList: PropTypes.func.isRequired
+  renderSpinner: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.activeOffer.data,
-  reviewList: state.activeOffer.reviewList,
-  authorizationStatus: state.authorizationStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadReviewList: (id) => dispatch(fetchReviewList(id))
-});
-
-export {RoomReviewList};
-export default connect(mapStateToProps, mapDispatchToProps)(RoomReviewList);
+export default RoomReviewList;

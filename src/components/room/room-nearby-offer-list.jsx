@@ -1,14 +1,18 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import RoomNearOffer from './room-near-offer';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
 
-const RoomNearbyOfferList = ({id, offer, offerList, onLoadNearbyOfferList, renderSpinner}) => {
+const RoomNearbyOfferList = ({id, renderSpinner}) => {
+  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
+  const {data: offer, nearbyOfferList: offerList} = activeOffer;
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!offerList || offer.id !== id) {
-      onLoadNearbyOfferList(id);
+      dispatch(fetchNearbyOfferList(id));
     }
   }, [offerList]);
 
@@ -30,20 +34,7 @@ const RoomNearbyOfferList = ({id, offer, offerList, onLoadNearbyOfferList, rende
 
 RoomNearbyOfferList.propTypes = {
   id: PropTypes.number.isRequired,
-  offer: CustomPropTypes.offer,
-  offerList: PropTypes.arrayOf(CustomPropTypes.offer),
-  renderSpinner: PropTypes.func.isRequired,
-  onLoadNearbyOfferList: PropTypes.func.isRequired
+  renderSpinner: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.activeOffer.data,
-  offerList: state.activeOffer.nearbyOfferList
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadNearbyOfferList: (id) => dispatch(fetchNearbyOfferList(id))
-});
-
-export {RoomNearbyOfferList};
-export default connect(mapStateToProps, mapDispatchToProps)(RoomNearbyOfferList);
+export default RoomNearbyOfferList;

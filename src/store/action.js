@@ -1,19 +1,20 @@
 import {createAction} from '@reduxjs/toolkit';
+import {City, SORTING_METHODS} from '../const';
 
 export const ActionType = {
-  SELECT_CITY: `main/selectCity`,
+  SET_CITY: `main/setCity`,
   HOVER_OFFER: `main/hoverOffer`,
-  SELECT_SORTING: `main/selectSorting`,
-  LOAD_OFFER_LIST: `data/loadOfferList`,
-  LOAD_OFFER: `data/loadOffer`,
-  LOAD_REVIEW_LIST: `data/loadReviewList`,
-  LOAD_NEARBY_OFFER_LIST: `data/loadNearbyOfferList`,
-  UPDATE_REVIEW_LIST: `data/updateReviewList`,
+  UPDATE_CITY_OFFER_LIST: `main/updateCityOfferList`,
+  SET_CITY_LIST_BY_OFFER_LIST: `data/setCityListByOfferList`,
+  SET_OFFER_LIST: `data/setOfferList`,
+  SET_OFFER: `data/setOffer`,
+  SET_REVIEW_LIST: `data/setReviewList`,
+  SET_NEARBY_OFFER_LIST: `data/setNearbyOfferList`,
   SET_AUTHORIZATION_STATUS: `user/setAuthorizationStatus`,
   SET_AUTHORIZATION_INFO: `user/setAuthorizationInfo`
 };
 
-export const selectCity = createAction(ActionType.SELECT_CITY, (cityName) => ({
+export const setCity = createAction(ActionType.SET_CITY, (cityName) => ({
   payload: cityName
 }));
 
@@ -21,24 +22,44 @@ export const hoverOffer = createAction(ActionType.HOVER_OFFER, (offerId) => ({
   payload: offerId
 }));
 
-export const selectSorting = createAction(ActionType.SELECT_SORTING, (sortingMethod) => ({
-  payload: sortingMethod
-}));
-
-export const loadOfferList = createAction(ActionType.LOAD_OFFER_LIST, (offerList) => ({
+export const setOfferList = createAction(ActionType.SET_OFFER_LIST, (offerList) => ({
   payload: offerList
 }));
 
-export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({
+export const setCityListByOfferList = createAction(ActionType.SET_CITY_LIST_BY_OFFER_LIST, (offerList) => {
+  const cityList = Object.entries(City).map(([, cityName]) => {
+    const offerWithCity = offerList.find((offer) => offer.city.name === cityName);
+    const emptyCity = {name: cityName, location: {latitude: 0, longitude: 0, zoom: 0}};
+
+    return offerWithCity ? offerWithCity.city : emptyCity;
+  });
+
+  return {
+    payload: cityList
+  };
+});
+
+export const updateCityOfferList = createAction(ActionType.UPDATE_CITY_OFFER_LIST, (cityName, sortingName) => {
+  const sortingMethod = SORTING_METHODS.find((sorting) => sorting.name === sortingName);
+
+  return {
+    payload: {
+      activeCityName: cityName,
+      sortingMethod: sortingMethod.callback,
+    }
+  };
+});
+
+export const setActiveOffer = createAction(ActionType.SET_OFFER, (offer) => ({
   payload: offer
 }));
 
-export const loadReviewList = createAction(ActionType.LOAD_REVIEW_LIST, (reviewList) => ({
-  payload: reviewList
+export const setNearbyOfferList = createAction(ActionType.SET_NEARBY_OFFER_LIST, (nearbyOfferList) => ({
+  payload: nearbyOfferList
 }));
 
-export const loadNearbyOfferList = createAction(ActionType.LOAD_NEARBY_OFFER_LIST, (nearbyOfferList) => ({
-  payload: nearbyOfferList
+export const setReviewList = createAction(ActionType.SET_REVIEW_LIST, (reviewList) => ({
+  payload: reviewList
 }));
 
 export const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS, (authorizationStatus) => ({
@@ -47,8 +68,4 @@ export const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_
 
 export const setAuthorizationInfo = createAction(ActionType.SET_AUTHORIZATION_INFO, (authorizationInfo) => ({
   payload: authorizationInfo
-}));
-
-export const updateReviewList = createAction(ActionType.UPDATE_REVIEW_LIST, (reviewInfo) => ({
-  payload: reviewInfo
 }));

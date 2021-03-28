@@ -4,13 +4,14 @@ import CustomPropTypes from '../../custom-prop-types';
 import leaflet from 'leaflet';
 import classNames from 'classnames';
 import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({latitude, longitude, zoom, markers, className, hoverOfferId}) => {
+const Map = ({latitude, longitude, zoom, markers, className}) => {
   const mapRef = useRef();
   const [placedMarkers, setPlacedMarkers] = useState({});
+  const {hoverOfferId} = useSelector((state) => state.OFFER_LIST);
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -69,13 +70,7 @@ Map.propTypes = {
   latitude: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
   markers: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  className: PropTypes.string.isRequired,
-  hoverOfferId: PropTypes.number
+  className: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  hoverOfferId: state.hoverOfferId
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default Map;

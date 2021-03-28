@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AuthorizationStatus, AppRoute} from '../../const';
 
-const PrivateRoute = ({children, authorizationStatus, ...rest}) => {
+const PrivateRoute = ({children, ...rest}) => {
+  const {authorizationStatus} = useSelector((state) => state.USER);
+
   return (
     <Route
       {...rest}
@@ -19,13 +21,7 @@ PrivateRoute.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  ]).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
-});
-
-export {PrivateRoute};
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

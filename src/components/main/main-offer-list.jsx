@@ -1,28 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import MainSorting from './main-sorting';
 import MainOfferCard from './main-offer-card';
 import Map from '../map/map';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {hoverOffer} from '../../store/action';
 
-const MainOfferList = ({offerList, cityList, activeCityName, onHoverOffer, sortingName}) => {
+const MainOfferList = () => {
+  const {activeCityName, cityList} = useSelector((state) => state.CITY);
+  const {activeCityOfferList} = useSelector((state) => state.OFFER_LIST);
   const selectedCity = cityList.find((city) => city.name === activeCityName);
 
-  onHoverOffer(null); // To reset the highlighted offer after RoomScreen
+  const dispatch = useDispatch();
 
   return (<div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offerList.length} {offerList.length > 1 ? `places` : `place`} to stay in {selectedCity.name}</b>
+      <b className="places__found">{activeCityOfferList.length} {activeCityOfferList.length > 1 ? `places` : `place`} to stay in {activeCityName}</b>
       <MainSorting />
-      <div className="cities__places-list places__list tabs__content" key={sortingName}>
-        {offerList.map((offer) => <MainOfferCard
+      <div className="cities__places-list places__list tabs__content">
+        {activeCityOfferList.map((offer) => <MainOfferCard
           key={`offer-card-${offer.id}`}
           offer={offer}
-          onHoverIn={() => onHoverOffer(offer.id) }
-          onHoverOut={() => onHoverOffer(null) }
+          onHoverIn={() => {
+            dispatch(hoverOffer(offer.id));
+          }}
+          onHoverOut={() => dispatch(hoverOffer(null)) }
         />)}
       </div>
     </section>
@@ -31,32 +33,11 @@ const MainOfferList = ({offerList, cityList, activeCityName, onHoverOffer, sorti
         latitude={selectedCity.location.latitude}
         longitude={selectedCity.location.longitude}
         zoom={selectedCity.location.zoom}
-        markers={offerList}
+        markers={activeCityOfferList}
         className="cities__map"
       />
     </div>
   </div>);
 };
 
-MainOfferList.propTypes = {
-  cityList: PropTypes.arrayOf(CustomPropTypes.city).isRequired,
-  activeCityName: PropTypes.string.isRequired,
-  offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
-  sortingName: PropTypes.string.isRequired,
-  onHoverOffer: PropTypes.func.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  cityList: state.cityList,
-  activeCityName: state.activeCityName,
-  offerList: state.activeCityOfferList.sortedData,
-  sortingName: state.activeCityOfferList.sortingName
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onHoverOffer: (offerId) => dispatch(hoverOffer(offerId))
-});
-
-export {MainOfferList};
-export default connect(mapStateToProps, mapDispatchToProps)(MainOfferList);
+export default React.memo(MainOfferList);
