@@ -1,21 +1,21 @@
 export const City = {
-  Paris: `Paris`,
-  Cologne: `Cologne`,
-  Brussels: `Brussels`,
-  Amsterdam: `Amsterdam`,
-  Hamburg: `Hamburg`,
-  Dusseldorf: `Dusseldorf`
+  PARIS: `Paris`,
+  COLOGNE: `Cologne`,
+  BRUSSELS: `Brussels`,
+  AMSTERDAM: `Amsterdam`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`
 };
 
-export const SORTING_METHODS = [
-  {name: `Popular`},
-  {name: `Price: low to high`, callback: (offerA, offerB) => offerA.price - offerB.price},
-  {name: `Price: high to low`, callback: (offerA, offerB) => offerB.price - offerA.price},
-  {name: `Top rated first`, callback: (offerA, offerB) => offerB.rating - offerA.rating}
-];
+export const SortingMethod = {
+  POPULAR: `Popular`,
+  PRICE_ASC: `Price: low to high`,
+  PRICE_DESC: `Price: high to low`,
+  RATING: `Top rated first`
+};
 
-export const DEFAULT_CITY = City.Paris;
-export const DEFAULT_SORTING_NAME = `Popular`;
+export const DEFAULT_CITY = City.PARIS;
+export const DEFAULT_SORTING = SortingMethod.POPULAR;
 export const MIN_REVIEW_LENGTH = 50;
 export const MAX_REVIEW_LENGTH = 300;
 export const PIN_WIDTH = 30;

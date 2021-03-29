@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Map from '../map/map';
+import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
 import {hoverOffer} from '../../store/action';
 
-const RoomNearbyMap = ({id, latitude, longitude, zoom, renderSpinner}) => {
+const RoomNearbyMap = ({id, latitude, longitude, zoom}) => {
   const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
   const {data: offer, nearbyOfferList: offerList} = activeOffer;
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const RoomNearbyMap = ({id, latitude, longitude, zoom, renderSpinner}) => {
 
   if (!offerList) {
     return <div className="container" style={{textAlign: `center`}}>
-      {renderSpinner()}
+      <Spinner />
     </div>;
   }
 
@@ -38,8 +39,7 @@ RoomNearbyMap.propTypes = {
   id: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
-  zoom: PropTypes.number.isRequired,
-  renderSpinner: PropTypes.func.isRequired
+  zoom: PropTypes.number.isRequired
 };
 
 export default RoomNearbyMap;

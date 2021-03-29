@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import RoomNearOffer from './room-near-offer';
+import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
 
-const RoomNearbyOfferList = ({id, renderSpinner}) => {
+const RoomNearbyOfferList = ({id}) => {
   const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
   const {data: offer, nearbyOfferList: offerList} = activeOffer;
 
@@ -18,7 +19,7 @@ const RoomNearbyOfferList = ({id, renderSpinner}) => {
 
   if (!offerList) {
     return <div className="container" style={{textAlign: `center`}}>
-      {renderSpinner()}
+      <Spinner />
     </div>;
   }
 
@@ -33,8 +34,7 @@ const RoomNearbyOfferList = ({id, renderSpinner}) => {
 };
 
 RoomNearbyOfferList.propTypes = {
-  id: PropTypes.number.isRequired,
-  renderSpinner: PropTypes.func.isRequired
+  id: PropTypes.number.isRequired
 };
 
 export default RoomNearbyOfferList;

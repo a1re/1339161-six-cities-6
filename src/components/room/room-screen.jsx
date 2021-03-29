@@ -1,22 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Header from '../header/header';
 import RoomReviewList from './room-review-list';
 import RoomNearbyMap from './room-nearby-map';
 import RoomNearbyOfferList from './room-nearby-offer-list';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import withSpinner from '../../hocs/with-spinner/with-spinner';
+import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchOffer} from '../../store/api-actions';
 import {HttpCode} from '../../const';
 import {hoverOffer} from '../../store/action';
 
-const RoomNearbyMapWrapped = withSpinner(RoomNearbyMap);
-const RoomNearbyOfferListWrapped = withSpinner(RoomNearbyOfferList);
-const RoomReviewListWrapped = withSpinner(RoomReviewList);
-
-const RoomScreen = ({renderSpinner}) => {
+const RoomScreen = () => {
   const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
   const {data: offer} = activeOffer;
 
@@ -48,7 +43,7 @@ const RoomScreen = ({renderSpinner}) => {
       <Header isMain={true}/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
-          {renderSpinner()}
+          <Spinner />
         </div>
       </main>
     </div>;
@@ -117,10 +112,10 @@ const RoomScreen = ({renderSpinner}) => {
                 </p>
               </div>
             </div>
-            <RoomReviewListWrapped key={`Room${id}-ReviewList`} id={id} />
+            <RoomReviewList key={`Room${id}-ReviewList`} id={id} />
           </div>
         </div>
-        <RoomNearbyMapWrapped
+        <RoomNearbyMap
           key={`Room${id}-NearbyMap`}
           id={id}
           latitude={offer.city.location.latitude}
@@ -128,13 +123,9 @@ const RoomScreen = ({renderSpinner}) => {
           zoom={offer.city.location.zoom}
         />
       </section>
-      <RoomNearbyOfferListWrapped key={`Room${id}-NearbyOfferList`} id={id} />
+      <RoomNearbyOfferList key={`Room${id}-NearbyOfferList`} id={id} />
     </main>
   </div>);
-};
-
-RoomScreen.propTypes = {
-  renderSpinner: PropTypes.func.isRequired
 };
 
 export default RoomScreen;

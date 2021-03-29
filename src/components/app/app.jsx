@@ -8,17 +8,12 @@ import PrivateRoute from '../private-route/private-route';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-import withSpinner from '../../hocs/with-spinner/with-spinner';
-
-const MainScreenWrapped = withSpinner(MainScreen);
-const RoomScreenWrapped = withSpinner(RoomScreen);
-
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreenWrapped/>;
+          <MainScreen/>;
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
@@ -27,7 +22,7 @@ const App = () => {
           <FavoritesScreen />;
         </PrivateRoute>
         <Route exact path={AppRoute.ROOM}>
-          <RoomScreenWrapped/>;
+          <RoomScreen/>;
         </Route>
         <Route>
           <NotFoundScreen />

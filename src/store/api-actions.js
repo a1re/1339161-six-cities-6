@@ -6,8 +6,8 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFER_LIST)
     .then(({data}) => {
       const adaptedOfferList = data.map(adaptOffer);
-      dispatch(setOfferList(adaptedOfferList));
       dispatch(setCityListByOfferList(adaptedOfferList));
+      dispatch(setOfferList(adaptedOfferList));
     })
 );
 

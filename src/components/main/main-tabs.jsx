@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {setCity, updateCityOfferList} from '../../store/action';
-import {DEFAULT_SORTING_NAME} from '../../const';
+import {setCity} from '../../store/action';
 
 const MainTabs = () => {
-  const {activeCityName, cityList} = useSelector((state) => state.CITY);
+  const activeCityName = useSelector((state) => state.CITY.activeCityName);
+  const cityList = useSelector((state) => state.CITY.cityList);
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,6 @@ const MainTabs = () => {
             onClick={(evt) => {
               evt.preventDefault();
               dispatch(setCity(name));
-              dispatch(updateCityOfferList(name, DEFAULT_SORTING_NAME));
             }}
           >
             <span>{name}</span>

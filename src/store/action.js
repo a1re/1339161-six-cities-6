@@ -1,10 +1,10 @@
 import {createAction} from '@reduxjs/toolkit';
-import {City, SORTING_METHODS} from '../const';
+import {City} from '../const';
 
 export const ActionType = {
   SET_CITY: `main/setCity`,
+  SET_SORTING: `main/setSorting`,
   HOVER_OFFER: `main/hoverOffer`,
-  UPDATE_CITY_OFFER_LIST: `main/updateCityOfferList`,
   SET_CITY_LIST_BY_OFFER_LIST: `data/setCityListByOfferList`,
   SET_OFFER_LIST: `data/setOfferList`,
   SET_OFFER: `data/setOffer`,
@@ -16,6 +16,10 @@ export const ActionType = {
 
 export const setCity = createAction(ActionType.SET_CITY, (cityName) => ({
   payload: cityName
+}));
+
+export const setSorting = createAction(ActionType.SET_SORTING, (sortingName) => ({
+  payload: sortingName
 }));
 
 export const hoverOffer = createAction(ActionType.HOVER_OFFER, (offerId) => ({
@@ -36,17 +40,6 @@ export const setCityListByOfferList = createAction(ActionType.SET_CITY_LIST_BY_O
 
   return {
     payload: cityList
-  };
-});
-
-export const updateCityOfferList = createAction(ActionType.UPDATE_CITY_OFFER_LIST, (cityName, sortingName) => {
-  const sortingMethod = SORTING_METHODS.find((sorting) => sorting.name === sortingName);
-
-  return {
-    payload: {
-      activeCityName: cityName,
-      sortingMethod: sortingMethod.callback,
-    }
   };
 });
 
