@@ -12,7 +12,10 @@ const MainOfferList = () => {
   const activeCity = cityList.find((city) => city.name === activeCityName);
   const activeSortingName = useSelector((state) => state.CITY.activeSortingName);
   const getSortedOfferList = getSortingSelector(activeSortingName);
-  const offerList = useSelector((state) => getSortedOfferList(state, activeCityName));
+  const offerList = useSelector(
+      (state) => getSortedOfferList(state, activeCityName),
+      (a, b) => a.length === b.length
+  );
 
   const dispatch = useDispatch();
 

@@ -11,7 +11,10 @@ import {getActiveCityOfferList} from '../../store/selectors';
 const MainScreen = () => {
   const isOfferListLoaded = useSelector((state) => state.OFFER_LIST.isOfferListLoaded);
   const activeCityName = useSelector((state) => state.CITY.activeCityName);
-  const offerList = useSelector((state) => getActiveCityOfferList(state, activeCityName), (a, b) => a.length === b.length);
+  const offerList = useSelector(
+      (state) => getActiveCityOfferList(state, activeCityName),
+      (a, b) => a.length === b.length
+  );
 
   const dispatch = useDispatch();
 
@@ -40,7 +43,7 @@ const MainScreen = () => {
       <div className="cities">
         {
           offerList.length
-            ? <MainOfferList key={`${activeCityName}`}/>
+            ? <MainOfferList key={`${activeCityName}`} offerList={offerList}/>
             : <MainEmpty activeCityName={activeCityName}/>
         }
       </div>
