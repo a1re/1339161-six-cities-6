@@ -6,15 +6,12 @@ import MainEmpty from './main-empty';
 import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchOfferList} from '../../store/api-actions';
-import {getActiveCityOfferList} from '../../store/selectors';
+import {getFilteredOfferListSelector} from '../../store/selectors';
 
 const MainScreen = () => {
   const isOfferListLoaded = useSelector((state) => state.OFFER_LIST.isOfferListLoaded);
   const activeCityName = useSelector((state) => state.CITY.activeCityName);
-  const offerList = useSelector(
-      (state) => getActiveCityOfferList(state, activeCityName),
-      (a, b) => a.length === b.length
-  );
+  const offerList = useSelector((state) => getFilteredOfferListSelector(state));
 
   const dispatch = useDispatch();
 
@@ -43,7 +40,7 @@ const MainScreen = () => {
       <div className="cities">
         {
           offerList.length
-            ? <MainOfferList key={`${activeCityName}`} offerList={offerList}/>
+            ? <MainOfferList key={`${activeCityName}`} offerList={offerList} activeCityName={activeCityName}/>
             : <MainEmpty activeCityName={activeCityName}/>
         }
       </div>

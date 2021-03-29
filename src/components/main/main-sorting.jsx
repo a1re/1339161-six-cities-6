@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {SortingMethod, ESC_KEYCODE} from '../../const';
-import {useSelector, useDispatch} from 'react-redux';
-import {setSorting} from '../../store/action';
 
-const MainSorting = () => {
+const MainSorting = ({activeSortingName, onSortingChange}) => {
   const [isSortingOpen, openSorting] = useState(false);
-  const activeSortingName = useSelector((state) => state.CITY.activeSortingName);
-
-  const dispatch = useDispatch();
 
   const closeSortingByEsc = (evt) => {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -40,7 +36,7 @@ const MainSorting = () => {
           className={classNames(`places__option`, activeSortingName === sortingName && `places__option--active`)}
           tabIndex={0}
           onClick={() => {
-            dispatch(setSorting(sortingName));
+            onSortingChange(sortingName);
             openSorting(false);
           }}
         >
@@ -49,6 +45,11 @@ const MainSorting = () => {
       }
     </ul>
   </form>;
+};
+
+MainSorting.propTypes = {
+  activeSortingName: PropTypes.string.isRequired,
+  onSortingChange: PropTypes.func.isRequired
 };
 
 export default MainSorting;

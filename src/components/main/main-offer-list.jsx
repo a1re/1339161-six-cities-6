@@ -1,21 +1,19 @@
-import React from 'react';
+import React, {useMemo, useCallback} from 'react';
+import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import MainSorting from './main-sorting';
 import MainOfferCard from './main-offer-card';
 import Map from '../map/map';
 import {useSelector, useDispatch} from 'react-redux';
-import {hoverOffer} from '../../store/action';
-import {getSortingSelector} from '../../store/selectors';
+import {setSorting, hoverOffer} from '../../store/action';
+import {getSortedOfferListSelector} from '../../store/selectors';
 
-const MainOfferList = () => {
+const MainOfferList = ({offerList, activeCityName}) => {
   const cityList = useSelector((state) => state.CITY.cityList);
-  const activeCityName = useSelector((state) => state.CITY.activeCityName);
-  const activeCity = cityList.find((city) => city.name === activeCityName);
   const activeSortingName = useSelector((state) => state.CITY.activeSortingName);
-  const getSortedOfferList = getSortingSelector(activeSortingName);
-  const offerList = useSelector(
-      (state) => getSortedOfferList(state, activeCityName),
-      (a, b) => a.length === b.length
-  );
+  const activeCity = useMemo(() => cityList.find((city) => city.name === activeCityName), [cityList, activeCityName]);
+  const sortedOfferList = useSelector((state) => getSortedOfferListSelector(state, offerList));
+  const handleSortingChange = useCallback((sortingName) => dispatch(setSorting(sortingName)), [activeSortingName]);
 
   const dispatch = useDispatch();
 
@@ -23,14 +21,12 @@ const MainOfferList = () => {
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{offerList.length} {offerList.length > 1 ? `places` : `place`} to stay in {activeCity.name}</b>
-      <MainSorting />
+      <MainSorting activeSortingName={activeSortingName} onSortingChange={handleSortingChange}/>
       <div className="cities__places-list places__list tabs__content">
-        {offerList.map((offer) => <MainOfferCard
+        {sortedOfferList.map((offer) => <MainOfferCard
           key={`offer-card-${offer.id}`}
           offer={offer}
-          onHoverIn={() => {
-            dispatch(hoverOffer(offer.id));
-          }}
+          onHoverIn={() => dispatch(hoverOffer(offer.id)) }
           onHoverOut={() => dispatch(hoverOffer(null)) }
         />)}
       </div>
@@ -45,6 +41,11 @@ const MainOfferList = () => {
       />
     </div>
   </div>);
+};
+
+MainOfferList.propTypes = {
+  offerList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired,
+  activeCityName: PropTypes.string.isRequired
 };
 
 export default React.memo(MainOfferList);
