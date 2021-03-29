@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AuthorizationStatus, AppRoute} from '../../const';
 
-const Header = ({isMain, authorizedUser, authorizationStatus}) => (
-  <header className="header">
+const Header = ({isMain}) => {
+  const {authorizedUser, authorizationStatus} = useSelector((state) => state.USER);
+
+  return <header className="header">
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
@@ -32,19 +33,11 @@ const Header = ({isMain, authorizedUser, authorizationStatus}) => (
         </nav>
       </div>
     </div>
-  </header>
-);
-
-Header.propTypes = {
-  isMain: PropTypes.bool.isRequired,
-  authorizedUser: CustomPropTypes.authorizedUser,
-  authorizationStatus: PropTypes.string.isRequired
+  </header>;
 };
 
-const mapStateToProps = (state) => ({
-  authorizedUser: state.authorizedUser,
-  authorizationStatus: state.authorizationStatus
-});
+Header.propTypes = {
+  isMain: PropTypes.bool.isRequired
+};
 
-export {Header};
-export default connect(mapStateToProps)(Header);
+export default Header;

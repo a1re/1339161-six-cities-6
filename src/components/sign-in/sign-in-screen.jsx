@@ -1,12 +1,15 @@
 import React, {useRef, useEffect} from 'react';
 import Header from '../header/header';
-import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
-const SigninScreen = ({authorizationStatus, onSubmit}) => {
+const SigninScreen = () => {
+  const {authorizationStatus} = useSelector((state) => state.USER);
+
+  const dispatch = useDispatch();
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -21,10 +24,10 @@ const SigninScreen = ({authorizationStatus, onSubmit}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value
-    });
+    }));
   };
 
   return (
@@ -75,20 +78,4 @@ const SigninScreen = ({authorizationStatus, onSubmit}) => {
   );
 };
 
-SigninScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (authData) => {
-    dispatch(login(authData));
-  }
-});
-
-export {SigninScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(SigninScreen);
+export default SigninScreen;

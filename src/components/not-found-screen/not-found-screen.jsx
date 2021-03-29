@@ -1,12 +1,10 @@
 import React from 'react';
-import CustomPropTypes from '../../custom-prop-types';
 import Header from '../header/header';
 import FooterLogo from '../footer-logo/footer-logo';
-import {connect} from 'react-redux';
 
-const NotFoundScreen = ({authorizedUser}) => (
+const NotFoundScreen = () => (
   <div className="page page--favorites-empty">
-    <Header isMain={false} authorizedUser={authorizedUser}/>
+    <Header isMain={false}/>
     <main className="page__main page__main--favorites page__main--favorites-empty">
       <div className="page__favorites-container container">
         <section className="favorites favorites--empty">
@@ -22,13 +20,4 @@ const NotFoundScreen = ({authorizedUser}) => (
   </div>
 );
 
-NotFoundScreen.propTypes = {
-  authorizedUser: CustomPropTypes.authorizedUser
-};
-
-const mapStateToProps = (state) => ({
-  authorizedUser: state.authorizedUser
-});
-
-export {NotFoundScreen};
-export default connect(mapStateToProps, null)(NotFoundScreen);
+export default NotFoundScreen;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import FavoritesCard from './favorites-card';
 
-const FavoritesCity = ({city, favorites}) => (
+const FavoritesCity = ({city, favoritesList}) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
@@ -14,7 +14,7 @@ const FavoritesCity = ({city, favorites}) => (
     </div>
     <div className="favorites__places">
       {
-        favorites
+        favoritesList
           .map((offer) => <FavoritesCard key={`favoritesCard${offer.id}`} offer={offer} />)
       }
     </div>
@@ -23,7 +23,7 @@ const FavoritesCity = ({city, favorites}) => (
 
 FavoritesCity.propTypes = {
   city: PropTypes.string.isRequired,
-  favorites: PropTypes.arrayOf(CustomPropTypes.offer).isRequired
+  favoritesList: PropTypes.arrayOf(CustomPropTypes.offer).isRequired
 };
 
 export default FavoritesCity;
