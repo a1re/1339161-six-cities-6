@@ -8,8 +8,7 @@ import {fetchReviewList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
 
 const RoomReviewList = ({id}) => {
-  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
-  const {data: offer, reviewList} = activeOffer;
+  const {offer, reviewList} = useSelector((state) => state.ACTIVE_OFFER);
   const {authorizationStatus} = useSelector((state) => state.USER);
 
   const dispatch = useDispatch();

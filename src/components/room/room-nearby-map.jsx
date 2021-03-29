@@ -7,8 +7,7 @@ import {fetchNearbyOfferList} from '../../store/api-actions';
 import {hoverOffer} from '../../store/action';
 
 const RoomNearbyMap = ({id, latitude, longitude, zoom}) => {
-  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
-  const {data: offer, nearbyOfferList: offerList} = activeOffer;
+  const {offer, nearbyOfferList: offerList} = useSelector((state) => state.ACTIVE_OFFER);
   const dispatch = useDispatch();
 
   useEffect(() => {

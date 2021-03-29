@@ -6,8 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {fetchNearbyOfferList} from '../../store/api-actions';
 
 const RoomNearbyOfferList = ({id}) => {
-  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
-  const {data: offer, nearbyOfferList: offerList} = activeOffer;
+  const {offer, nearbyOfferList: offerList} = useSelector((state) => state.ACTIVE_OFFER);
 
   const dispatch = useDispatch();
 

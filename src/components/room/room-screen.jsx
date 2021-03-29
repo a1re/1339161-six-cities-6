@@ -12,8 +12,7 @@ import {HttpCode} from '../../const';
 import {hoverOffer} from '../../store/action';
 
 const RoomScreen = () => {
-  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
-  const {data: offer} = activeOffer;
+  const offer = useSelector((state) => state.ACTIVE_OFFER.offer);
 
   const dispatch = useDispatch();
 
