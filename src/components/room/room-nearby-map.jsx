@@ -1,46 +1,39 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import CustomPropTypes from '../../custom-prop-types';
 import Map from '../map/map';
 import Spinner from '../spinner/spinner';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchNearbyOfferList} from '../../store/api-actions';
+import {useDispatch} from 'react-redux';
 import {hoverOffer} from '../../store/action';
 
-const RoomNearbyMap = ({id, latitude, longitude, zoom}) => {
-  const {offer, nearbyOfferList: offerList} = useSelector((state) => state.ACTIVE_OFFER);
+const RoomNearbyMap = ({highlightedOffer, nearbyOfferList}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!offerList || offer.id !== id) {
-      dispatch(fetchNearbyOfferList(id));
-    }
-
-    dispatch(hoverOffer(id));
+    dispatch(hoverOffer(highlightedOffer.id));
 
     return () => dispatch(hoverOffer(null));
-  }, [offerList]);
+  }, [highlightedOffer]);
 
-  if (!offerList) {
+  if (!nearbyOfferList) {
     return <div className="container" style={{textAlign: `center`}}>
       <Spinner />
     </div>;
   }
 
   return <Map
-    key={`Map-${latitude}-${longitude}`}
-    latitude={latitude}
-    longitude={longitude}
-    zoom={zoom}
-    markers={[...offerList, offer]}
+    key={`Map-${highlightedOffer.id}`}
+    latitude={highlightedOffer.city.location.latitude}
+    longitude={highlightedOffer.city.location.longitude}
+    zoom={highlightedOffer.city.location.zoom}
+    markers={[...nearbyOfferList, highlightedOffer]}
     className="property__map"
   />;
 };
 
 RoomNearbyMap.propTypes = {
-  id: PropTypes.number.isRequired,
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
-  zoom: PropTypes.number.isRequired
+  highlightedOffer: CustomPropTypes.offer.isRequired,
+  nearbyOfferList: PropTypes.arrayOf(CustomPropTypes.offer)
 };
 
 export default RoomNearbyMap;

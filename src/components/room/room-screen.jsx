@@ -8,14 +8,13 @@ import RoomBookmarkButton from './room-bookmark-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchOffer} from '../../store/api-actions';
+import {fetchOffer, fetchNearbyOfferList} from '../../store/api-actions';
 import {HttpCode} from '../../const';
 
 const RoomScreen = () => {
   const offer = useSelector((state) => state.ACTIVE_OFFER.offer);
-
+  const nearbyOfferList = useSelector((state) => state.ACTIVE_OFFER.nearbyOfferList);
   const dispatch = useDispatch();
-
   const params = useParams();
   const id = parseInt(params.id, 10);
   const [isNotFound, setNotFoundStatus] = useState(false);
@@ -28,8 +27,10 @@ const RoomScreen = () => {
             setNotFoundStatus(true);
           }
         });
+
+      dispatch(fetchNearbyOfferList(id));
     }
-  }, [offer, id]);
+  }, [offer, nearbyOfferList, id]);
 
   if (isNotFound) {
     return <NotFoundScreen />;
@@ -115,13 +116,11 @@ const RoomScreen = () => {
         </div>
         <RoomNearbyMap
           key={`Room${id}-NearbyMap`}
-          id={id}
-          latitude={offer.city.location.latitude}
-          longitude={offer.city.location.longitude}
-          zoom={offer.city.location.zoom}
+          highlightedOffer={offer}
+          nearbyOfferList={nearbyOfferList}
         />
       </section>
-      <RoomNearbyOfferList key={`Room${id}-NearbyOfferList`} id={id} />
+      <RoomNearbyOfferList key={`Room${id}-NearbyOfferList`} nearbyOfferList={nearbyOfferList} />
     </main>
   </div>);
 };

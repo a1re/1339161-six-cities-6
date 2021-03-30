@@ -8,13 +8,13 @@ import {fetchReviewList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
 
 const RoomReviewList = ({id}) => {
-  const {offer, reviewList} = useSelector((state) => state.ACTIVE_OFFER);
-  const {authorizationStatus} = useSelector((state) => state.USER);
+  const reviewList = useSelector((state) => state.ACTIVE_OFFER.reviewList);
+  const authorizationStatus = useSelector((state) => state.USER.authorizationStatus);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!reviewList || offer.id !== id) {
+    if (!reviewList) {
       dispatch(fetchReviewList(id));
     }
   }, [reviewList]);
