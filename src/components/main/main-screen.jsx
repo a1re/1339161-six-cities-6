@@ -3,7 +3,7 @@ import HeaderMain from '../header/header-main';
 import MainTabs from './main-tabs';
 import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
-import Spinner from '../spinner/spinner';
+import SpinnerSceen from '../spinner/spinner-screen';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchOfferList} from '../../store/api-actions';
 import {getFilteredOfferListSelector} from '../../store/selectors';
@@ -22,14 +22,7 @@ const MainScreen = () => {
   }, [isOfferListLoaded]);
 
   if (!isOfferListLoaded) {
-    return <div className="page page--gray page--main">
-      <HeaderMain isMain={true}/>
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
-          <Spinner />
-        </div>
-      </main>
-    </div>;
+    return <SpinnerSceen isMain={true}/>;
   }
 
   return <div className="page page--gray page--main">

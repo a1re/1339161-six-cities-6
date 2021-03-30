@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderNav from './header-nav';
 
-const Header = () => {
+const HeaderMain = () => {
   return <header className="header">
     <div className="container">
       <div className="header__wrapper">
@@ -14,4 +14,4 @@ const Header = () => {
   </header>;
 };
 
-export default Header;
+export default HeaderMain;

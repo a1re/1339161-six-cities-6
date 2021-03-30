@@ -6,7 +6,7 @@ import RoomNearbyMap from './room-nearby-map';
 import RoomNearbyOfferList from './room-nearby-offer-list';
 import RoomBookmarkButton from './room-bookmark-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import Spinner from '../spinner/spinner';
+import SpinnerScreen from '../spinner/spinner-screen';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchOffer, fetchNearbyOfferList} from '../../store/api-actions';
 import {HttpCode} from '../../const';
@@ -37,14 +37,7 @@ const RoomScreen = () => {
   }
 
   if (!offer) {
-    return <div className="page page--gray page--main">
-      <Header/>
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
-          <Spinner />
-        </div>
-      </main>
-    </div>;
+    return <SpinnerScreen />;
   }
 
   return (<div className="page">
