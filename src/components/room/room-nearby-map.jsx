@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import Map from '../map/map';
 import Spinner from '../spinner/spinner';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {hoverOffer} from '../../store/action';
 
-const RoomNearbyMap = ({highlightedOffer, nearbyOfferList}) => {
+const RoomNearbyMap = () => {
+  const highlightedOffer = useSelector((state) => state.ACTIVE_OFFER.offer);
+  const nearbyOfferList = useSelector((state) => state.ACTIVE_OFFER.nearbyOfferList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,11 +29,6 @@ const RoomNearbyMap = ({highlightedOffer, nearbyOfferList}) => {
     markers={[...nearbyOfferList, highlightedOffer]}
     className="property__map"
   />;
-};
-
-RoomNearbyMap.propTypes = {
-  highlightedOffer: CustomPropTypes.offer.isRequired,
-  nearbyOfferList: PropTypes.arrayOf(CustomPropTypes.offer)
 };
 
 export default RoomNearbyMap;

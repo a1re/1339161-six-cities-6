@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import CustomPropTypes from '../../custom-prop-types';
 import RoomNearOffer from './room-near-offer';
 import Spinner from '../spinner/spinner';
+import {useSelector} from 'react-redux';
 
-const RoomNearbyOfferList = ({nearbyOfferList}) => {
+const RoomNearbyOfferList = () => {
+  const nearbyOfferList = useSelector((state) => state.ACTIVE_OFFER.nearbyOfferList);
+
   if (!nearbyOfferList) {
     return <div className="container" style={{textAlign: `center`}}>
       <Spinner />
@@ -19,10 +20,6 @@ const RoomNearbyOfferList = ({nearbyOfferList}) => {
       </div>
     </section>
   </div>;
-};
-
-RoomNearbyOfferList.propTypes = {
-  nearbyOfferList: PropTypes.arrayOf(CustomPropTypes.offer)
 };
 
 export default RoomNearbyOfferList;
