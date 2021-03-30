@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {updateFavoritesStatus} from '../../store/api-actions';
+import {HttpCode, AppRoute} from "../../const";
 
 const RoomBookmarkButton = ({id, wrappingClassName, width, height, isFavorite}) => {
-  const handleClick = () => {
-    dispatch(updateFavoritesStatus(id, !isFavorite));
-  };
-
+  const history = useHistory();
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(updateFavoritesStatus(id, !isFavorite))
+      .catch(({response}) => {
+        if (response.status === HttpCode.UNAUTHORIZED) {
+          history.push(AppRoute.LOGIN);
+        }
+      });
+  };
 
   return <button className={classNames(
       `${wrappingClassName}__bookmark-button`,
