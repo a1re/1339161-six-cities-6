@@ -38,7 +38,7 @@ const RoomScreen = () => {
 
   if (!offer) {
     return <div className="page page--gray page--main">
-      <Header isMain={true}/>
+      <Header/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
           <Spinner />
@@ -48,7 +48,7 @@ const RoomScreen = () => {
   }
 
   return (<div className="page">
-    <Header isMain={false}/>
+    <Header/>
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">

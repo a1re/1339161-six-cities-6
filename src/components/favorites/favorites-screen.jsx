@@ -19,7 +19,7 @@ const FavoritesScreen = () => {
 
   if (!isFavoritesListLoaded) {
     return <div className="pagen">
-      <Header isMain={false}/>
+      <Header/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
           <Spinner />
@@ -30,7 +30,7 @@ const FavoritesScreen = () => {
 
   return (
     <div className={`page${favoritesList.length ? `` : ` page--favorites-empty`}`}>
-      <Header isMain={false}/>
+      <Header/>
       <main className={`page__main page__main--favorites${favoritesList.length ? `` : ` page__main--favorites-empty`}`}>
         <div className="page__favorites-container container">
           {

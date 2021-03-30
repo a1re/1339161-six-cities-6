@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Header from '../header/header';
+import HeaderMain from '../header/header-main';
 import MainTabs from './main-tabs';
 import MainOfferList from './main-offer-list';
 import MainEmpty from './main-empty';
@@ -23,7 +23,7 @@ const MainScreen = () => {
 
   if (!isOfferListLoaded) {
     return <div className="page page--gray page--main">
-      <Header isMain={true}/>
+      <HeaderMain isMain={true}/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container" style={{justifyContent: `center`, alignItems: `center`}}>
           <Spinner />
@@ -33,7 +33,7 @@ const MainScreen = () => {
   }
 
   return <div className="page page--gray page--main">
-    <Header isMain={true}/>
+    <HeaderMain/>
     <main className={`page__main page__main--index${offerList.length ? `` : ` page__main--index-empty`}`}>
       <h1 className="visually-hidden">Cities</h1>
       <MainTabs/>
