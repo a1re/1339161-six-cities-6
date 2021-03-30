@@ -16,6 +16,8 @@ const RoomNearbyMap = ({id, latitude, longitude, zoom}) => {
     }
 
     dispatch(hoverOffer(id));
+
+    return () => dispatch(hoverOffer(null));
   }, [offerList]);
 
   if (!offerList) {

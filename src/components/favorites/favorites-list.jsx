@@ -12,9 +12,9 @@ const FavoritesList = ({favoritesList}) => {
     <ul className="favorites__list">
       {cityList.map((city) => (
         <FavoritesCity
-          key={`favorites-сity-${city.toLowerCase()}`}
-          city={city}
-          favoritesList={favoritesList.filter((offer) => offer.city.name === city)}
+          key={`favorites-сity-${city.name}`}
+          cityName={city.name}
+          favoritesList={favoritesList.filter((offer) => offer.city.name === city.name)}
         />))}
     </ul>
   </section>;

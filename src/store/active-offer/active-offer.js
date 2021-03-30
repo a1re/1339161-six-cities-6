@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setActiveOffer, setNearbyOfferList, setReviewList} from '../action';
+import {setActiveOffer, setNearbyOfferList, setReviewList, updateOffer} from '../action';
 
 const initialState = {
   offer: null,
@@ -19,6 +19,12 @@ const activeOffer = createReducer(initialState, (builder) => {
 
   builder.addCase(setReviewList, (state, action) => {
     state.reviewList = action.payload;
+  });
+
+  builder.addCase(updateOffer, (state, action) => {
+    if (state.offer && action.payload.id === state.offer.id) {
+      state.offer = action.payload;
+    }
   });
 });
 

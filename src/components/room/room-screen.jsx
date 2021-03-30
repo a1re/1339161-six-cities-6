@@ -4,12 +4,12 @@ import Header from '../header/header';
 import RoomReviewList from './room-review-list';
 import RoomNearbyMap from './room-nearby-map';
 import RoomNearbyOfferList from './room-nearby-offer-list';
+import RoomBookmarkButton from './room-bookmark-button';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchOffer} from '../../store/api-actions';
 import {HttpCode} from '../../const';
-import {hoverOffer} from '../../store/action';
 
 const RoomScreen = () => {
   const offer = useSelector((state) => state.ACTIVE_OFFER.offer);
@@ -29,8 +29,6 @@ const RoomScreen = () => {
           }
         });
     }
-
-    return () => dispatch(hoverOffer(null));
   }, [offer, id]);
 
   if (isNotFound) {
@@ -68,12 +66,13 @@ const RoomScreen = () => {
             }
             <div className="property__name-wrapper">
               <h1 className="property__name">{offer.title}</h1>
-              <button className={`property__bookmark-button button${offer.isFavorite ? ` property__bookmark-button--active` : ``}`} type="button">
-                <svg className="property__bookmark-icon" width={31} height={33}>
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">{offer.isFavorite ? `In bookmarks` : `To bookmarks`}</span>
-              </button>
+              <RoomBookmarkButton
+                id={offer.id}
+                key={`toggle-bookmark-${offer.id}`}
+                wrappingClassName="property"
+                width={31} height={33}
+                isFavorite={offer.isFavorite}
+              />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">

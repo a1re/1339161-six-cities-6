@@ -1,4 +1,5 @@
-import {setOfferList, setActiveOffer, setReviewList, setNearbyOfferList, setAuthorizationInfo, setCityListByOfferList} from "./action";
+import {setOfferList, setActiveOffer, setReviewList, setNearbyOfferList, setAuthorizationInfo,
+  setCityListByOfferList, setFavoritesList, updateOffer} from "./action";
 import {APIRoute} from "../const";
 import {adaptOffer, adaptReview, adaptAuthInfo} from './adapters';
 
@@ -9,6 +10,19 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
       dispatch(setCityListByOfferList(adaptedOfferList));
       dispatch(setOfferList(adaptedOfferList));
     })
+);
+
+export const fetchFavoritesList = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES_LIST)
+    .then(({data}) => {
+      const adaptedOfferList = data.map(adaptOffer);
+      dispatch(setFavoritesList(adaptedOfferList));
+    })
+);
+
+export const updateFavoritesStatus = (id, isFavorite) => (dispatch, _getState, api) => (
+  api.post(APIRoute.UPDATE_FAVORITES_STATUS.replace(`:id`, id).replace(`:status`, isFavorite ? 1 : 0))
+    .then(({data}) => dispatch(updateOffer(adaptOffer(data))))
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
