@@ -14,8 +14,10 @@ const FavoritesScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFavoritesList());
-  }, [favoritesList]);
+    if (!isFavoritesListLoaded) {
+      dispatch(fetchFavoritesList());
+    }
+  }, [isFavoritesListLoaded]);
 
   if (!isFavoritesListLoaded) {
     return <SpinnerScreen />;

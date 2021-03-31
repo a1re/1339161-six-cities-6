@@ -11,6 +11,7 @@ export const ActionType = {
   SET_REVIEW_LIST: `data/setReviewList`,
   SET_FAVORITES_LIST: `data/setFavoritesList`,
   UPDATE_OFFER: `data/updateOffer`,
+  SET_FAVORITES_STATUS: `data/setFavoritesStatus`,
   SET_NEARBY_OFFER_LIST: `data/setNearbyOfferList`,
   SET_AUTHORIZATION_STATUS: `user/setAuthorizationStatus`,
   SET_AUTHORIZATION_INFO: `user/setAuthorizationInfo`
@@ -59,6 +60,10 @@ export const setReviewList = createAction(ActionType.SET_REVIEW_LIST, (reviewLis
 
 export const setFavoritesList = createAction(ActionType.SET_FAVORITES_LIST, (offerList) => ({
   payload: offerList
+}));
+
+export const setFavoritesStatus = createAction(ActionType.SET_FAVORITES_STATUS, (isFavoritesListLoaded) => ({
+  payload: isFavoritesListLoaded
 }));
 
 export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({

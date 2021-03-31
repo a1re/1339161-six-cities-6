@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import FavoritesCity from './favorites-city';
-import {useSelector} from 'react-redux';
+import {City} from '../../const';
 
 const FavoritesList = ({favoritesList}) => {
-  const {cityList} = useSelector((state) => state.CITY);
+  const cityList = Object.values(City);
 
   return <section className="favorites">
     <h1 className="favorites__title">Saved listing</h1>
     <ul className="favorites__list">
       {cityList.map((city) => (
         <FavoritesCity
-          key={`favorites-сity-${city.name}`}
-          cityName={city.name}
-          favoritesList={favoritesList.filter((offer) => offer.city.name === city.name)}
+          key={`favorites-сity-${city}`}
+          cityName={city}
+          favoritesList={favoritesList.filter((offer) => offer.city.name === city)}
         />))}
     </ul>
   </section>;

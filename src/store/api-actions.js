@@ -1,5 +1,5 @@
 import {setOfferList, setActiveOffer, setReviewList, setNearbyOfferList, setAuthorizationInfo,
-  setCityListByOfferList, setFavoritesList, updateOffer} from "./action";
+  setCityListByOfferList, setFavoritesList, updateOffer, setFavoritesStatus} from "./action";
 import {APIRoute} from "../const";
 import {adaptOffer, adaptReview, adaptAuthInfo} from './adapters';
 
@@ -22,7 +22,10 @@ export const fetchFavoritesList = () => (dispatch, _getState, api) => (
 
 export const updateFavoritesStatus = (id, isFavorite) => (dispatch, _getState, api) => (
   api.post(APIRoute.UPDATE_FAVORITES_STATUS.replace(`:id`, id).replace(`:status`, isFavorite ? 1 : 0))
-    .then(({data}) => dispatch(updateOffer(adaptOffer(data))))
+    .then(({data}) => {
+      dispatch(updateOffer(adaptOffer(data)));
+      dispatch(setFavoritesStatus(false));
+    })
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
