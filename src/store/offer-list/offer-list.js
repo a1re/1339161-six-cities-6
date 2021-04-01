@@ -1,10 +1,9 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setOfferList, hoverOffer, updateCityOfferList} from '../action';
+import {setOfferList, hoverOffer, updateOffer} from '../action';
 
 const initialState = {
   offerList: [],
   isOfferListLoaded: false,
-  activeCityOfferList: [],
   hoverOfferId: null
 };
 
@@ -19,14 +18,14 @@ const offerList = createReducer(initialState, (builder) => {
     state.hoverOfferId = action.payload;
   });
 
-  builder.addCase(updateCityOfferList, (state, action) => {
-    const cityOfferList = state.offerList.filter(
-        (offer) => offer.city.name === action.payload.activeCityName
-    );
+  builder.addCase(updateOffer, (state, action) => {
+    const offerIndex = state.offerList.findIndex((offer) => offer.id === action.payload.id);
 
-    state.activeCityOfferList = action.payload.sortingMethod === `undefined`
-      ? cityOfferList
-      : cityOfferList.sort(action.payload.sortingMethod);
+    state.offerList = [
+      ...state.offerList.slice(0, offerIndex),
+      action.payload,
+      ...state.offerList.slice(offerIndex + 1)
+    ];
   });
 
 });

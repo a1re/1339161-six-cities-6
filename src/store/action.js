@@ -1,14 +1,17 @@
 import {createAction} from '@reduxjs/toolkit';
-import {City, SORTING_METHODS} from '../const';
+import {City} from '../const';
 
 export const ActionType = {
   SET_CITY: `main/setCity`,
+  SET_SORTING: `main/setSorting`,
   HOVER_OFFER: `main/hoverOffer`,
-  UPDATE_CITY_OFFER_LIST: `main/updateCityOfferList`,
   SET_CITY_LIST_BY_OFFER_LIST: `data/setCityListByOfferList`,
   SET_OFFER_LIST: `data/setOfferList`,
   SET_OFFER: `data/setOffer`,
   SET_REVIEW_LIST: `data/setReviewList`,
+  SET_FAVORITES_LIST: `data/setFavoritesList`,
+  UPDATE_OFFER: `data/updateOffer`,
+  SET_FAVORITES_STATUS: `data/setFavoritesStatus`,
   SET_NEARBY_OFFER_LIST: `data/setNearbyOfferList`,
   SET_AUTHORIZATION_STATUS: `user/setAuthorizationStatus`,
   SET_AUTHORIZATION_INFO: `user/setAuthorizationInfo`
@@ -16,6 +19,10 @@ export const ActionType = {
 
 export const setCity = createAction(ActionType.SET_CITY, (cityName) => ({
   payload: cityName
+}));
+
+export const setSorting = createAction(ActionType.SET_SORTING, (sortingName) => ({
+  payload: sortingName
 }));
 
 export const hoverOffer = createAction(ActionType.HOVER_OFFER, (offerId) => ({
@@ -39,17 +46,6 @@ export const setCityListByOfferList = createAction(ActionType.SET_CITY_LIST_BY_O
   };
 });
 
-export const updateCityOfferList = createAction(ActionType.UPDATE_CITY_OFFER_LIST, (cityName, sortingName) => {
-  const sortingMethod = SORTING_METHODS.find((sorting) => sorting.name === sortingName);
-
-  return {
-    payload: {
-      activeCityName: cityName,
-      sortingMethod: sortingMethod.callback,
-    }
-  };
-});
-
 export const setActiveOffer = createAction(ActionType.SET_OFFER, (offer) => ({
   payload: offer
 }));
@@ -60,6 +56,18 @@ export const setNearbyOfferList = createAction(ActionType.SET_NEARBY_OFFER_LIST,
 
 export const setReviewList = createAction(ActionType.SET_REVIEW_LIST, (reviewList) => ({
   payload: reviewList
+}));
+
+export const setFavoritesList = createAction(ActionType.SET_FAVORITES_LIST, (offerList) => ({
+  payload: offerList
+}));
+
+export const setFavoritesStatus = createAction(ActionType.SET_FAVORITES_STATUS, (isFavoritesListLoaded) => ({
+  payload: isFavoritesListLoaded
+}));
+
+export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({
+  payload: offer
 }));
 
 export const setAuthorizationStatus = createAction(ActionType.SET_AUTHORIZATION_STATUS, (authorizationStatus) => ({

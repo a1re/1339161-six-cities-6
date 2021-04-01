@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-import {City, AuthorizationStatus} from './const';
+import {AuthorizationStatus} from './const';
 import rootReducer from './store/root-reducer';
 import {setAuthorizationStatus} from './store/action';
-import {checkAuth} from './store/api-actions';
 import {createAPI} from './services/api';
 
 const api = createAPI(
@@ -23,13 +22,9 @@ const store = configureStore({
     })
 });
 
-store.dispatch(checkAuth());
-
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        cities={Object.entries(City).map(([, city]) => city)}
-      />,
+      <App />,
     </Provider>,
     document.querySelector(`#root`)
 );

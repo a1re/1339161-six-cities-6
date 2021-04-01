@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import RoomBookmarkButton from './room-bookmark-button';
 import CustomPropTypes from '../../custom-prop-types';
 import classNames from 'classnames';
 
@@ -22,12 +23,13 @@ const RoomCard = ({offer, imgWidth, imgHeight, infoWrappingClassName, imageWrapp
           <b className="place-card__price-value">€{offer.price}</b>
           <span className="place-card__price-text">/&nbsp;night</span>
         </div>
-        <button className={`place-card__bookmark-button button${offer.isFavorite ? ` place-card__bookmark-button--active` : ``}`} type="button">
-          <svg className="place-card__bookmark-icon" width={18} height={19}>
-            <use xlinkHref="#icon-bookmark" />
-          </svg>
-          <span className="visually-hidden">{offer.isFavorite ? `In bookmarks` : `To bookmarks`}</span>
-        </button>
+        <RoomBookmarkButton
+          id={offer.id}
+          key={`toggle-bookmark-${offer.id}`}
+          wrappingClassName="place-card"
+          width={18} height={19}
+          isFavorite={offer.isFavorite}
+        />
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">

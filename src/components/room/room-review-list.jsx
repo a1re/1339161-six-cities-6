@@ -2,26 +2,26 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import ReviewItem from './room-review-item';
 import RoomReviewForm from './room-review-form';
+import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchReviewList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
 
-const RoomReviewList = ({id, renderSpinner}) => {
-  const {activeOffer} = useSelector((state) => state.ACTIVE_OFFER);
-  const {data: offer, reviewList} = activeOffer;
-  const {authorizationStatus} = useSelector((state) => state.USER);
+const RoomReviewList = ({id}) => {
+  const reviewList = useSelector((state) => state.ACTIVE_OFFER.reviewList);
+  const authorizationStatus = useSelector((state) => state.USER.authorizationStatus);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!reviewList || offer.id !== id) {
+    if (!reviewList) {
       dispatch(fetchReviewList(id));
     }
   }, [reviewList]);
 
   if (!reviewList) {
     return <div style={{textAlign: `center`}}>
-      {renderSpinner()}
+      <Spinner />
     </div>;
   }
 
@@ -39,8 +39,7 @@ const RoomReviewList = ({id, renderSpinner}) => {
 };
 
 RoomReviewList.propTypes = {
-  id: PropTypes.number.isRequired,
-  renderSpinner: PropTypes.func.isRequired
+  id: PropTypes.number.isRequired
 };
 
 export default RoomReviewList;

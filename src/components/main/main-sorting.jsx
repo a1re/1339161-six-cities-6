@@ -1,15 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {SORTING_METHODS, ESC_KEYCODE, DEFAULT_SORTING_NAME} from '../../const';
-import {useSelector, useDispatch} from 'react-redux';
-import {updateCityOfferList} from '../../store/action';
+import {SortingMethod, ESC_KEYCODE} from '../../const';
 
-const MainSorting = () => {
+const MainSorting = ({activeSortingName, onSortingChange}) => {
   const [isSortingOpen, openSorting] = useState(false);
-  const [sortingName, setSortingName] = useState(DEFAULT_SORTING_NAME);
-  const {activeCityName} = useSelector((state) => state.CITY);
-
-  const dispatch = useDispatch();
 
   const closeSortingByEsc = (evt) => {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -29,28 +24,32 @@ const MainSorting = () => {
     <span className="places__sorting-caption">Sort by</span>
     &nbsp;
     <span className="places__sorting-type" tabIndex={0} onClick={() => openSorting(!isSortingOpen)}>
-      {sortingName}
+      {activeSortingName}
       <svg className="places__sorting-arrow" width={7} height={4}>
         <use xlinkHref="#icon-arrow-select" />
       </svg>
     </span>
     <ul className={classNames(`places__options`, `places__options--custom`, isSortingOpen && `places__options--opened`)}>
-      {SORTING_METHODS.map((sorting) =>
+      {Object.values(SortingMethod).map((sortingName) =>
         <li
-          key={sorting.name}
-          className={classNames(`places__option`, sortingName === sorting.name && `places__option--active`)}
+          key={sortingName}
+          className={classNames(`places__option`, activeSortingName === sortingName && `places__option--active`)}
           tabIndex={0}
           onClick={() => {
-            dispatch(updateCityOfferList(activeCityName, sorting.name));
-            setSortingName(sorting.name);
+            onSortingChange(sortingName);
             openSorting(false);
           }}
         >
-          {sorting.name}
+          {sortingName}
         </li>)
       }
     </ul>
   </form>;
+};
+
+MainSorting.propTypes = {
+  activeSortingName: PropTypes.string.isRequired,
+  onSortingChange: PropTypes.func.isRequired
 };
 
 export default MainSorting;

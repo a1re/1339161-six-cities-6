@@ -4,7 +4,7 @@ import FooterLogo from '../footer-logo/footer-logo';
 
 const NotFoundScreen = () => (
   <div className="page page--favorites-empty">
-    <Header isMain={false}/>
+    <Header/>
     <main className="page__main page__main--favorites page__main--favorites-empty">
       <div className="page__favorites-container container">
         <section className="favorites favorites--empty">
