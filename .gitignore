@@ -15,3 +15,6 @@ node_modules/
 # Бандлы
 public/bundle.js
 public/bundle.js.map
+
+# Тестирование
+coverage/
