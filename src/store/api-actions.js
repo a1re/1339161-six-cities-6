@@ -24,7 +24,7 @@ export const updateFavoritesStatus = (id, isFavorite) => (dispatch, _getState, a
   api.post(APIRoute.UPDATE_FAVORITES_STATUS.replace(`:id`, id).replace(`:status`, isFavorite ? 1 : 0))
     .then(({data}) => {
       dispatch(updateOffer(adaptOffer(data)));
-      dispatch(setFavoritesStatus(false));
+      dispatch(setFavoritesStatus(isFavorite));
     })
 );
 
