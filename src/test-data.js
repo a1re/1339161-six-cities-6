@@ -906,8 +906,8 @@ export const adaptedUserInfo = {
   "id": 1,
   "email": `Square.Pants@gmail.com`,
   "name": `Square.Pants`,
-  "avatar_url": `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg`,
-  "is_pro": false
+  "avatarUrl": `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg`,
+  "isPro": false
 };
 
 export const testReview = {
