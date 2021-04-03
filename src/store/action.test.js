@@ -15,54 +15,7 @@ import {
   setAuthorizationInfo
 } from './action';
 
-const testOfferList = [
-  {
-    name: `Offer 1`,
-    city: {
-      name: `Paris`,
-      location: {latitude: 0, longitude: 0, zoom: 0}
-    }
-  }, {
-    name: `Offer 2`,
-    city: {
-      name: `Cologne`,
-      location: {latitude: 0, longitude: 0, zoom: 0}
-    }
-  }, {
-    name: `Offer 3`,
-    city: {
-      name: `Moscow`,
-      location: {latitude: 0, longitude: 0, zoom: 0}
-    }
-  }
-];
-
-const testReviewList = [
-  {
-    id: 1,
-    comment: `Review 1`,
-    user: {
-      name: `User 1`
-    }
-  }, {
-    id: 2,
-    comment: `Review 2`,
-    user: {
-      name: `User 2`
-    }
-  }, {
-    id: 3,
-    comment: `Review 3`,
-    user: {
-      name: `User 3`
-    }
-  }
-];
-
-const testUserInfo = {
-  name: `Test User`,
-  email: `user@test.org`
-};
+import {testOfferList, testReviewList, testUserInfo, adaptedCityList} from '../test-data';
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for setting the active city returns correct action`, () => {
@@ -110,27 +63,7 @@ describe(`Action creators work correctly`, () => {
   it(`Action creator for setting the city list by offer listreturns correct action`, () => {
     const expectedAction = {
       type: ActionType.SET_CITY_LIST_BY_OFFER_LIST,
-      payload: [
-        {
-          name: `Paris`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        }, {
-          name: `Cologne`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        }, {
-          name: `Brussels`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        }, {
-          name: `Amsterdam`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        }, {
-          name: `Hamburg`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        }, {
-          name: `Dusseldorf`,
-          location: {latitude: 0, longitude: 0, zoom: 0}
-        },
-      ]
+      payload: adaptedCityList
     };
 
     expect(setCityListByOfferList(testOfferList)).toEqual(expectedAction);
