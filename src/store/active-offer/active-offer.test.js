@@ -145,7 +145,7 @@ describe(`Async operations for reducer 'activeOffer' work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SET_FAVORITES_STATUS,
-          payload: testStatus
+          payload: false
         });
       });
   });
@@ -169,7 +169,7 @@ describe(`Async operations for reducer 'activeOffer' work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SET_FAVORITES_STATUS,
-          payload: testStatus
+          payload: false
         });
       });
   });
