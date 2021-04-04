@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
 import {AuthorizationStatus} from './const';
 import rootReducer from './store/root-reducer';
 import {setAuthorizationStatus} from './store/action';
@@ -24,7 +25,9 @@ const store = configureStore({
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />,
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );
