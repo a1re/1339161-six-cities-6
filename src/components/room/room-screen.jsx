@@ -7,7 +7,7 @@ import RoomInfo from './room-info';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import SpinnerScreen from '../spinner/spinner-screen';
 import {useSelector, useDispatch} from 'react-redux';
-import {fetchOffer, fetchNearbyOfferList} from '../../store/api-actions';
+import {fetchOffer, fetchNearbyOfferList, fetchReviewList} from '../../store/api-actions';
 import {HttpCode} from '../../const';
 
 const RoomScreen = () => {
@@ -18,14 +18,17 @@ const RoomScreen = () => {
   const [isNotFound, setNotFoundStatus] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchOffer(id))
-      .catch((error) => {
-        if (error.response.status === HttpCode.NOT_FOUND) {
-          setNotFoundStatus(true);
-        }
-      });
+    if (!offer || id !== offer.id) {
+      dispatch(fetchOffer(id))
+        .catch((error) => {
+          if (error.response.status === HttpCode.NOT_FOUND) {
+            setNotFoundStatus(true);
+          }
+        });
 
-    dispatch(fetchNearbyOfferList(id));
+      dispatch(fetchNearbyOfferList(id));
+      dispatch(fetchReviewList(id));
+    }
   }, [id]);
 
   if (isNotFound) {

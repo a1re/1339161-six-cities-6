@@ -6,9 +6,10 @@ import Spinner from '../spinner/spinner';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchReviewList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
+import {getSortedReviewListSelector} from '../../store/selectors';
 
 const RoomReviewList = ({id}) => {
-  const reviewList = useSelector((state) => state.ACTIVE_OFFER.reviewList);
+  const reviewList = useSelector((state) => getSortedReviewListSelector(state));
   const authorizationStatus = useSelector((state) => state.USER.authorizationStatus);
 
   const dispatch = useDispatch();

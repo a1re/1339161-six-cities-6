@@ -6,7 +6,7 @@ import FavoritesScreen from '../favorites/favorites-screen';
 import RoomScreen from '../room/room-screen';
 import PrivateRoute from '../private-route/private-route';
 import Spinner from '../spinner/spinner';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useSelector, useDispatch} from 'react-redux';
 import {checkAuth} from '../../store/api-actions';
@@ -16,7 +16,9 @@ const App = () => {
   const isAuthorizationChecked = useSelector((state) => state.USER.isAuthorizationChecked);
 
   useEffect(() => {
-    dispatch(checkAuth());
+    if (!isAuthorizationChecked) {
+      dispatch(checkAuth());
+    }
   }, []);
 
   if (!isAuthorizationChecked) {
@@ -24,25 +26,23 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}>
-          <MainScreen/>;
-        </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <SignInScreen />
-        </Route>
-        <PrivateRoute exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />;
-        </PrivateRoute>
-        <Route exact path={AppRoute.ROOM}>
-          <RoomScreen/>;
-        </Route>
-        <Route>
-          <NotFoundScreen />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}>
+        <MainScreen/>;
+      </Route>
+      <Route exact path={AppRoute.LOGIN}>
+        <SignInScreen />
+      </Route>
+      <PrivateRoute exact path={AppRoute.FAVORITES}>
+        <FavoritesScreen />;
+      </PrivateRoute>
+      <Route exact path={AppRoute.ROOM}>
+        <RoomScreen/>;
+      </Route>
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
   );
 };
 

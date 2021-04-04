@@ -18,6 +18,7 @@ export const fetchFavoritesList = () => (dispatch, _getState, api) => (
       const adaptedOfferList = data.map(adaptOffer);
       dispatch(setFavoritesList(adaptedOfferList));
     })
+    .catch(() => {})
 );
 
 export const updateFavoritesStatus = (id, isFavorite) => (dispatch, _getState, api) => (

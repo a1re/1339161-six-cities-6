@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {SortingMethod} from '../const';
+import {SortingMethod, MAX_REVIEW_AMOUNT} from '../const';
 
 const getFilteredOfferList = (offerList, cityName) => {
   return offerList.filter((offer) => offer.city.name === cityName);
@@ -17,6 +17,22 @@ const getSortedOfferList = (offerList, sortingName) => {
       return offerList;
   }
 };
+
+const getSortedReviewList = (reviewList) => {
+  if (!reviewList.length) {
+    return [];
+  }
+
+  return reviewList
+    .slice()
+    .sort((reviewA, reviewB) => new Date(reviewB.date) - new Date(reviewA.date))
+    .slice(0, MAX_REVIEW_AMOUNT);
+};
+
+export const getSortedReviewListSelector = createSelector(
+    (state) => state.ACTIVE_OFFER.reviewList,
+    getSortedReviewList
+);
 
 export const getFilteredOfferListSelector = createSelector(
     (state) => state.OFFER_LIST.offerList,
