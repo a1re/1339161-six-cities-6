@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Room review item renders correctly 1`] = `
+<div>
+  <li
+    class="reviews__item"
+  >
+    <div
+      class="reviews__user user"
+    >
+      <div
+        class="reviews__avatar-wrapper user__avatar-wrapper"
+      >
+        <img
+          alt="Kendall"
+          class="reviews__avatar user__avatar"
+          height="54"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+          width="54"
+        />
+      </div>
+      <span
+        class="reviews__user-name"
+      >
+        Kendall
+      </span>
+    </div>
+    <div
+      class="reviews__info"
+    >
+      <div
+        class="reviews__rating rating"
+      >
+        <div
+          class="reviews__stars rating__stars"
+        >
+          <span
+            style="width: 80%;"
+          />
+          <span
+            class="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <p
+        class="reviews__text"
+      >
+        The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.
+      </p>
+      <time
+        class="reviews__time"
+        datetime="2021-02-21T08:04:28.647Z"
+      >
+        February 2021
+      </time>
+    </div>
+  </li>
+</div>
+`;
