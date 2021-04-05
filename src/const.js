@@ -16,16 +16,22 @@ export const SortingMethod = {
 
 export const DEFAULT_CITY = City.PARIS;
 export const DEFAULT_SORTING = SortingMethod.POPULAR;
-export const MIN_REVIEW_LENGTH = 50;
-export const MAX_REVIEW_LENGTH = 300;
-export const MAX_REVIEW_AMOUNT = 10;
-export const PIN_WIDTH = 30;
-export const PIN_HEIGHT = 30;
 export const ESC_KEYCODE = 27;
 export const SPINNER_COLOR = `#4481C3`;
 
 export const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
 export const REQUEST_TIMEOUT = 5000;
+
+export const Pin = {
+  WIDTH: 30,
+  HEIGHT: 30
+};
+
+export const Review = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+  MAX_AMOUNT: 10
+};
 
 export const APIRoute = {
   OFFER_LIST: `/hotels`,
@@ -56,8 +62,9 @@ export const HttpCode = {
 };
 
 export const ErrorMessage = {
+  NO_CONNECTION: `Server is not available.`,
   SIGN_IN_FAILURE: `Failed to login with this e-mail and password.`,
-  NO_CONNECTION: `Server is not available.`
+  REVIEW_FAILURE: `Error occured while posting your review. Please try again later`
 };
 
 export const OfferTypeMap = new Map([

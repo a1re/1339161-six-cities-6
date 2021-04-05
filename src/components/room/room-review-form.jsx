@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH} from '../../const';
 import {useSelector, useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-actions';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, ErrorMessage, Review} from '../../const';
 
 const RoomReviewForm = ({id}) => {
   const {authorizationStatus} = useSelector((state) => state.USER);
@@ -21,8 +20,8 @@ const RoomReviewForm = ({id}) => {
 
   useEffect(() => {
     const postingStatus = rating >= 1 && rating <= 5
-      && comment.length >= MIN_REVIEW_LENGTH
-      && comment.length <= MAX_REVIEW_LENGTH;
+      && comment.length >= Review.MIN_LENGTH
+      && comment.length <= Review.MAX_LENGTH;
 
     setPostingStatus(postingStatus);
   }, [rating, comment]);
@@ -125,13 +124,13 @@ const RoomReviewForm = ({id}) => {
       name="review"
       placeholder="Tell how was your stay, what you like and what can be improved"
       onChange={(evt) => setComment(evt.target.value)}
-      maxLength={MAX_REVIEW_LENGTH}
+      maxLength={Review.MAX_LENGTH}
       value={comment}/>
     <div className="reviews__button-wrapper">
       <p className="reviews__help">
-        {isError && <span style={{color: `red`}}>Error occured while posting your review. Please try again later<br /><br /></span>}
+        {isError && <span style={{color: `red`}}>{ErrorMessage.REVIEW_FAILURE}<br /><br /></span>}
         To submit review please make sure to set <span className="reviews__star">rating</span>
-        and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
+        and describe your stay with at least <b className="reviews__text-amount">{Review.MIN_LENGTH} characters</b>.
       </p>
       <button className="reviews__submit form__submit button" type="submit" disabled={!isPostingAllowed}>Submit</button>
     </div>

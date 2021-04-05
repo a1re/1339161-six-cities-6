@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import leaflet from 'leaflet';
 import classNames from 'classnames';
-import {PIN_WIDTH, PIN_HEIGHT} from '../../const';
+import {Pin} from '../../const';
 import {useSelector} from 'react-redux';
 
 import "leaflet/dist/leaflet.css";
@@ -33,7 +33,7 @@ const Map = ({latitude, longitude, zoom, markers, className}) => {
     markers.map((marker) => {
       const customIcon = leaflet.icon({
         iconUrl: `img/pin.svg`,
-        iconSize: [PIN_WIDTH, PIN_HEIGHT]
+        iconSize: [Pin.WIDTH, Pin.HEIGHT]
       });
 
       placedMarkers[marker.id] = leaflet.marker({
@@ -57,7 +57,7 @@ const Map = ({latitude, longitude, zoom, markers, className}) => {
     Object.entries(placedMarkers).forEach(([markerId, marker]) => {
       marker.setIcon(leaflet.icon({
         iconUrl: parseInt(markerId, 10) === hoverOfferId ? `img/pin-active.svg` : `img/pin.svg`,
-        iconSize: [PIN_WIDTH, PIN_HEIGHT]
+        iconSize: [Pin.WIDTH, Pin.HEIGHT]
       }));
     });
   }, [hoverOfferId]);
