@@ -55,7 +55,6 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => dispatch(setAuthorizationInfo(adaptAuthInfo(data))))
-    .catch(() => {})
 );
 
 export const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (

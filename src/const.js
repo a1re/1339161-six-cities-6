@@ -55,6 +55,11 @@ export const HttpCode = {
   NOT_FOUND: 404
 };
 
+export const ErrorMessage = {
+  SIGN_IN_FAILURE: `Failed to login with this e-mail and password.`,
+  NO_CONNECTION: `Server is not available.`
+};
+
 export const OfferTypeMap = new Map([
   [`apartment`, `Apartment`],
   [`room`, `Private Room`],
