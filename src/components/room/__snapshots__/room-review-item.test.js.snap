@@ -12,18 +12,16 @@ exports[`Room review item renders correctly 1`] = `
         class="reviews__avatar-wrapper user__avatar-wrapper"
       >
         <img
-          alt="Kendall"
+          alt=""
           class="reviews__avatar user__avatar"
           height="54"
-          src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+          src=""
           width="54"
         />
       </div>
       <span
         class="reviews__user-name"
-      >
-        Kendall
-      </span>
+      />
     </div>
     <div
       class="reviews__info"
@@ -35,7 +33,7 @@ exports[`Room review item renders correctly 1`] = `
           class="reviews__stars rating__stars"
         >
           <span
-            style="width: 80%;"
+            style="width: 0%;"
           />
           <span
             class="visually-hidden"
@@ -46,14 +44,12 @@ exports[`Room review item renders correctly 1`] = `
       </div>
       <p
         class="reviews__text"
-      >
-        The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.
-      </p>
+      />
       <time
         class="reviews__time"
-        datetime="2021-02-21T08:04:28.647Z"
+        datetime="1970-01-01T00:00:00Z"
       >
-        February 2021
+        January 1970
       </time>
     </div>
   </li>
