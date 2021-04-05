@@ -19,7 +19,7 @@ const getSortedOfferList = (offerList, sortingName) => {
 };
 
 const getSortedReviewList = (reviewList) => {
-  if (!reviewList.length) {
+  if (!reviewList) {
     return [];
   }
 
